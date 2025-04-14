@@ -6,7 +6,7 @@ MOVEMENT => MAPTOS
 
 # `movement-to-maptos`
 
-Tools, tests, and validation of migration from [`movement`](https://github.com/movementlabsxyz/movement) state to [`maptos`](https://github.com/movementlabsxyz/maptos).
+Tools, tests, and validation of migration from [`movement`](https://github.com/movementlabsxyz/movement) state to [`maptos`](https://github.com/movementlabsxyz/maptos-core).
 
 ## Getting started
 To run the migration check the [CLI documentation](./docs/cli/README.md).
