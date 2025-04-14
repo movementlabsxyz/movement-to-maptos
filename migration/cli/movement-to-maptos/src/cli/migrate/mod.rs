@@ -1,6 +1,5 @@
-use anyhow::Context;
 use clap::Parser;
-use movement_to_maptos_core::dev::lifecycle::up::{Config, Migrate as MigrateCore};
+use movement_to_maptos_core::Config;
 use orfile::Orfile;
 use serde::{Deserialize, Serialize};
 
@@ -15,7 +14,9 @@ pub struct Migrate {
 
 impl Migrate {
 	pub async fn execute(&self) -> Result<(), anyhow::Error> {
-		unimplemented!()
+		let migrate = self.config.build()?;
+		migrate.run().await?; // we unwrap the error as an easy way to do marshalling from [MigrateError] to [anyhow::Error]
+		Ok(())
 	}
 }
 

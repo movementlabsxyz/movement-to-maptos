@@ -15,6 +15,7 @@ clap = { workspace = true, features = ["derive"] }
 dotenv = { workspace = true }
 anyhow = { workspace = true }
 clap-markdown-ext = { workspace = true }
+thiserror = { workspace = true }
 orfile = { workspace = true }
 
 [lints]

@@ -115,14 +115,10 @@
               chmod +x $(pwd)/.git/hooks/pre-commit
 
               cat <<'EOF'
-                          ------------
-                f ------ |            |
-                f ------ | 5e771e3e47 |
-                5 ------ |            |
-                          ------------
+               MOVEMENT => MAPTOS
               EOF
 
-              echo "FFS, just take a vote!"
+              echo "Migrates Movement to Maptos."
             '';
           };
         };

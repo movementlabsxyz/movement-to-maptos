@@ -1,7 +1,13 @@
-use crate::client::Client;
 use crate::Migrate;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
+
+/// Errors thrown when working with the [Config].
+#[derive(Debug, thiserror::Error)]
+pub enum MigrateConfigError {
+	#[error("failed to build from config: {0}")]
+	Build(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
 
 /// The config for the migration.
 ///
@@ -20,7 +26,7 @@ pub struct Config {
 
 impl Config {
 	/// Builds the [Migrate] struct from the config.
-	pub fn build(&self) -> Migrate {
-		Migrate::new(self.movement_state_db_path.clone(), self.maptos_state_db_path.clone())
+	pub fn build(&self) -> Result<Migrate, MigrateConfigError> {
+		Ok(Migrate {})
 	}
 }

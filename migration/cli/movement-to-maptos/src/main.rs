@@ -1,6 +1,6 @@
 use clap::*;
 use dotenv::dotenv;
-use mcr_protocol_client::cli;
+use movement_to_maptos::cli;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -8,7 +8,7 @@ async fn main() -> Result<(), anyhow::Error> {
 	dotenv().ok();
 
 	// Run the CLI.
-	let mcr_protocol_client = cli::McrProtocolClient::parse();
-	mcr_protocol_client.execute().await?;
+	let movement_to_maptos = cli::MovementToMaptos::parse();
+	movement_to_maptos.execute().await?;
 	Ok(())
 }
