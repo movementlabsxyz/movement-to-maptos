@@ -88,6 +88,12 @@ libp2p = { version = "0.55.0", features = ["tcp", "quic"] }
 
 helios = { git = "https://github.com/movementlabsxyz/helios.git", rev = "7a5fc8af548e8e93863d942f333008e4da5f937c"}
 
+# movement
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "18e6297fbe106a2f7f944d5b5fad2dd6d9f1ea51" }
+
+# maptos-core
+aptos-block-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "74f9c0ec648b7e8a64e990e0f4c20fcfb5ab141b" }
+
 # model checking and verification
 
 

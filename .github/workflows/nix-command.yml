@@ -1,0 +1,37 @@
+name: Nix Command Runner
+
+on:
+  workflow_call:
+    inputs:
+      command:
+        required: true
+        type: string
+        description: 'Command to run in Nix shell'
+      nix_flake_path:
+        required: false
+        type: string
+        default: '.'
+        description: 'Path to the Nix flake'
+    secrets:
+      NIX_ACCESS_TOKEN:
+        required: false
+        description: 'Nix access token for private flakes'
+
+jobs:
+  run-command:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        
+      - name: Enable Nix Flakes
+        run: |
+          mkdir -p ~/.config/nix
+          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+          
+      - name: Run Command in Nix Shell
+        run: |
+          echo "Running command: ${{ inputs.command }}"
+          nix develop "${{ inputs.nix_flake_path }}" --command bash -c "${{ inputs.command }}" 
