@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -e
+##########
+# CLAP CLI
+##########
+CLAP_LIST_FILE="clap-markdown-list"
+
+# Form a markdown string that will be used to capture an index of documented CLIs
+workspace_root=$(cargo metadata --no-deps --format-version 1 | jq -r '.workspace_root')
+CLI_INDEX_MARKDOWN_PATH="$workspace_root/docs/cli/README.md"
+mkdir -p "$(dirname "$CLI_INDEX_MARKDOWN_PATH")"
+echo "# CLIs" > "$CLI_INDEX_MARKDOWN_PATH"
+
+if [ ! -f "$CLAP_LIST_FILE" ]; then
+  echo "Missing $CLAP_LIST_FILE"
+  exit 1
+fi
+
+echo "🔄 Regenerating CLI help markdown for binaries listed in $CLAP_LIST_FILE..."
+
+# Read each binary name
+while IFS= read -r bin_name || [[ -n "$bin_name" ]]; do
+  [[ -z "$bin_name" ]] && continue  # skip blank lines
+
+  echo "📦 Generating help for binary: $bin_name"
+
+  # Run the binary with desired output path
+  cargo run --bin "$bin_name" -- markdown workspace --relative-path docs/cli/README.md || {
+    echo "❌ Failed to generate help for $bin_name"
+    exit 1
+  }
+
+  # Get crate path for this binary
+  crate_path=$(cargo metadata --no-deps --format-version 1 |
+    jq -r --arg BIN "$bin_name" '
+      .packages[] |
+      select(.targets[]? | select(.kind[] == "bin" and .name == $BIN)) |
+      .manifest_path' | xargs dirname)
+  crate_relative_path=$(echo "$crate_path" | sed "s|$workspace_root/||")
+
+  # Try to add the generated file
+  markdown_path="$crate_path/docs/cli/README.md"
+  if [[ -f "$markdown_path" ]]; then
+    git add "$markdown_path"
+    echo "✅ Updated: $markdown_path"
+  else
+    echo "❌ Failed to update: $markdown_path"
+    exit 1
+  fi
+
+  # Add a link to the CLI help markdown to the CLI_INDEX_MARKDOWN
+  echo "- [$bin_name](../../$crate_relative_path/docs/cli/README.md)" >> "$CLI_INDEX_MARKDOWN_PATH"
+
+done < "$CLAP_LIST_FILE"
+
+if [[ -f "$CLI_INDEX_MARKDOWN_PATH" ]]; then
+  git add "$CLI_INDEX_MARKDOWN_PATH"
+  echo "✅ Updated: $CLI_INDEX_MARKDOWN_PATH"
+else
+  echo "❌ Failed to update: $CLI_INDEX_MARKDOWN_PATH"
+  exit 1
+fi
+
+echo "✅ CLI help markdown regeneration complete."
