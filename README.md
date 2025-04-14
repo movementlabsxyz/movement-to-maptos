@@ -9,7 +9,9 @@ MOVEMENT => MAPTOS
 Tools, tests, and validation of migration from [`movement`](https://github.com/movementlabsxyz/movement) state to [`maptos`](https://github.com/movementlabsxyz/maptos).
 
 ## Getting started
-Coming soon!
+To run the migration check the [CLI documentation](./docs/cli/README.md).
+
+We otherwise recommend reading the [tests](./tests) and working down into the migration from there.
 
 ## Contributing
 
