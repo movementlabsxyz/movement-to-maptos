@@ -4,6 +4,9 @@ resolver = "2"
 
 members = [
 
+"migration/cli/*",
+"migration/core/*"
+
 ]
 
 [workspace.package]
@@ -109,19 +112,13 @@ commander = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e
 
 # orfile
 orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
-orfile-util = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
-orfile-macro = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
 
-# adud
-lifecycle = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
-lifecycle-util = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
-lifecycle-macro = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
-service-util = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
-service-macro = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
-service-lifecycle = { git = "https://github.com/movementlabsxyz/adud.git", rev = "440cc81ecd69ba570a8bbdbaf3035e9d53fe6e84" }
 
 # docs
 clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a"}
+
+# internal
+movement-to-maptos-core = { path = "migration/core/movement-to-maptos" }
 
 
 [workspace.lints.clippy]
