@@ -11,7 +11,7 @@ Tools, tests, and validation of migration from [`movement`](https://github.com/m
 ## Getting started
 To run the migration check the [CLI documentation](./docs/cli/README.md).
 
-We otherwise recommend reading the [tests](./tests) and working down into the migration from there.
+We otherwise recommend reading the [tests](./tests/README.md) and working down into the migration from there.
 
 ## Contributing
 
