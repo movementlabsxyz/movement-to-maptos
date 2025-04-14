@@ -1,0 +1,18 @@
+[submodule "protocol/pcp/dlu/eth/contracts/lib/forge-std"]
+	path = protocol/pcp/dlu/eth/contracts/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "protocol/pcp/dlu/eth/contracts/lib/openzeppelin-contracts"]
+	path = protocol/pcp/dlu/eth/contracts/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "protocol/pcp/dlu/eth/contracts/lib/safe-smart-account"]
+	path = protocol/pcp/dlu/eth/contracts/lib/safe-smart-account
+	url = https://github.com/safe-global/safe-smart-account
+[submodule "protocol/pcp/dlu/eth/contracts/lib/solmate"]
+	path = protocol/pcp/dlu/eth/contracts/lib/solmate
+	url = https://github.com/transmissions11/solmate
+[submodule "protocol/pcp/dlu/eth/contracts/lib/openzeppelin-contracts-upgradeable"]
+	path = protocol/pcp/dlu/eth/contracts/lib/openzeppelin-contracts-upgradeable
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable
+[submodule "protocol/pcp/dlu/eth/contracts/lib/safe-contracts"]
+	path = protocol/pcp/dlu/eth/contracts/lib/safe-contracts
+	url = https://github.com/safe-global/safe-contracts
