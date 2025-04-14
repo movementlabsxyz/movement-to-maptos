@@ -1,0 +1,19 @@
+[package]
+name = "migration-test-types"
+version = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+authors = { workspace = true }
+homepage = { workspace = true }
+publish = { workspace = true }
+rust-version = { workspace = true }
+
+[dependencies]
+serde = { workspace = true }
+anyhow = { workspace = true }
+hex = { workspace = true }
+maptos-opt-executor = { workspace = true }
+aptos-block-executor = { workspace = true }
+thiserror = { workspace = true }
+[lints]
+workspace = true
