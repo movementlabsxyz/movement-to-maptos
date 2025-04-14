@@ -11,7 +11,7 @@ pub enum CriterionError {
 
 pub trait Criterionish {
 
-    fn satisfies(&self, movement_executor: &MovementExecutor, maptos_executor: &MaptosExecutor) -> Result<(), CriterionError>
+    fn satisfies(&self, movement_executor: &MovementExecutor, maptos_executor: &MaptosExecutor) -> Result<(), CriterionError>;
 
 
 }
