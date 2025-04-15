@@ -9,10 +9,11 @@ members = [
 
 # executor
 "tests/executor/util/*",
+"tests/executor/citeria/*",
 
 # e2e
 "tests/e2e/util/*",
-
+"tests/e2e/citeria/*",
 ]
 
 [workspace.package]
@@ -102,6 +103,12 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 # internal
 movement-to-maptos-core = { path = "migration/core/movement-to-maptos" }
 
+## tests
+### executor
+migration-executor-test-types = { path = "tests/executor/util/types" }
+
+### e2e
+migration-e2e-test-types = { path = "tests/e2e/util/types" }
 
 [workspace.lints.clippy]
 debug_assert_with_mut_call = "deny"

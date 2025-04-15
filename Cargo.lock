@@ -12212,6 +12212,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "migration-e2e-test-empty-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
+]
+
+[[package]]
 name = "migration-e2e-test-types"
 version = "0.0.1"
 dependencies = [
@@ -12221,6 +12228,13 @@ dependencies = [
  "movement-client",
  "serde",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "migration-executor-test-empty-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
 ]
 
 [[package]]
