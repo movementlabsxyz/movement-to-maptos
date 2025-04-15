@@ -7,7 +7,11 @@ members = [
 "migration/cli/*",
 "migration/core/*", 
 
-"tests/executor/util/*"
+# executor
+"tests/executor/util/*",
+
+# e2e
+"tests/e2e/util/*",
 
 ]
 
@@ -63,12 +67,18 @@ tonic-web = "0.12.3"
 prost = "0.13.3"
 libp2p = { version = "0.55.0", features = ["tcp", "quic"] }
 
+poem = { version = "=3.1.3", features = ["anyhow", "compression", "rustls"] }
+poem-openapi = { version = "=5.1.2", features = ["swagger-ui", "url"] }
+poem-openapi-derive = "=5.1.1"
+
 # movement
 maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
 
 # maptos-core
-aptos-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "3962d25837eca752606bb2ca1936479fe6bb3ef3" }
-aptos-vm = { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "3962d25837eca752606bb2ca1936479fe6bb3ef3" }
+aptos-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-vm = { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-rest-client = { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 
 # model checking and verification
 

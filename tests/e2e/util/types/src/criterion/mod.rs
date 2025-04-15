@@ -1,42 +1,41 @@
-use aptos_executor::block_executor::BlockExecutor as MaptosBlockExecutor;
-use aptos_vm::AptosVM;
-use maptos_opt_executor::Executor as MovementOptExecutor;
+use aptos_rest_client::Client as MaptosRestClient;
+use movement_client::rest_client::Client as MovementRestClient;
 
 /// The Maptos executor as would be presented in the criterion.
-pub struct MaptosExecutor {
-	/// The block executor.
-	///
-	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	block_executor: MaptosBlockExecutor<AptosVM>,
+#[derive(Debug)]
+pub struct MaptosE2eClient {
+	/// The rest client.
+	rest_client: MaptosRestClient,
 }
 
-impl MaptosExecutor {
-	pub fn new(block_executor: MaptosBlockExecutor<AptosVM>) -> Self {
-		Self { block_executor }
+impl MaptosE2eClient {
+	pub fn new(rest_client: MaptosRestClient) -> Self {
+		Self { rest_client }
 	}
 
 	/// Borrows the block executor.
-	pub fn block_executor(&self) -> &MaptosBlockExecutor<AptosVM> {
-		&self.block_executor
+	pub fn rest_client(&self) -> &MaptosRestClient {
+		&self.rest_client
 	}
 }
 
 /// The Movement executor as would be presented in the criterion.
-pub struct MovementExecutor {
-	/// The opt executor.
+#[derive(Debug)]
+pub struct MovementE2eClient {
+	/// The rest client.
 	///
 	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	opt_executor: MovementOptExecutor,
+	rest_client: MovementRestClient,
 }
 
-impl MovementExecutor {
-	pub fn new(opt_executor: MovementOptExecutor) -> Self {
-		Self { opt_executor }
+impl MovementE2eClient {
+	pub fn new(rest_client: MovementRestClient) -> Self {
+		Self { rest_client }
 	}
 
 	/// Borrows the opt executor.
-	pub fn opt_executor(&self) -> &MovementOptExecutor {
-		&self.opt_executor
+	pub fn rest_client(&self) -> &MovementRestClient {
+		&self.rest_client
 	}
 }
 
@@ -51,8 +50,8 @@ pub trait Criterionish {
 	/// Whether the criterion is satisfied by the given movement and maptos executors.
 	fn satisfies(
 		&self,
-		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_e2e_client: &MovementE2eClient,
+		maptos_e2e_client: &MaptosE2eClient,
 	) -> Result<(), CriterionError>;
 }
 
@@ -72,9 +71,9 @@ where
 	/// Whether the criterion is satisfied by the given movement and maptos executors.
 	pub fn satisfies(
 		&self,
-		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_e2e_client: &MovementE2eClient,
+		maptos_e2e_client: &MaptosE2eClient,
 	) -> Result<(), CriterionError> {
-		self.0.satisfies(movement_executor, maptos_executor)
+		self.0.satisfies(movement_e2e_client, maptos_e2e_client)
 	}
 }

@@ -1,1 +1,1 @@
-pub mod equivalence;
+pub mod criterion;

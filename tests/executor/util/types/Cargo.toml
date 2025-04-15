@@ -1,5 +1,5 @@
 [package]
-name = "migration-test-types"
+name = "migration-executor-test-types"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -16,5 +16,6 @@ maptos-opt-executor = { workspace = true }
 aptos-executor = { workspace = true }
 aptos-vm = { workspace = true }
 thiserror = { workspace = true }
+
 [lints]
 workspace = true
