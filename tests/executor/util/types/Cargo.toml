@@ -13,7 +13,8 @@ serde = { workspace = true }
 anyhow = { workspace = true }
 hex = { workspace = true }
 maptos-opt-executor = { workspace = true }
-aptos-block-executor = { workspace = true }
+aptos-executor = { workspace = true }
+aptos-vm = { workspace = true }
 thiserror = { workspace = true }
 [lints]
 workspace = true

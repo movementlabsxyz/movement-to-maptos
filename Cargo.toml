@@ -7,7 +7,7 @@ members = [
 "migration/cli/*",
 "migration/core/*", 
 
-# "tests/executor/util/*"
+"tests/executor/util/*"
 
 ]
 
@@ -29,7 +29,7 @@ clap = { version = "4.4.10", features = ["derive"] }
 dotenv = "0.15.0"
 futures = "0.3.17"
 serde = "1.0"
-serde_json = "1.0"
+serde_json = "1.0.140"
 serde_derive = "1.0"
 thiserror = "1.0.50"
 tracing = "0.1.40"
@@ -63,14 +63,12 @@ tonic-web = "0.12.3"
 prost = "0.13.3"
 libp2p = { version = "0.55.0", features = ["tcp", "quic"] }
 
-
-helios = { git = "https://github.com/movementlabsxyz/helios.git", rev = "7a5fc8af548e8e93863d942f333008e4da5f937c"}
-
 # movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "4461aa8ceccbd9f7fe6d1407710a03e746735b9a" }
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
 
 # maptos-core
-aptos-block-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "74f9c0ec648b7e8a64e990e0f4c20fcfb5ab141b" }
+aptos-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "3962d25837eca752606bb2ca1936479fe6bb3ef3" }
+aptos-vm = { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "3962d25837eca752606bb2ca1936479fe6bb3ef3" }
 
 # model checking and verification
 
@@ -87,7 +85,6 @@ commander = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e
 
 # orfile
 orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
-
 
 # docs
 clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a"}
@@ -110,3 +107,16 @@ panic = "unwind"
 
 [profile.release.build-override]
 opt-level = 3
+
+[patch.crates-io]
+serde-reflection = { git = "https://github.com/aptos-labs/serde-reflection", rev = "73b6bbf748334b71ff6d7d09d06a29e3062ca075" }
+merlin = { git = "https://github.com/aptos-labs/merlin" }
+x25519-dalek = { git = "https://github.com/aptos-labs/x25519-dalek", branch = "zeroize_v1" }
+futures = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-channel = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-executor = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-core = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-util = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-sink = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-io = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
+futures-task = { git = "https://github.com/aptos-labs/futures-rs", branch = "backport" }
