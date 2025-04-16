@@ -1,37 +1,33 @@
-# Command-Line Help for `movement-to-movement-aptos`
+# Command-Line Help for `mtma-executor-util`
 
-This document contains the help content for the `movement-to-movement-aptos` command-line program.
+This document contains the help content for the `mtma-executor-util` command-line program.
 
 **Command Overview:**
 
-* [`movement-to-movement-aptos`↴](#movement-to-movement-aptos)
-* [`movement-to-movement-aptos markdown`↴](#movement-to-movement-aptos-markdown)
-* [`movement-to-movement-aptos markdown generate`↴](#movement-to-movement-aptos-markdown-generate)
-* [`movement-to-movement-aptos markdown file`↴](#movement-to-movement-aptos-markdown-file)
-* [`movement-to-movement-aptos markdown print`↴](#movement-to-movement-aptos-markdown-print)
-* [`movement-to-movement-aptos markdown workspace`↴](#movement-to-movement-aptos-markdown-workspace)
-* [`movement-to-movement-aptos migrate`↴](#movement-to-movement-aptos-migrate)
+* [`mtma-executor-util`↴](#mtma-executor-util)
+* [`mtma-executor-util markdown`↴](#mtma-executor-util-markdown)
+* [`mtma-executor-util markdown generate`↴](#mtma-executor-util-markdown-generate)
+* [`mtma-executor-util markdown file`↴](#mtma-executor-util-markdown-file)
+* [`mtma-executor-util markdown print`↴](#mtma-executor-util-markdown-print)
+* [`mtma-executor-util markdown workspace`↴](#mtma-executor-util-markdown-workspace)
 
-## `movement-to-movement-aptos`
+## `mtma-executor-util`
 
-The `movement-to-aptos` CLI
+The `mtma-executor-util` CLI
 
-**Usage:** `movement-to-movement-aptos [COMMAND]`
-
-KEEP THIS UNTIL PRODUCTION-READY : Defined in: migration/cli/movement-to-movement-aptos/src/cli/mod.rs
+**Usage:** `mtma-executor-util [COMMAND]`
 
 ###### **Subcommands:**
 
 * `markdown` — Generates markdown for the CLI
-* `migrate` — Migrate from Movement to MovementAptos
 
 
 
-## `movement-to-movement-aptos markdown`
+## `mtma-executor-util markdown`
 
 Generates markdown for the CLI
 
-**Usage:** `movement-to-movement-aptos markdown <COMMAND>`
+**Usage:** `mtma-executor-util markdown <COMMAND>`
 
 ###### **Subcommands:**
 
@@ -42,11 +38,11 @@ Generates markdown for the CLI
 
 
 
-## `movement-to-movement-aptos markdown generate`
+## `mtma-executor-util markdown generate`
 
 Generate and update the documentation
 
-**Usage:** `movement-to-movement-aptos markdown generate [OPTIONS]`
+**Usage:** `mtma-executor-util markdown generate [OPTIONS]`
 
 ###### **Options:**
 
@@ -54,11 +50,11 @@ Generate and update the documentation
 
 
 
-## `movement-to-movement-aptos markdown file`
+## `mtma-executor-util markdown file`
 
 Print the documentation to a file (providing the file path)
 
-**Usage:** `movement-to-movement-aptos markdown file --file <FILE>`
+**Usage:** `mtma-executor-util markdown file --file <FILE>`
 
 ###### **Options:**
 
@@ -66,36 +62,23 @@ Print the documentation to a file (providing the file path)
 
 
 
-## `movement-to-movement-aptos markdown print`
+## `mtma-executor-util markdown print`
 
 Print the documentation in the shell
 
-**Usage:** `movement-to-movement-aptos markdown print`
+**Usage:** `mtma-executor-util markdown print`
 
 
 
-## `movement-to-movement-aptos markdown workspace`
+## `mtma-executor-util markdown workspace`
 
 Generate the documentation for the workspace
 
-**Usage:** `movement-to-movement-aptos markdown workspace --relative-path <RELATIVE_PATH>`
+**Usage:** `mtma-executor-util markdown workspace --relative-path <RELATIVE_PATH>`
 
 ###### **Options:**
 
 * `--relative-path <RELATIVE_PATH>` — The file to write out to, relative to the crate root
-
-
-
-## `movement-to-movement-aptos migrate`
-
-Migrate from Movement to MovementAptos
-
-**Usage:** `movement-to-movement-aptos migrate --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
-
-###### **Options:**
-
-* `--movement-state-db-path <MOVEMENT_STATE_DB_PATH>` — The path to the input Movement state database
-* `--movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>` — The path to the output MovementAptos state database
 
 
 

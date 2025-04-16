@@ -9,7 +9,7 @@ MOVEMENT => MAPTOS
 Logic and validation of migration from [`movement`](https://github.com/movementlabsxyz/movement) state to [`movement-aptos`](https://github.com/movementlabsxyz/movement-aptos-core).
 
 ## Getting started
-To run the migration check the [CLI documentation](./docs/cli/README.md).
+To run or work with existing migration tools check the [CLI documentation](./docs/cli/README.md).
 
 We otherwise recommend reading the [checks](./checks/README.md) and working down into the migration from there.
 
