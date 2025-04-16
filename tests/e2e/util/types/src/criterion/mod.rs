@@ -1,20 +1,20 @@
-use aptos_rest_client::Client as MaptosRestClient;
+use aptos_rest_client::Client as MovementAptosRestClient;
 use movement_client::rest_client::Client as MovementRestClient;
 
-/// The Maptos executor as would be presented in the criterion.
+/// The MovementAptos executor as would be presented in the criterion.
 #[derive(Debug)]
-pub struct MaptosE2eClient {
+pub struct MovementAptosE2eClient {
 	/// The rest client.
-	rest_client: MaptosRestClient,
+	rest_client: MovementAptosRestClient,
 }
 
-impl MaptosE2eClient {
-	pub fn new(rest_client: MaptosRestClient) -> Self {
+impl MovementAptosE2eClient {
+	pub fn new(rest_client: MovementAptosRestClient) -> Self {
 		Self { rest_client }
 	}
 
 	/// Borrows the block executor.
-	pub fn rest_client(&self) -> &MaptosRestClient {
+	pub fn rest_client(&self) -> &MovementAptosRestClient {
 		&self.rest_client
 	}
 }
@@ -47,11 +47,11 @@ pub enum CriterionError {
 }
 
 pub trait Criterionish {
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	fn satisfies(
 		&self,
 		movement_e2e_client: &MovementE2eClient,
-		maptos_e2e_client: &MaptosE2eClient,
+		movement_aptos_e2e_client: &MovementAptosE2eClient,
 	) -> Result<(), CriterionError>;
 }
 
@@ -68,12 +68,12 @@ where
 		Self(t)
 	}
 
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	pub fn satisfies(
 		&self,
 		movement_e2e_client: &MovementE2eClient,
-		maptos_e2e_client: &MaptosE2eClient,
+		movement_aptos_e2e_client: &MovementAptosE2eClient,
 	) -> Result<(), CriterionError> {
-		self.0.satisfies(movement_e2e_client, maptos_e2e_client)
+		self.0.satisfies(movement_e2e_client, movement_aptos_e2e_client)
 	}
 }

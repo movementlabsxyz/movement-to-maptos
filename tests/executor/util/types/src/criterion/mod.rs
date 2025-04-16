@@ -1,7 +1,7 @@
-pub mod maptos_executor;
+pub mod movement_aptos_executor;
 pub mod movement_executor;
 
-pub use maptos_executor::MaptosExecutor;
+pub use movement_aptos_executor::MovementAptosExecutor;
 pub use movement_executor::MovementExecutor;
 
 /// Errors thrown when working with the [Config].
@@ -14,11 +14,11 @@ pub enum CriterionError {
 }
 
 pub trait Criterionish {
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_aptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError>;
 }
 
@@ -35,12 +35,12 @@ where
 		Self(t)
 	}
 
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	pub fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_aptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError> {
-		self.0.satisfies(movement_executor, maptos_executor)
+		self.0.satisfies(movement_executor, movement_aptos_executor)
 	}
 }

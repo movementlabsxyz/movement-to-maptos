@@ -1,5 +1,5 @@
 use migration_executor_test_types::criterion::{
-	Criterion, CriterionError, Criterionish, MaptosExecutor, MovementExecutor,
+	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 
 pub struct Empty;
@@ -18,7 +18,7 @@ impl Criterionish for Empty {
 	fn satisfies(
 		&self,
 		_movement_executor: &MovementExecutor,
-		_maptos_executor: &MaptosExecutor,
+		_movement_aptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError> {
 		Ok(())
 	}
