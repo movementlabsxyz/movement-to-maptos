@@ -9,6 +9,8 @@ use either::Either;
 use std::sync::Arc;
 
 pub use aptos_executor::block_executor;
+pub use aptos_types;
+pub use aptos_types::state_store::TStateView;
 
 /// The MovementAptos executor as would be presented in the criterion.
 pub struct MovementAptosExecutor {

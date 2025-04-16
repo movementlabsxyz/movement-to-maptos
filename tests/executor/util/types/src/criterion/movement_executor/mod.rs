@@ -5,6 +5,8 @@ use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
 use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
+pub use maptos_opt_executor;
+pub use maptos_opt_executor::aptos_types::state_store::TStateView;
 /// The Movement executor as would be presented in the criterion.
 pub struct MovementExecutor {
 	/// The opt executor.

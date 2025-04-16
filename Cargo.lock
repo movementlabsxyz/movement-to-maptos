@@ -12314,7 +12314,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-executor-test-global-storage-bijective-criterion"
+name = "migration-executor-test-global-storage-equal-criterion"
 version = "0.0.1"
 dependencies = [
  "anyhow",
@@ -12322,7 +12322,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-executor-test-global-storage-equal-criterion"
+name = "migration-executor-test-global-storage-injective-criterion"
 version = "0.0.1"
 dependencies = [
  "anyhow",
