@@ -1,6 +1,10 @@
 use aptos_executor::block_executor::BlockExecutor as MaptosBlockExecutor;
 use aptos_vm::AptosVM;
+use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
 use maptos_opt_executor::Executor as MovementOptExecutor;
+
+pub use aptos_executor::block_executor;
+pub use maptos_opt_executor;
 
 /// The Maptos executor as would be presented in the criterion.
 pub struct MaptosExecutor {
@@ -37,6 +41,14 @@ impl MovementExecutor {
 	/// Borrows the opt executor.
 	pub fn opt_executor(&self) -> &MovementOptExecutor {
 		&self.opt_executor
+	}
+
+	/// Constructs a [StateView] at a given version.
+	pub fn state_view_at_version(
+		&self,
+		version: Option<u64>,
+	) -> Result<DbStateView, anyhow::Error> {
+		self.opt_executor().state_view_at_version(version)
 	}
 }
 

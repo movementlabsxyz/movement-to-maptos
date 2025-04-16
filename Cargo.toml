@@ -77,8 +77,8 @@ poem-openapi = { version = "=5.1.2", features = ["swagger-ui", "url"] }
 poem-openapi-derive = "=5.1.1"
 
 # movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
-movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
 
 # maptos-core
 aptos-executor= { git = "https://github.com/movementlabsxyz/maptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
