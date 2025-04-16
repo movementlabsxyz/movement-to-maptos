@@ -1,0 +1,2 @@
+# Global Storage Injective
+The Global Storage Present criterion asserts that for each element in the global storage of the pre-migration global state maps to an element in the post-migration global state. 

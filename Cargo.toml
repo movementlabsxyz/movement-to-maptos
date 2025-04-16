@@ -8,12 +8,13 @@ members = [
 "migration/core/*", 
 
 # executor
-"tests/executor/util/*",
-"tests/executor/citeria/*",
+"checks/executor/util/*",
+"checks/executor/citeria/*",
+"checks/executor/cli/*",
 
 # e2e
-"tests/e2e/util/*",
-"tests/e2e/citeria/*",
+"checks/e2e/util/*",
+"checks/e2e/citeria/*",
 
 # util
 "util/include-dir"
@@ -76,14 +77,18 @@ poem = { version = "=3.1.3", features = ["anyhow", "compression", "rustls"] }
 poem-openapi = { version = "=5.1.2", features = ["swagger-ui", "url"] }
 poem-openapi-derive = "=5.1.1"
 
-# movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
-movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "d7b7be9454e042ef8491e6993ebadbda8912fb15" }
+either = "1.8.1"
 
-# movement-aptos-core
+# movement
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
+
+# maptos-core
 aptos-executor= { git = "https://github.com/movementlabsxyz/movement-aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-vm = { git = "https://github.com/movementlabsxyz/movement-aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-rest-client = { git = "https://github.com/movementlabsxyz/movement-aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-storage-interface = { git = "https://github.com/movementlabsxyz/movement-aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-types = { git = "https://github.com/movementlabsxyz/movement-aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 
 # model checking and verification
 
@@ -107,12 +112,12 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 # internal
 movement-to-movement-aptos-core = { path = "migration/core/movement-to-movement-aptos" }
 
-## tests
+## checks
 ### executor
-migration-executor-test-types = { path = "tests/executor/util/types" }
+migration-executor-test-types = { path = "checks/executor/util/types" }
 
 ### e2e
-migration-e2e-test-types = { path = "tests/e2e/util/types" }
+migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
@@ -131,6 +136,37 @@ panic = "unwind"
 
 [profile.release.build-override]
 opt-level = 3
+
+[profile.release]
+debug = true
+overflow-checks = true
+
+# The performance build is not currently recommended
+# for production deployments. It has not been widely tested.
+[profile.performance]
+inherits = "release"
+opt-level = 3
+debug = true
+overflow-checks = true
+lto = "thin"
+codegen-units = 1
+
+[profile.cli]
+inherits = "release"
+debug = false
+opt-level = "z"
+lto = "thin"
+strip = true
+codegen-units = 1
+
+[profile.ci]
+inherits = "release"
+debug = "line-tables-only"
+overflow-checks = true
+debug-assertions = true
+
+[profile.bench]
+debug = true
 
 [patch.crates-io]
 serde-reflection = { git = "https://github.com/aptos-labs/serde-reflection", rev = "73b6bbf748334b71ff6d7d09d06a29e3062ca075" }

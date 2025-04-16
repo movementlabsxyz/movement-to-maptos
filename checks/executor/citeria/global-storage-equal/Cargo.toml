@@ -1,5 +1,5 @@
 [package]
-name = "migration-executor-test-types"
+name = "migration-executor-test-global-storage-equal-criterion"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -9,13 +9,9 @@ publish = { workspace = true }
 rust-version = { workspace = true }
 
 [dependencies]
-serde = { workspace = true }
+migration-executor-test-types = { workspace = true }
 anyhow = { workspace = true }
-hex = { workspace = true }
-maptos-opt-executor = { workspace = true }
-aptos-executor = { workspace = true }
-aptos-vm = { workspace = true }
-thiserror = { workspace = true }
+
 
 [lints]
 workspace = true
