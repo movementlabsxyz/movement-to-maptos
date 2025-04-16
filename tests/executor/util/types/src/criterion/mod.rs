@@ -1,62 +1,16 @@
-use aptos_executor::block_executor::BlockExecutor as MaptosBlockExecutor;
-use aptos_vm::AptosVM;
-use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
-use maptos_opt_executor::Executor as MovementOptExecutor;
+pub mod maptos_executor;
+pub mod movement_executor;
 
-pub use aptos_executor::block_executor;
-pub use maptos_opt_executor;
-
-/// The Maptos executor as would be presented in the criterion.
-pub struct MaptosExecutor {
-	/// The block executor.
-	///
-	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	block_executor: MaptosBlockExecutor<AptosVM>,
-}
-
-impl MaptosExecutor {
-	pub fn new(block_executor: MaptosBlockExecutor<AptosVM>) -> Self {
-		Self { block_executor }
-	}
-
-	/// Borrows the block executor.
-	pub fn block_executor(&self) -> &MaptosBlockExecutor<AptosVM> {
-		&self.block_executor
-	}
-}
-
-/// The Movement executor as would be presented in the criterion.
-pub struct MovementExecutor {
-	/// The opt executor.
-	///
-	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	opt_executor: MovementOptExecutor,
-}
-
-impl MovementExecutor {
-	pub fn new(opt_executor: MovementOptExecutor) -> Self {
-		Self { opt_executor }
-	}
-
-	/// Borrows the opt executor.
-	pub fn opt_executor(&self) -> &MovementOptExecutor {
-		&self.opt_executor
-	}
-
-	/// Constructs a [StateView] at a given version.
-	pub fn state_view_at_version(
-		&self,
-		version: Option<u64>,
-	) -> Result<DbStateView, anyhow::Error> {
-		self.opt_executor().state_view_at_version(version)
-	}
-}
+pub use maptos_executor::MaptosExecutor;
+pub use movement_executor::MovementExecutor;
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
 pub enum CriterionError {
 	#[error("failed to build from config: {0}")]
 	Unsatisfied(#[source] Box<dyn std::error::Error + Send + Sync>),
+	#[error("internal error: {0}")]
+	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
 pub trait Criterionish {
