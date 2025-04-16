@@ -21,6 +21,6 @@ The rigidity of this structure is to make it clear what the migration is accompl
 ## `Criterion`
 Tests are split into separate subdirectories which use their own `Criterion` types:
 
-- `e2e` wherein a `Criterion` is evaluated against a `MovementRestClient` and a `MaptosRestClient` respectively. 
-- `executor` wherein a `Criterion` is evaluated against a `MovementExecutor` and a `MaptosExecutor` respectively. 
+- `e2e` wherein a `Criterion` is evaluated against a `MovementRestClient` and a `MovementAptosRestClient` respectively. 
+- `executor` wherein a `Criterion` is evaluated against a `MovementExecutor` and a `MovementAptosExecutor` respectively. 
 
