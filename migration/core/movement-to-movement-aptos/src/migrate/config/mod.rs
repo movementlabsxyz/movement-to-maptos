@@ -19,9 +19,9 @@ pub struct Config {
 	/// The path to the input Movement state database.
 	#[clap(long)]
 	pub movement_state_db_path: String,
-	/// The path to the output Maptos state database.
+	/// The path to the output MovementAptos state database.
 	#[clap(long)]
-	pub maptos_state_db_path: String,
+	pub movement_aptos_state_db_path: String,
 }
 
 impl Config {
