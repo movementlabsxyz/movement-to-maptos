@@ -1,4 +1,4 @@
-# Tests
+# Checks
 
 - [`e2e`](./e2e/README.md) covers logic for end-to-end validation of the migration.
 - [`e2e`](./executor/README.md) covers logic for validating the 

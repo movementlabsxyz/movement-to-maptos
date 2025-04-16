@@ -14207,6 +14207,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtma-executor-util"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "movement-to-movement-aptos-core",
+ "orfile",
+ "serde",
+ "tokio",
+]
+
+[[package]]
 name = "multer"
 version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

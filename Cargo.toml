@@ -8,12 +8,13 @@ members = [
 "migration/core/*", 
 
 # executor
-"tests/executor/util/*",
-"tests/executor/citeria/*",
+"checks/executor/util/*",
+"checks/executor/citeria/*",
+"checks/executor/cli/*",
 
 # e2e
-"tests/e2e/util/*",
-"tests/e2e/citeria/*",
+"checks/e2e/util/*",
+"checks/e2e/citeria/*",
 
 # util
 "util/include-dir"
@@ -111,12 +112,12 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 # internal
 movement-to-movement-aptos-core = { path = "migration/core/movement-to-movement-aptos" }
 
-## tests
+## checks
 ### executor
-migration-executor-test-types = { path = "tests/executor/util/types" }
+migration-executor-test-types = { path = "checks/executor/util/types" }
 
 ### e2e
-migration-e2e-test-types = { path = "tests/e2e/util/types" }
+migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
