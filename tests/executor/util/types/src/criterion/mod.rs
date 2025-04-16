@@ -1,22 +1,22 @@
-use aptos_executor::block_executor::BlockExecutor as MaptosBlockExecutor;
+use aptos_executor::block_executor::BlockExecutor as MovementAptosBlockExecutor;
 use aptos_vm::AptosVM;
 use maptos_opt_executor::Executor as MovementOptExecutor;
 
-/// The Maptos executor as would be presented in the criterion.
-pub struct MaptosExecutor {
+/// The MovementAptos executor as would be presented in the criterion.
+pub struct MovementAptosExecutor {
 	/// The block executor.
 	///
 	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	block_executor: MaptosBlockExecutor<AptosVM>,
+	block_executor: MovementAptosBlockExecutor<AptosVM>,
 }
 
-impl MaptosExecutor {
-	pub fn new(block_executor: MaptosBlockExecutor<AptosVM>) -> Self {
+impl MovementAptosExecutor {
+	pub fn new(block_executor: MovementAptosBlockExecutor<AptosVM>) -> Self {
 		Self { block_executor }
 	}
 
 	/// Borrows the block executor.
-	pub fn block_executor(&self) -> &MaptosBlockExecutor<AptosVM> {
+	pub fn block_executor(&self) -> &MovementAptosBlockExecutor<AptosVM> {
 		&self.block_executor
 	}
 }
@@ -48,11 +48,11 @@ pub enum CriterionError {
 }
 
 pub trait Criterionish {
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_aptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError>;
 }
 
@@ -69,12 +69,12 @@ where
 		Self(t)
 	}
 
-	/// Whether the criterion is satisfied by the given movement and maptos executors.
+	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
 	pub fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
-		maptos_executor: &MaptosExecutor,
+		movement_aptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError> {
-		self.0.satisfies(movement_executor, maptos_executor)
+		self.0.satisfies(movement_executor, movement_aptos_executor)
 	}
 }

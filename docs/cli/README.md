@@ -1,2 +1,2 @@
 # CLIs
-- [movement-to-maptos](../../migration/cli/movement-to-maptos/docs/cli/README.md)
+- [movement-to-movement-aptos](../../migration/cli/movement-to-movement-aptos/docs/cli/README.md)
