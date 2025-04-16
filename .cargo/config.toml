@@ -24,7 +24,6 @@ rustflags = [
   "force-unwind-tables=yes",
 ]
 
-# TODO(grao): Figure out whether we should enable other cpu features, and whether we should use a different way to configure them rather than list every single one here.
 [target.x86_64-unknown-linux-gnu]
 rustflags = [
   "--cfg",
