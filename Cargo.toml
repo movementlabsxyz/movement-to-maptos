@@ -76,6 +76,8 @@ poem = { version = "=3.1.3", features = ["anyhow", "compression", "rustls"] }
 poem-openapi = { version = "=5.1.2", features = ["swagger-ui", "url"] }
 poem-openapi-derive = "=5.1.1"
 
+either = "1.8.1"
+
 # movement
 maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
 movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }

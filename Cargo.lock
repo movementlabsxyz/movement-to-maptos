@@ -12314,6 +12314,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "migration-executor-test-global-storage-bijective-criterion"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "migration-executor-test-types",
+]
+
+[[package]]
 name = "migration-executor-test-global-storage-equal-criterion"
 version = "0.0.1"
 dependencies = [
@@ -12329,6 +12337,7 @@ dependencies = [
  "aptos-executor 0.1.0 (git+https://github.com/movementlabsxyz/movement-aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-storage-interface 0.1.0 (git+https://github.com/movementlabsxyz/movement-aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-vm 0.1.0 (git+https://github.com/movementlabsxyz/movement-aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "either",
  "hex",
  "maptos-opt-executor",
  "serde",

@@ -1,0 +1,2 @@
+# Global Storage Bijective
+The Global Storage Present criterion asserts that for each element in the global storage of the pre-migration global state, there is one and only one element in the the storage of the post-migration state. 

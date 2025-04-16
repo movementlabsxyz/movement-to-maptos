@@ -17,6 +17,7 @@ aptos-executor = { workspace = true }
 aptos-vm = { workspace = true }
 thiserror = { workspace = true }
 aptos-storage-interface = { workspace = true }
+either = { workspace = true }
 
 [lints]
 workspace = true
