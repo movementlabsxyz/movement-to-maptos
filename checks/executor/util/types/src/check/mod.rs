@@ -9,7 +9,7 @@ pub enum CheckError {
 	Prelude(#[source] Box<dyn std::error::Error + Send + Sync>),
 	#[error("failed to run migration: {0}")]
 	Migration(#[source] Box<dyn std::error::Error + Send + Sync>),
-	#[error("failed to statisfy criteria: {0}")]
+	#[error("failed to satisfy criteria: {0}")]
 	Criteria(#[source] Box<dyn std::error::Error + Send + Sync>),
 	#[error("internal error: {0}")]
 	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
