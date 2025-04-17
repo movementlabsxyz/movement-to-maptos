@@ -44,6 +44,7 @@
           rust
           zlib
           pandoc
+          postgresql
         ] ++ lib.optionals stdenv.isDarwin [
           fixDarwinDylibNames
         ];
@@ -60,6 +61,8 @@
           systemd
           bzip2
           elfutils
+          jemalloc
+          glibc
         ];
 
         testDependencies = with pkgs; [
