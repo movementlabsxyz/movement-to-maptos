@@ -6,6 +6,28 @@ use migration_executor_types::executor::{
 };
 use migration_executor_types::migration::{MigrationError, Migrationish};
 
+use std::fs;
+use std::path::Path;
+use walkdir::WalkDir;
+
+/// Copies a directory recursively.
+///
+/// todo: move this out of the migration module
+fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
+	for entry in WalkDir::new(src) {
+		let entry = entry?;
+		let rel_path = entry.path().strip_prefix(src).unwrap();
+		let dest_path = dst.join(rel_path);
+
+		if entry.file_type().is_dir() {
+			fs::create_dir_all(&dest_path)?;
+		} else {
+			fs::copy(entry.path(), &dest_path)?;
+		}
+	}
+	Ok(())
+}
+
 /// Errors thrown during the migration.
 #[derive(Debug, thiserror::Error)]
 pub enum MigrateError {
@@ -23,13 +45,20 @@ impl Migrationish for Migrate {
 		movement_executor: &MovementExecutor,
 	) -> Result<MovementAptosExecutor, MigrationError> {
 		// Get the db path from the opt executor.
-		let db_dir = movement_executor
+		let old_db_dir = movement_executor
 			.opt_executor()
 			.config
 			.chain
 			.maptos_db_path
 			.as_ref()
 			.ok_or(MigrationError::Internal("No db path provided.".into()))?;
+
+		// copy all the contents of the db to a timestamp suffixed subdir of .debug
+		let timestamp = chrono::Utc::now().timestamp_millis();
+		let db_dir = Path::new(".debug").join(format!("migration-db-{}", timestamp));
+		let src = Path::new(old_db_dir);
+		let dst = db_dir.join("db");
+		copy_dir_recursive(src, &dst).map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// Open the aptos db.
 		let aptos_db = AptosDB::open(
