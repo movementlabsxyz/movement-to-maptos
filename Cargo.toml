@@ -4,8 +4,10 @@ resolver = "2"
 
 members = [
 
+# migration
 "migration/cli/*",
 "migration/core/*", 
+"migration/util/*",
 
 # executor
 "checks/executor/util/*",
@@ -110,7 +112,12 @@ orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d022992
 clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a"}
 
 # internal
+## migration
+
+### core
 movement-to-movement-aptos-core = { path = "migration/core/movement-to-movement-aptos" }
+### util
+migration-executor-types = { path = "migration/util/executor-types" }
 
 ## checks
 ### executor

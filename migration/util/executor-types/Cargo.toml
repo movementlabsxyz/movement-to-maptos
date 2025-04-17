@@ -1,5 +1,5 @@
 [package]
-name = "migration-executor-test-types"
+name = "migration-executor-types"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -19,7 +19,6 @@ aptos-types = { workspace = true }
 thiserror = { workspace = true }
 aptos-storage-interface = { workspace = true }
 either = { workspace = true }
-migration-executor-types = { workspace = true }
 
 [lints]
 workspace = true

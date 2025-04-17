@@ -1,8 +1,8 @@
-pub mod movement_aptos_executor;
-pub mod movement_executor;
+pub use migration_executor_types::executor::movement_aptos_executor;
+pub use migration_executor_types::executor::movement_executor;
 
-pub use movement_aptos_executor::MovementAptosExecutor;
-pub use movement_executor::MovementExecutor;
+pub use migration_executor_types::executor::movement_aptos_executor::MovementAptosExecutor;
+pub use migration_executor_types::executor::movement_executor::MovementExecutor;
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
