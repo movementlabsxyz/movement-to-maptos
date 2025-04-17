@@ -44,6 +44,7 @@
           rust
           zlib
           pandoc
+          glibc
         ] ++ lib.optionals stdenv.isDarwin [
           fixDarwinDylibNames
         ];
