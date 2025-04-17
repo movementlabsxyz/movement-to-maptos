@@ -4,22 +4,17 @@ pub mod test {
 	use migration_executor_test_global_storage_injective_criterion::GlobalStorageInjective;
 	use migration_executor_test_types::{
 		check::checked_migration,
-		criterion::{
-			movement_executor::{
-				maptos_opt_executor::{
-					aptos_sdk::{
-						transaction_builder::TransactionFactory,
-						types::{AccountKey, LocalAccount},
-					},
-					aptos_types::account_config::aptos_test_root_address,
-				},
-				MovementOptExecutor,
+		criterion::movement_executor::maptos_opt_executor::{
+			aptos_sdk::{
+				transaction_builder::TransactionFactory,
+				types::{AccountKey, LocalAccount},
 			},
-			MovementExecutor,
+			aptos_types::account_config::aptos_test_root_address,
 		},
+		criterion::movement_executor::{MovementExecutor, MovementOptExecutor},
 		prelude::Prelude,
 	};
-	use mtma_null_core::config::Config;
+	use mtma_null_core::config::Config as MtmaNullConfig;
 	use rand::SeedableRng;
 
 	#[tokio::test]
@@ -58,7 +53,7 @@ pub mod test {
 		prelude.add_transaction(mint_tx);
 
 		// form the migration
-		let migration_config = Config::default();
+		let migration_config = MtmaNullConfig::default();
 		let migration = migration_config.build()?;
 
 		// run the checked migration
