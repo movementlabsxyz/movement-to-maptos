@@ -13,7 +13,7 @@ pub enum MigrateConfigError {
 ///
 /// All fields should be easily statically encodable to a CLI argument.
 /// This is the frontend for the core API.
-#[derive(Parser, Debug, Serialize, Deserialize, Clone)]
+#[derive(Parser, Debug, Default, Serialize, Deserialize, Clone)]
 #[clap(help_expected = true)]
 pub struct Config {}
 

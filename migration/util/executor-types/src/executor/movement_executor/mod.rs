@@ -2,7 +2,7 @@ use either::Either;
 use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
 use maptos_opt_executor::aptos_storage_interface::DbReader;
 use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
-use maptos_opt_executor::Executor as MovementOptExecutor;
+pub use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
 pub use maptos_opt_executor;

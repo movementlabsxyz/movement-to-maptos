@@ -13,7 +13,7 @@ members = [
 "checks/executor/util/*",
 "checks/executor/citeria/*",
 "checks/executor/cli/*",
-
+"checks/executor/checks/*",
 # e2e
 "checks/e2e/util/*",
 "checks/e2e/citeria/*",
@@ -83,8 +83,8 @@ poem-openapi-derive = "=5.1.1"
 either = "1.8.1"
 
 # movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "2cfcb1b24c4484871fe12e4b0c75d328d5ad705d" }
-movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "2cfcb1b24c4484871fe12e4b0c75d328d5ad705d" }
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "866cf61d233fba365e85989ccbab3693aa6d9cb2" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "866cf61d233fba365e85989ccbab3693aa6d9cb2" }
 
 # maptos-core
 aptos-executor= { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
@@ -125,6 +125,9 @@ migration-executor-types = { path = "migration/util/executor-types" }
 ## checks
 ### executor
 migration-executor-test-types = { path = "checks/executor/util/types" }
+migration-executor-test-global-storage-injective-criterion = { path = "checks/executor/citeria/global-storage-injective" }
+migration-executor-test-global-storage-equal-criterion = { path = "checks/executor/citeria/global-storage-equal" }
+
 
 ### e2e
 migration-e2e-test-types = { path = "checks/e2e/util/types" }
