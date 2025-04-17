@@ -26,6 +26,10 @@ pub enum PreludeError {
 pub struct Prelude(Vec<Vec<SignedTransaction>>);
 
 impl Prelude {
+	pub fn new_empty() -> Self {
+		Self(Vec::new())
+	}
+
 	pub fn new(
 		transactions: impl IntoIterator<Item = impl IntoIterator<Item = SignedTransaction>>,
 	) -> Self {

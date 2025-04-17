@@ -12315,6 +12315,7 @@ dependencies = [
  "migration-executor-test-global-storage-injective-criterion",
  "migration-executor-test-types",
  "mtma-null-core",
+ "tokio",
 ]
 
 [[package]]
@@ -14256,7 +14257,9 @@ dependencies = [
  "anyhow",
  "aptos-config 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-db 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "aptos-executor 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-storage-interface 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "aptos-vm 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "clap 4.5.36",
  "clap-markdown-ext",
  "dotenv",

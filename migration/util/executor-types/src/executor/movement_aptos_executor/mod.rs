@@ -4,7 +4,7 @@ use aptos_storage_interface::{
 	DbReader,
 };
 use aptos_types::state_store::state_key::StateKey;
-use aptos_vm::AptosVM;
+use aptos_vm::aptos_vm::AptosVMBlockExecutor;
 use either::Either;
 use std::sync::Arc;
 
@@ -17,16 +17,16 @@ pub struct MovementAptosExecutor {
 	/// The block executor.
 	///
 	/// We will have this remain private because I don't think we want people mutating it in the criterion.
-	block_executor: MovementAptosBlockExecutor<AptosVM>,
+	block_executor: MovementAptosBlockExecutor<AptosVMBlockExecutor>,
 }
 
 impl MovementAptosExecutor {
-	pub fn new(block_executor: MovementAptosBlockExecutor<AptosVM>) -> Self {
+	pub fn new(block_executor: MovementAptosBlockExecutor<AptosVMBlockExecutor>) -> Self {
 		Self { block_executor }
 	}
 
 	/// Borrows the block executor.
-	pub fn block_executor(&self) -> &MovementAptosBlockExecutor<AptosVM> {
+	pub fn block_executor(&self) -> &MovementAptosBlockExecutor<AptosVMBlockExecutor> {
 		&self.block_executor
 	}
 

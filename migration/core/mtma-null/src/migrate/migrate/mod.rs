@@ -5,6 +5,7 @@ use migration_executor_types::executor::{
 	movement_aptos_executor::MovementAptosBlockExecutor, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_types::migration::{MigrationError, Migrationish};
+
 /// Errors thrown during the migration.
 #[derive(Debug, thiserror::Error)]
 pub enum MigrateError {
