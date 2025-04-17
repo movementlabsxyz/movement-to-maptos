@@ -6,7 +6,7 @@ pub use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
 pub use maptos_opt_executor;
-pub use maptos_opt_executor::aptos_types::state_store::TStateView;
+pub use maptos_opt_executor::aptos_types::{chain_id::ChainId, state_store::TStateView};
 /// The Movement executor as would be presented in the criterion.
 pub struct MovementExecutor {
 	/// The opt executor.
@@ -28,6 +28,11 @@ impl MovementExecutor {
 	/// Borrows the opt executor mutably.
 	pub fn opt_executor_mut(&mut self) -> &mut MovementOptExecutor {
 		&mut self.opt_executor
+	}
+
+	/// Gets a clone of the chain id.
+	pub fn chain_id(&self) -> ChainId {
+		self.opt_executor().config().chain.maptos_chain_id.clone()
 	}
 
 	/// Constructs a [DbStateView] at a given version.

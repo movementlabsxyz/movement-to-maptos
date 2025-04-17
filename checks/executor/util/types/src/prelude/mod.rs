@@ -30,6 +30,25 @@ impl Prelude {
 		Self(Vec::new())
 	}
 
+	/// Adds a transaction to the current block.
+	pub fn add_transaction(&mut self, transaction: SignedTransaction) -> &mut Self {
+		// push to the last or create one if there isn't one
+		if self.0.is_empty() {
+			self.0.push(Vec::new());
+		}
+
+		self.0.last_mut().unwrap().push(transaction);
+
+		self
+	}
+
+	/// Ends the current block and starts a new one.
+	pub fn end_block(&mut self) -> &mut Self {
+		self.0.push(Vec::new());
+
+		self
+	}
+
 	pub fn new(
 		transactions: impl IntoIterator<Item = impl IntoIterator<Item = SignedTransaction>>,
 	) -> Self {

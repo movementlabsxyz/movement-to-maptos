@@ -75,6 +75,7 @@ tonic-web = "0.12.3"
 prost = "0.13.3"
 libp2p = { version = "0.55.0", features = ["tcp", "quic"] }
 chrono = "0.4.31"
+rand = "0.7.3"
 
 poem = { version = "=3.1.3", features = ["anyhow", "compression", "rustls"] }
 poem-openapi = { version = "=5.1.2", features = ["swagger-ui", "url"] }
@@ -83,8 +84,8 @@ poem-openapi-derive = "=5.1.1"
 either = "1.8.1"
 
 # movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "866cf61d233fba365e85989ccbab3693aa6d9cb2" }
-movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "866cf61d233fba365e85989ccbab3693aa6d9cb2" }
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 
 # maptos-core
 aptos-executor= { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
