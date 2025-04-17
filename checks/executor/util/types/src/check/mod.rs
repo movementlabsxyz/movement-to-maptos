@@ -15,6 +15,7 @@ pub enum CheckError {
 	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
+/// Runs a migration where prelude is executed, the migration is run, and then the criteria are checked.
 pub async fn checked_migration(
 	movement_executor: &mut MovementExecutor,
 	prelude: &Prelude,
