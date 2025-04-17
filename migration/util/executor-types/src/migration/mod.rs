@@ -3,6 +3,7 @@ pub use crate::executor::movement_executor;
 
 pub use crate::executor::movement_aptos_executor::MovementAptosExecutor;
 pub use crate::executor::movement_executor::MovementExecutor;
+use std::future::Future;
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
@@ -18,7 +19,7 @@ pub trait Migrationish {
 	fn migrate(
 		&self,
 		movement_executor: &MovementExecutor,
-	) -> Result<MovementAptosExecutor, MigrationError>;
+	) -> impl Future<Output = Result<MovementAptosExecutor, MigrationError>>;
 }
 
 /// The criterion type simply
@@ -35,10 +36,10 @@ where
 	}
 
 	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
-	pub fn migrate(
+	pub async fn migrate(
 		&self,
 		movement_executor: &MovementExecutor,
 	) -> Result<MovementAptosExecutor, MigrationError> {
-		self.0.migrate(movement_executor)
+		self.0.migrate(movement_executor).await
 	}
 }
