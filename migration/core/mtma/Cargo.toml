@@ -1,5 +1,5 @@
 [package]
-name = "movement-to-movement-aptos-core"
+name = "mtma-core"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }

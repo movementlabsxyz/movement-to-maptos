@@ -1,5 +1,5 @@
 [package]
-name = "movement-to-movement-aptos"
+name = "mtma"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -16,7 +16,7 @@ dotenv = { workspace = true }
 anyhow = { workspace = true }
 clap-markdown-ext = { workspace = true }
 orfile = { workspace = true }
-movement-to-movement-aptos-core = { workspace = true }
+mtma-core = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,6 +1,6 @@
 use clap::*;
 use dotenv::dotenv;
-use movement_to_movement_aptos::cli;
+use mtma::cli;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {

@@ -14173,34 +14173,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "movement-to-movement-aptos"
-version = "0.0.1"
-dependencies = [
- "anyhow",
- "clap 4.5.36",
- "clap-markdown-ext",
- "dotenv",
- "movement-to-movement-aptos-core",
- "orfile",
- "serde",
- "tokio",
-]
-
-[[package]]
-name = "movement-to-movement-aptos-core"
-version = "0.0.1"
-dependencies = [
- "anyhow",
- "clap 4.5.36",
- "clap-markdown-ext",
- "dotenv",
- "orfile",
- "serde",
- "thiserror 1.0.69",
- "tokio",
-]
-
-[[package]]
 name = "movement-tracing"
 version = "0.3.4"
 source = "git+https://github.com/movementlabsxyz/movement.git?rev=f6e229e53066f068302dd78eb57d447bd2fa4d3e#f6e229e53066f068302dd78eb57d447bd2fa4d3e"
@@ -14225,6 +14197,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtma"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "mtma-core",
+ "orfile",
+ "serde",
+ "tokio",
+]
+
+[[package]]
+name = "mtma-core"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "orfile",
+ "serde",
+ "thiserror 1.0.69",
+ "tokio",
+]
+
+[[package]]
 name = "mtma-executor-util"
 version = "0.0.1"
 dependencies = [
@@ -14232,7 +14232,7 @@ dependencies = [
  "clap 4.5.36",
  "clap-markdown-ext",
  "dotenv",
- "movement-to-movement-aptos-core",
+ "mtma-core",
  "orfile",
  "serde",
  "tokio",

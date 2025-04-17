@@ -116,7 +116,7 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 ## migration
 
 ### core
-movement-to-movement-aptos-core = { path = "migration/core/movement-to-movement-aptos" }
+mtma-core = { path = "migration/core/mtma" }
 ### util
 migration-executor-types = { path = "migration/util/executor-types" }
 

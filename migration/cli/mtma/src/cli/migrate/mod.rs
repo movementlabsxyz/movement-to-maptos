@@ -1,5 +1,5 @@
 use clap::Parser;
-use movement_to_movement_aptos_core::Config;
+use mtma_core::Config;
 use orfile::Orfile;
 use serde::{Deserialize, Serialize};
 
