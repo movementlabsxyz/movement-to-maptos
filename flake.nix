@@ -44,6 +44,7 @@
           rust
           zlib
           pandoc
+          postgresql
         ] ++ lib.optionals stdenv.isDarwin [
           fixDarwinDylibNames
         ];
