@@ -9,6 +9,11 @@ use maptos_opt_executor::aptos_types::{
 
 use crate::criterion::MovementExecutor;
 
+const DEFAULT_INCREMENT_MICROS: u64 = 1_000_000;
+const DEFAULT_EPOCH: u64 = 0;
+const DEFAULT_INCREMENT_EPOCH_EACH: u64 = 100;
+const DEFAULT_ROUND: u64 = 0;
+
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
 pub enum PreludeError {
@@ -28,13 +33,24 @@ impl Prelude {
 	}
 
 	/// Gets executable blocks from the prelude.
+	///
+	/// # Parameters
+	/// * `executor` - The movement executor to use
+	/// * `epoch` - The epoch to start with
+	/// * `increment_epoch_each` - The number of blocks before incrementing the epoch
+	/// * `round` - The round to start with
+	/// * `current_timestamp_micros` - The current timestamp in microseconds
+	/// * `timestamp_increment_micros` - The number of microseconds to increment the timestamp by
+	///
+	/// TODO: these parameters could be better as a builder struct or something.
 	pub fn get_executable_blocks(
 		&self,
 		executor: &MovementExecutor,
-		epoch: u64,
-		round: u64,
-		mut current_timestamp_ms: u64,
-		timestamp_increment_ms: u64,
+		mut epoch: u64,
+		increment_epoch_each: u64,
+		mut round: u64,
+		mut current_timestamp_micros: u64,
+		timestamp_increment_micros: u64,
 	) -> Result<Vec<ExecutableBlock>, PreludeError> {
 		let mut executable_blocks = Vec::new();
 
@@ -49,7 +65,7 @@ impl Prelude {
 				executor.opt_executor().signer.author(),
 				vec![],
 				vec![],
-				current_timestamp_ms,
+				current_timestamp_micros,
 			));
 
 			let mut transactions = vec![block_metadata];
@@ -64,9 +80,39 @@ impl Prelude {
 
 			executable_blocks.push(block);
 
-			current_timestamp_ms += timestamp_increment_ms;
+			round += 1;
+			current_timestamp_micros += timestamp_increment_micros;
+
+			if round % increment_epoch_each == increment_epoch_each - 1 {
+				epoch += 1;
+			}
 		}
 
 		Ok(executable_blocks)
+	}
+
+	pub async fn run(&self, movement_executor: &mut MovementExecutor) -> Result<(), PreludeError> {
+		let current_timestamp_micros = chrono::Utc::now().timestamp_micros() as u64;
+
+		let executable_blocks = self
+			.get_executable_blocks(
+				movement_executor,
+				DEFAULT_EPOCH,
+				DEFAULT_INCREMENT_EPOCH_EACH,
+				DEFAULT_ROUND,
+				current_timestamp_micros,
+				DEFAULT_INCREMENT_MICROS,
+			)
+			.map_err(|e| PreludeError::Internal(e.into()))?;
+
+		for block in executable_blocks {
+			movement_executor
+				.opt_executor_mut()
+				.execute_block(block)
+				.await
+				.map_err(|e| PreludeError::Internal(e.into()))?;
+		}
+
+		Ok(())
 	}
 }

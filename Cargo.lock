@@ -12338,6 +12338,7 @@ dependencies = [
  "aptos-storage-interface 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "aptos-vm 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "chrono",
  "either",
  "hex",
  "maptos-opt-executor",

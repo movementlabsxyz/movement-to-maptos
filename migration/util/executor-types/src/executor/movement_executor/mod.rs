@@ -25,6 +25,11 @@ impl MovementExecutor {
 		&self.opt_executor
 	}
 
+	/// Borrows the opt executor mutably.
+	pub fn opt_executor_mut(&mut self) -> &mut MovementOptExecutor {
+		&mut self.opt_executor
+	}
+
 	/// Constructs a [DbStateView] at a given version.
 	pub fn state_view_at_version(
 		&self,
