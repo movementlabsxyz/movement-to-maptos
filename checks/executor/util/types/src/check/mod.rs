@@ -2,11 +2,6 @@ use crate::criterion::{Criterionish, MovementExecutor};
 use crate::prelude::Prelude;
 use migration_executor_types::migration::Migrationish;
 
-const DEFAULT_INCREMENT_MICROS: u64 = 1_000_000;
-const DEFAULT_EPOCH: u64 = 0;
-const DEFAULT_INCREMENT_EPOCH_EACH: u64 = 100;
-const DEFAULT_ROUND: u64 = 0;
-
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
 pub enum CheckError {
