@@ -1,4 +1,4 @@
-use aptos_executor::block_executor::BlockExecutor as MovementAptosBlockExecutor;
+pub use aptos_executor::block_executor::BlockExecutor as MovementAptosBlockExecutor;
 use aptos_storage_interface::{
 	state_store::state_view::db_state_view::{DbStateView, DbStateViewAtVersion},
 	DbReader,

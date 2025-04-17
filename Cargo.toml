@@ -83,8 +83,8 @@ poem-openapi-derive = "=5.1.1"
 either = "1.8.1"
 
 # movement
-maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
-movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "f6e229e53066f068302dd78eb57d447bd2fa4d3e" }
+maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "2cfcb1b24c4484871fe12e4b0c75d328d5ad705d" }
+movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "2cfcb1b24c4484871fe12e4b0c75d328d5ad705d" }
 
 # maptos-core
 aptos-executor= { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
@@ -92,7 +92,8 @@ aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4
 aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-
+aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 # model checking and verification
 
 
@@ -117,6 +118,7 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 
 ### core
 mtma-core = { path = "migration/core/mtma" }
+mtma-null-core = { path = "migration/core/mtma-null" }
 ### util
 migration-executor-types = { path = "migration/util/executor-types" }
 
