@@ -64,7 +64,7 @@ impl GlobalStateKeyIterable {
 	pub fn iter(
 		&self,
 	) -> Result<Box<dyn Iterator<Item = Result<StateKey, anyhow::Error>> + '_>, anyhow::Error> {
-		let write_set_iterator = self.db_reader.get_write_set_iterator(self.version, u64::MAX)?;
+		let write_set_iterator = self.db_reader.get_write_set_iterator(self.version, 2000)?;
 
 		// We want to iterate lazily over the write set iterator because there could be a lot of them.
 		let iter = write_set_iterator.flat_map(|res| match res {

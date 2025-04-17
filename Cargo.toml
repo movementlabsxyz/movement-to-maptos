@@ -4,22 +4,20 @@ resolver = "2"
 
 members = [
 
-# migration
-"migration/cli/*",
-"migration/core/*", 
-"migration/util/*",
-
-# executor
-"checks/executor/util/*",
-"checks/executor/citeria/*",
-"checks/executor/cli/*",
-"checks/executor/checks/*",
-# e2e
-"checks/e2e/util/*",
-"checks/e2e/citeria/*",
-
-# util
-"util/include-dir"
+    # migration
+    "migration/cli/*",
+    "migration/core/*",
+    "migration/util/*",
+    # executor
+    "checks/executor/util/*",
+    "checks/executor/citeria/*",
+    "checks/executor/cli/*",
+    "checks/executor/checks/*",
+    # e2e
+    "checks/e2e/util/*",
+    "checks/e2e/citeria/*",
+    # util
+    "util/include-dir"
 
 ]
 
@@ -51,8 +49,8 @@ tracing-test = "0.2.5"
 tokio = { version = "1.35.1", features = ["full", "tracing"] }
 tokio-stream = "0.1.15"
 hex = { version = "0.4.3", default-features = false, features = [
-  "alloc",
-  "serde",
+    "alloc",
+    "serde",
 ] }
 zip = { version = "2.4.2", features = ["flate2"] }
 walkdir = "2.3.2"
@@ -88,20 +86,21 @@ maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git",
 movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 
 # maptos-core
-aptos-executor= { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
-aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-executor = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos_schemadb = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
 # model checking and verification
 
 
 # secure-signing
 secure-signer = { git = "https://github.com/movementlabsxyz/secure-signing.git", rev = "f37eebd6d494d21b26b2faa44e1188de42ff1007" }
-secure-signer-loader = { git = "https://github.com/movementlabsxyz/secure-signing.git", rev = "f37eebd6d494d21b26b2faa44e1188de42ff1007"  }
-secure-signer-aws-kms = { git = "https://github.com/movementlabsxyz/secure-signing.git", rev = "f37eebd6d494d21b26b2faa44e1188de42ff1007"  }
+secure-signer-loader = { git = "https://github.com/movementlabsxyz/secure-signing.git", rev = "f37eebd6d494d21b26b2faa44e1188de42ff1007" }
+secure-signer-aws-kms = { git = "https://github.com/movementlabsxyz/secure-signing.git", rev = "f37eebd6d494d21b26b2faa44e1188de42ff1007" }
 
 # kestrel 
 kestrel = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e2f681ae3e54b29bb18d4ed7ca750116173321" }
@@ -112,7 +111,7 @@ commander = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e
 orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
 
 # docs
-clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a"}
+clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a" }
 
 # internal
 ## migration
