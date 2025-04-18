@@ -1,13 +1,13 @@
-pub mod movement_aptos_executor;
-pub mod movement_executor;
+pub use migration_executor_types::executor::movement_aptos_executor;
+pub use migration_executor_types::executor::movement_executor;
 
-pub use movement_aptos_executor::MovementAptosExecutor;
-pub use movement_executor::MovementExecutor;
+pub use migration_executor_types::executor::movement_aptos_executor::MovementAptosExecutor;
+pub use migration_executor_types::executor::movement_executor::MovementExecutor;
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
 pub enum CriterionError {
-	#[error("failed to build from config: {0}")]
+	#[error("the criterion is unsatisfied: {0}")]
 	Unsatisfied(#[source] Box<dyn std::error::Error + Send + Sync>),
 	#[error("internal error: {0}")]
 	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),

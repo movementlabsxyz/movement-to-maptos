@@ -1,5 +1,5 @@
 [package]
-name = "mtma-executor-util"
+name = "mtma-core"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -15,9 +15,8 @@ clap = { workspace = true, features = ["derive"] }
 dotenv = { workspace = true }
 anyhow = { workspace = true }
 clap-markdown-ext = { workspace = true }
+thiserror = { workspace = true }
 orfile = { workspace = true }
-mtma-core = { workspace = true }
-jemallocator = { workspace = true }
 
 [lints]
 workspace = true

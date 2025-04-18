@@ -5,7 +5,7 @@ static GLOBAL: Jemalloc = Jemalloc;
 
 use clap::*;
 use dotenv::dotenv;
-use mtma_executor_util::cli;
+use mtma::cli;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -13,7 +13,7 @@ async fn main() -> Result<(), anyhow::Error> {
 	dotenv().ok();
 
 	// Run the CLI.
-	let mtma_executor_util = cli::MtmaExecutorUtil::parse();
-	mtma_executor_util.execute().await?;
+	let movement_to_movement_aptos = cli::MovementToMovementAptos::parse();
+	movement_to_movement_aptos.execute().await?;
 	Ok(())
 }

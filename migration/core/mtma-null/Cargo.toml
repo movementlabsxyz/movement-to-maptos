@@ -1,5 +1,5 @@
 [package]
-name = "mtma-executor-util"
+name = "mtma-null-core"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -15,9 +15,16 @@ clap = { workspace = true, features = ["derive"] }
 dotenv = { workspace = true }
 anyhow = { workspace = true }
 clap-markdown-ext = { workspace = true }
+thiserror = { workspace = true }
 orfile = { workspace = true }
-mtma-core = { workspace = true }
-jemallocator = { workspace = true }
-
+migration-executor-types = { workspace = true }
+aptos-db = { workspace = true }
+aptos-storage-interface = { workspace = true }
+aptos-config = { workspace = true }
+aptos-executor = { workspace = true }
+aptos-vm = { workspace = true }
+chrono = { workspace = true }
+walkdir = { workspace = true }
+uuid = { workspace = true }
 [lints]
 workspace = true

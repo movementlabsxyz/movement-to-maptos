@@ -4,9 +4,9 @@ use migration_executor_test_types::criterion::{
 	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
-pub struct GlobalStorageInjective;
+pub struct GlobalStorageIncludes;
 
-impl GlobalStorageInjective {
+impl GlobalStorageIncludes {
 	pub fn new() -> Self {
 		Self
 	}
@@ -16,7 +16,7 @@ impl GlobalStorageInjective {
 	}
 }
 
-impl Criterionish for GlobalStorageInjective {
+impl Criterionish for GlobalStorageIncludes {
 	fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
@@ -53,13 +53,13 @@ impl Criterionish for GlobalStorageInjective {
 					.map_err(|e| CriterionError::Internal(e.into()))?;
 
 			let movement_value = movement_state_view
-				.get_state_value(&movement_state_key)
+				.get_state_value_bytes(&movement_state_key)
 				.map_err(|e| CriterionError::Internal(e.into()))?;
 
 			match movement_value {
-				Some(_movement_value) => {
-					maptos_state_view
-						.get_state_value(&movement_aptos_state_key)
+				Some(movement_value) => {
+					let maptos_state_value = maptos_state_view
+						.get_state_value_bytes(&movement_aptos_state_key)
 						.map_err(|e| CriterionError::Internal(e.into()))?
 						.ok_or(CriterionError::Unsatisfied(
 							format!(
@@ -68,14 +68,22 @@ impl Criterionish for GlobalStorageInjective {
 							)
 							.into(),
 						))?;
+
+					if movement_value != maptos_state_value {
+						return Err(CriterionError::Unsatisfied(
+							format!(
+								"Movement state value for {:?} is {:?}, while Maptos state value is {:?}",
+								movement_state_key,
+								movement_value,
+								maptos_state_value
+							)
+							.into(),
+						));
+					}
 				}
 				None => {
 					return Err(CriterionError::Internal(
-						format!(
-							"Movement state value for {:?} is unexpectedly None",
-							movement_state_key
-						)
-						.into(),
+						"movement state value is unexpectedly None".into(),
 					));
 				}
 			}
