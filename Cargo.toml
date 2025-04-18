@@ -13,6 +13,7 @@ members = [
     "checks/executor/citeria/*",
     "checks/executor/cli/*",
     "checks/executor/checks/*",
+    "checks/executor/preludes",
     # e2e
     "checks/e2e/util/*",
     "checks/e2e/citeria/*",
@@ -125,6 +126,10 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 ### core
 mtma-core = { path = "migration/core/mtma" }
 mtma-null-core = { path = "migration/core/mtma-null" }
+
+### preludes
+migration-executor-preludes = { path = "checks/executor/preludes" }
+
 ### util
 migration-executor-types = { path = "migration/util/executor-types" }
 

@@ -12312,6 +12312,7 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "chrono",
+ "migration-executor-preludes",
  "migration-executor-test-global-storage-includes-criterion",
  "migration-executor-test-global-storage-injective-criterion",
  "migration-executor-test-global-storage-not-empty-criterion",
@@ -12321,6 +12322,26 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-test",
+]
+
+[[package]]
+name = "migration-executor-preludes"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "aptos-executor 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
+ "aptos-storage-interface 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
+ "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
+ "aptos-vm 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
+ "chrono",
+ "either",
+ "hex",
+ "maptos-opt-executor",
+ "migration-executor-test-types",
+ "migration-executor-types",
+ "rand 0.7.3",
+ "serde",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

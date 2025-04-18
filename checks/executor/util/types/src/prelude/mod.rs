@@ -1,3 +1,4 @@
+use crate::criterion::MovementExecutor;
 use maptos_opt_executor::aptos_crypto::HashValue;
 use maptos_opt_executor::aptos_types::{
 	block_executor::partitioner::{ExecutableBlock, ExecutableTransactions},
@@ -6,8 +7,7 @@ use maptos_opt_executor::aptos_types::{
 	transaction::SignedTransaction,
 	transaction::Transaction,
 };
-
-use crate::criterion::MovementExecutor;
+use std::future::Future;
 
 const DEFAULT_INCREMENT_MICROS: u64 = 1_000_000;
 const DEFAULT_EPOCH: u64 = 0;
@@ -138,4 +138,11 @@ impl Prelude {
 
 		Ok(())
 	}
+}
+
+pub trait PreludeGenerator {
+	/// Generates a prelude.
+	///
+	/// We'll make this async for now because we may want to pull some things off the wire at some point.
+	fn generate(self) -> impl Future<Output = Result<Prelude, PreludeError>>;
 }
