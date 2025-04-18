@@ -58,11 +58,16 @@ pub struct GlobalStateKeyIterable {
 	version: u64,
 }
 
+const APTOS_MAX_WRITE_SET_SIZE: u64 = 20_000;
+
 impl GlobalStateKeyIterable {
 	pub fn iter(
 		&self,
 	) -> Result<Box<dyn Iterator<Item = Result<StateKey, anyhow::Error>> + '_>, anyhow::Error> {
-		let write_set_iterator = self.db_reader.get_write_set_iterator(self.version, u64::MAX)?;
+		// Note: we may need to break out multiple iterators if the write set size is greater than the max.
+		// This needs investigation.
+		let write_set_iterator =
+			self.db_reader.get_write_set_iterator(self.version, APTOS_MAX_WRITE_SET_SIZE)?;
 
 		// We want to iterate lazily over the write set iterator because there could be a lot of them.
 		let iter = write_set_iterator.flat_map(|res| match res {
