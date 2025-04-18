@@ -3,19 +3,22 @@ pub mod test {
 
 	use migration_executor_test_global_storage_not_empty_criterion::GlobalStorageNotEmpty;
 	use migration_executor_test_types::{
-		check::checked_migration,
-		criterion::movement_executor::maptos_opt_executor::{
-			aptos_sdk::{
-				transaction_builder::TransactionFactory,
-				types::{AccountKey, LocalAccount},
+		check::{checked_migration, CheckError},
+		criterion::movement_executor::{
+			maptos_opt_executor::{
+				aptos_sdk::{
+					transaction_builder::TransactionFactory,
+					types::{AccountKey, LocalAccount},
+				},
+				aptos_types::account_config::aptos_test_root_address,
 			},
-			aptos_types::account_config::aptos_test_root_address,
+			MovementExecutor, MovementOptExecutor,
 		},
-		criterion::movement_executor::{MovementExecutor, MovementOptExecutor},
 		prelude::Prelude,
 	};
 	use mtma_null_core::config::Config as MtmaNullConfig;
 	use rand::SeedableRng;
+	use tracing::info;
 
 	#[tokio::test]
 	async fn test_global_storage_injective_null() -> Result<(), anyhow::Error> {
@@ -57,13 +60,24 @@ pub mod test {
 		let migration = migration_config.build()?;
 
 		// run the checked migration
-		checked_migration(
+		match checked_migration(
 			&mut movement_executor,
 			&prelude,
 			&migration,
 			vec![Box::new(GlobalStorageNotEmpty::new())],
 		)
-		.await?;
+		.await
+		{
+			Ok(_) => {
+				return Err(anyhow::anyhow!("Migration should have failed"));
+			}
+			Err(err) => match err {
+				CheckError::Criteria(e) => info!("Migration failed as expected: {:?}", e),
+				e => {
+					return Err(e.into());
+				}
+			},
+		}
 
 		Ok(())
 	}
