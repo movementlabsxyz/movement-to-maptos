@@ -18,7 +18,7 @@ The `movement-to-aptos` CLI
 
 **Usage:** `mtma [COMMAND]`
 
-KEEP THIS UNTIL PRODUCTION-READY : Defined in: migration/cli/mtma/src/cli/mod.rs
+KEEP THIS UNTIL PRODUCTION-READY : Defined in: migration/cli/mtma/src/cli.rs
 
 ###### **Subcommands:**
 
