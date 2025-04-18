@@ -4,9 +4,9 @@ use migration_executor_test_types::criterion::{
 	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
-pub struct GlobalStorageEqual;
+pub struct GlobalStorageIncludes;
 
-impl GlobalStorageEqual {
+impl GlobalStorageIncludes {
 	pub fn new() -> Self {
 		Self
 	}
@@ -16,7 +16,7 @@ impl GlobalStorageEqual {
 	}
 }
 
-impl Criterionish for GlobalStorageEqual {
+impl Criterionish for GlobalStorageIncludes {
 	fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
@@ -39,7 +39,7 @@ impl Criterionish for GlobalStorageEqual {
 
 		// the movement state view is the domain, so the maptos state view is the codomain
 		let movement_global_state_keys_iterator =
-			movement_executor.global_state_keys_at_version(Some(movement_ledger_version));
+			movement_executor.global_state_keys_from_version(None);
 		let movement_global_state_keys = movement_global_state_keys_iterator
 			.iter()
 			.map_err(|e| CriterionError::Internal(e.into()))?;

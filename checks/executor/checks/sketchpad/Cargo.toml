@@ -13,9 +13,15 @@ migration-executor-test-types = { workspace = true }
 anyhow = { workspace = true }
 mtma-null-core = { workspace = true }
 migration-executor-test-global-storage-injective-criterion = { workspace = true }
-migration-executor-test-global-storage-equal-criterion = { workspace = true }
+migration-executor-test-global-storage-includes-criterion = { workspace = true }
+migration-executor-test-global-storage-not-empty-criterion = { workspace = true }
 tokio = { workspace = true }
 chrono = { workspace = true }
 rand = { workspace = true }
+
+[dev-dependencies]
+tracing-test = { workspace = true }
+tracing = { workspace = true }
+
 [lints]
 workspace = true

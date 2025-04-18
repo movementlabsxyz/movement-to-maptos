@@ -132,7 +132,8 @@ migration-executor-types = { path = "migration/util/executor-types" }
 ### executor
 migration-executor-test-types = { path = "checks/executor/util/types" }
 migration-executor-test-global-storage-injective-criterion = { path = "checks/executor/citeria/global-storage-injective" }
-migration-executor-test-global-storage-equal-criterion = { path = "checks/executor/citeria/global-storage-equal" }
+migration-executor-test-global-storage-includes-criterion = { path = "checks/executor/citeria/global-storage-includes" }
+migration-executor-test-global-storage-not-empty-criterion = { path = "checks/executor/citeria/global-storage-not-empty" }
 
 
 ### e2e

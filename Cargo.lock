@@ -12312,12 +12312,15 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "chrono",
- "migration-executor-test-global-storage-equal-criterion",
+ "migration-executor-test-global-storage-includes-criterion",
  "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
  "migration-executor-test-types",
  "mtma-null-core",
  "rand 0.7.3",
  "tokio",
+ "tracing",
+ "tracing-test",
 ]
 
 [[package]]
@@ -12328,7 +12331,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-executor-test-global-storage-equal-criterion"
+name = "migration-executor-test-global-storage-includes-criterion"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "migration-executor-test-types",
+ "tracing",
+]
+
+[[package]]
+name = "migration-executor-test-global-storage-injective-criterion"
 version = "0.0.1"
 dependencies = [
  "anyhow",
@@ -12336,7 +12348,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-executor-test-global-storage-injective-criterion"
+name = "migration-executor-test-global-storage-not-empty-criterion"
 version = "0.0.1"
 dependencies = [
  "anyhow",

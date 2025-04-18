@@ -53,7 +53,7 @@ impl MovementExecutor {
 	}
 
 	/// Gets the all [StateKey]s in the global storage dating back to an original version. None is treated as 0 or all versions.
-	pub fn global_state_keys_at_version(&self, version: Option<u64>) -> GlobalStateKeyIterable {
+	pub fn global_state_keys_from_version(&self, version: Option<u64>) -> GlobalStateKeyIterable {
 		GlobalStateKeyIterable {
 			db_reader: self.opt_executor().db_reader(),
 			version: version.unwrap_or(0),

@@ -1,7 +1,7 @@
 #[cfg(test)]
 pub mod test {
 
-	use migration_executor_test_global_storage_equal_criterion::GlobalStorageEqual;
+	use migration_executor_test_global_storage_includes_criterion::GlobalStorageIncludes;
 	use migration_executor_test_types::{
 		check::checked_migration,
 		criterion::movement_executor::maptos_opt_executor::{
@@ -18,7 +18,8 @@ pub mod test {
 	use rand::SeedableRng;
 
 	#[tokio::test]
-	async fn test_global_storage_equal_null() -> Result<(), anyhow::Error> {
+	#[tracing_test::traced_test]
+	async fn test_global_storage_includess_null() -> Result<(), anyhow::Error> {
 		let seed = [3u8; 32];
 		let mut rng = ::rand::rngs::StdRng::from_seed(seed);
 
@@ -61,7 +62,7 @@ pub mod test {
 			&mut movement_executor,
 			&prelude,
 			&migration,
-			vec![Box::new(GlobalStorageEqual::new())],
+			vec![Box::new(GlobalStorageIncludes::new())],
 		)
 		.await?;
 
