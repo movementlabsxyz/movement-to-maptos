@@ -35,6 +35,15 @@ impl MovementExecutor {
 		self.opt_executor().config().chain.maptos_chain_id.clone()
 	}
 
+	/// Gets the latest version of the ledger.
+	pub fn latest_ledger_version(&self) -> Result<u64, anyhow::Error> {
+		let db_reader = self.opt_executor().db_reader();
+
+		let latest_ledger_info = db_reader.get_latest_ledger_info()?;
+
+		Ok(latest_ledger_info.ledger_info().version())
+	}
+
 	/// Constructs a [DbStateView] at a given version.
 	pub fn state_view_at_version(
 		&self,

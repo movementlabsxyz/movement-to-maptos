@@ -57,24 +57,14 @@ pub mod test {
 		let migration = migration_config.build()?;
 
 		// run the checked migration
-		match checked_migration(
+		checked_migration(
 			&mut movement_executor,
 			&prelude,
 			&migration,
 			vec![Box::new(GlobalStorageInjective::new())],
 		)
-		.await
-		{
-			Ok(_) => {
-				return Err(anyhow::anyhow!("migration should have failed"));
-			}
-			Err(err) => match err {
-				CheckError::Criteria(err) => {
-					println!("criteria errored as expected: {:?}", err);
-				}
-				_ => return Err(err.into()),
-			},
-		}
+		.await?;
+
 		Ok(())
 	}
 }
