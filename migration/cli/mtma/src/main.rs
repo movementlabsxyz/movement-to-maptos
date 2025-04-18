@@ -1,3 +1,8 @@
+use jemallocator::Jemalloc;
+
+#[global_allocator]
+static GLOBAL: Jemalloc = Jemalloc;
+
 use clap::*;
 use dotenv::dotenv;
 use mtma::cli;

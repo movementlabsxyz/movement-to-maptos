@@ -3,7 +3,7 @@ pub mod test {
 
 	use migration_executor_test_global_storage_injective_criterion::GlobalStorageInjective;
 	use migration_executor_test_types::{
-		check::checked_migration,
+		check::{checked_migration, CheckError},
 		criterion::movement_executor::maptos_opt_executor::{
 			aptos_sdk::{
 				transaction_builder::TransactionFactory,
@@ -18,7 +18,7 @@ pub mod test {
 	use rand::SeedableRng;
 
 	#[tokio::test]
-	async fn test_global_storage_injective() -> Result<(), anyhow::Error> {
+	async fn test_global_storage_injective_null_fails() -> Result<(), anyhow::Error> {
 		let seed = [3u8; 32];
 		let mut rng = ::rand::rngs::StdRng::from_seed(seed);
 
@@ -57,14 +57,24 @@ pub mod test {
 		let migration = migration_config.build()?;
 
 		// run the checked migration
-		let _result = checked_migration(
+		match checked_migration(
 			&mut movement_executor,
 			&prelude,
 			&migration,
 			vec![Box::new(GlobalStorageInjective::new())],
 		)
-		.await?;
-
+		.await
+		{
+			Ok(_) => {
+				return Err(anyhow::anyhow!("migration should have failed"));
+			}
+			Err(err) => match err {
+				CheckError::Criteria(err) => {
+					println!("criteria errored as expected: {:?}", err);
+				}
+				_ => return Err(err.into()),
+			},
+		}
 		Ok(())
 	}
 }
