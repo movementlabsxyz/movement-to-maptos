@@ -54,8 +54,13 @@ impl Migrationish for Migrate {
 			.ok_or(MigrationError::Internal("No db path provided.".into()))?;
 
 		// copy all the contents of the db to a timestamp suffixed subdir of .debug
+		let unique_id = uuid::Uuid::new_v4();
 		let timestamp = chrono::Utc::now().timestamp_millis();
-		let db_dir = Path::new(".debug").join(format!("migration-db-{}", timestamp));
+		let db_dir = Path::new(".debug").join(format!(
+			"migration-db-{}-{}",
+			timestamp,
+			unique_id.to_string().split('-').next().unwrap()
+		));
 		let src = Path::new(old_db_dir);
 		let dst = db_dir.join("db");
 		copy_dir_recursive(src, &dst).map_err(|e| MigrationError::Internal(e.into()))?;

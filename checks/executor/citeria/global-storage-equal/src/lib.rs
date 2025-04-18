@@ -22,19 +22,24 @@ impl Criterionish for GlobalStorageEqual {
 		movement_executor: &MovementExecutor,
 		maptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError> {
+		// get the latest ledger version from the movement executor
+		let movement_ledger_version = movement_executor
+			.latest_ledger_version()
+			.map_err(|e| CriterionError::Internal(e.into()))?;
+
 		// get the latest state view from the movement executor
 		let movement_state_view = movement_executor
-			.state_view_at_version(None)
+			.state_view_at_version(Some(movement_ledger_version))
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
 		// get the latest state view from the maptos executor
 		let maptos_state_view = maptos_executor
-			.state_view_at_version(None)
+			.state_view_at_version(Some(movement_ledger_version))
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
 		// the movement state view is the domain, so the maptos state view is the codomain
 		let movement_global_state_keys_iterator =
-			movement_executor.global_state_keys_at_version(None);
+			movement_executor.global_state_keys_at_version(Some(movement_ledger_version));
 		let movement_global_state_keys = movement_global_state_keys_iterator
 			.iter()
 			.map_err(|e| CriterionError::Internal(e.into()))?;

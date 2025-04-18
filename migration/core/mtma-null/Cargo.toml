@@ -25,5 +25,6 @@ aptos-executor = { workspace = true }
 aptos-vm = { workspace = true }
 chrono = { workspace = true }
 walkdir = { workspace = true }
+uuid = { workspace = true }
 [lints]
 workspace = true
