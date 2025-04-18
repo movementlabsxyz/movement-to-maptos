@@ -15,6 +15,7 @@ mtma-null-core = { workspace = true }
 migration-executor-test-global-storage-injective-criterion = { workspace = true }
 migration-executor-test-global-storage-includes-criterion = { workspace = true }
 migration-executor-test-global-storage-not-empty-criterion = { workspace = true }
+migration-executor-preludes = { workspace = true }
 tokio = { workspace = true }
 chrono = { workspace = true }
 rand = { workspace = true }
