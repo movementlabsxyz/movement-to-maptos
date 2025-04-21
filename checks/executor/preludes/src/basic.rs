@@ -17,6 +17,17 @@ pub struct BasicPrelude {
 	pub chain_id: ChainId,
 }
 
+impl BasicPrelude {
+	/// Generate a prelude with a new account and minted coins.
+	pub async fn generate(
+		private_key: Ed25519PrivateKey,
+		chain_id: ChainId,
+	) -> Result<Prelude, PreludeError> {
+		let prelude = BasicPrelude { private_key, chain_id }.generate().await?;
+		Ok(prelude)
+	}
+}
+
 /// A prelude that creates a new account and mints some coins to it.
 impl PreludeGenerator for BasicPrelude {
 	async fn generate(self) -> Result<Prelude, PreludeError> {

@@ -9,6 +9,7 @@ pub mod test {
 		prelude::PreludeGenerator,
 	};
 	use mtma_null_core::config::Config as MtmaNullConfig;
+
 	use tracing::info;
 
 	#[tokio::test]
@@ -20,9 +21,9 @@ pub mod test {
 		let mut movement_executor = MovementExecutor::new(movement_opt_executor);
 
 		// form the prelude
-		let prelude_generator =
-			BasicPrelude { private_key, chain_id: movement_executor.chain_id() };
-		let prelude = prelude_generator.generate().await?;
+		let prelude = BasicPrelude { private_key, chain_id: movement_executor.chain_id() }
+			.generate()
+			.await?;
 
 		// form the migration
 		let migration_config = MtmaNullConfig::default();
