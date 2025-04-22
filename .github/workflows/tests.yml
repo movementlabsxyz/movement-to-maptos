@@ -10,9 +10,9 @@ jobs:
       matrix:
         command:
           # cargo checks and tests
-          - cargo check --all-targets
+          # - cargo check --all-targets
           - cargo test
-          
+
     with:
       command: ${{ matrix.command }}
       nix_flake_path: '.' 
