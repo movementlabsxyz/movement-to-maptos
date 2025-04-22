@@ -92,7 +92,7 @@ either = "1.8.1"
 maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 
-# maptos-core
+# aptos-core
 aptos-executor = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
 aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
 aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
@@ -101,6 +101,7 @@ aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev =
 aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
 aptos_schemadb = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
 aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
+aptos-db-indexer = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
 # model checking and verification
 
 

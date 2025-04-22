@@ -4,13 +4,11 @@ pub mod test {
 	use migration_executor_preludes::basic::BasicPrelude;
 	use migration_executor_test_global_storage_includes_criterion::GlobalStorageIncludes;
 	use migration_executor_test_types::{
-		check::{checked_migration, CheckError},
+		check::checked_migration,
 		criterion::movement_executor::{MovementExecutor, MovementOptExecutor},
 		prelude::PreludeGenerator,
 	};
 	use mtma_null_core::config::Config as MtmaNullConfig;
-
-	use tracing::info;
 
 	#[tokio::test]
 	#[tracing_test::traced_test]
@@ -30,25 +28,13 @@ pub mod test {
 		let migration = migration_config.build()?;
 
 		// run the checked migration
-		match checked_migration(
+		checked_migration(
 			&mut movement_executor,
 			&prelude,
 			&migration,
 			vec![Box::new(GlobalStorageIncludes::new())],
 		)
-		.await
-		{
-			Ok(_) => {
-				return Err(anyhow::anyhow!("Migration should have failed"));
-			}
-			Err(err) => match err {
-				CheckError::Criteria(e) => info!("Migration failed as expected: {:?}", e),
-				e => {
-					return Err(e.into());
-				}
-			},
-		}
-
+		.await?;
 		Ok(())
 	}
 }
