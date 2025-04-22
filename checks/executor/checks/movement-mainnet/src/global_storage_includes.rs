@@ -15,12 +15,18 @@ pub mod test {
 	#[tokio::test]
 	#[tracing_test::traced_test]
 	async fn test_global_storage_includess_null() -> Result<(), anyhow::Error> {
-		// check whether there is more than one terrabyte available on disk
-		let available_space = std::fs::metadata("/")?.len();
+		// use sysinfo to check the available space
+		let sys = sysinfo::System::new_all();
 
-		// if there isn't, just go ahead and pass the test
-		if available_space < 1_000_000_000_000 {
+		// if the available memory is less than 1 TB, just go ahead and pass the test
+		// this is not a machine that would be able to run the test
+		if sys.available_memory() < 1_000_000_000_000 {
 			return Ok(());
+		}
+
+		// if the free memory is less than 1 TB, fail indicating not enough space
+		if sys.free_memory() < 1_000_000_000_000 {
+			return Err(anyhow::anyhow!("not enough space"));
 		}
 
 		// sync the db

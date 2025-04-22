@@ -89,6 +89,7 @@ jemalloc-sys = "0.5.4"
 
 either = "1.8.1"
 tempdir = "0.3.7"
+sysinfo = "0.34.2"
 
 # movement
 maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
