@@ -59,8 +59,7 @@
           systemd
           bzip2
           elfutils
-          jemalloc
-          glibc
+          
         ];
 
         testDependencies = with pkgs; [
@@ -120,7 +119,7 @@
                MOVEMENT => MAPTOS
               EOF
 
-              echo "Migrates Movement to Maptos."
+              echo "Migrates Movement to Movement Aptos."
             '';
           };
         };
