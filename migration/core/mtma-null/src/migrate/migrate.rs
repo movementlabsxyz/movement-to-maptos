@@ -62,8 +62,7 @@ impl Migrationish for Migrate {
 			unique_id.to_string().split('-').next().unwrap()
 		));
 		let src = Path::new(old_db_dir);
-		let dst = db_dir.join("db");
-		copy_dir_recursive(src, &dst).map_err(|e| MigrationError::Internal(e.into()))?;
+		copy_dir_recursive(src, &db_dir).map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// Open the aptos db.
 		let aptos_db = AptosDB::open(
