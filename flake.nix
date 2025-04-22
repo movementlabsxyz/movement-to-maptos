@@ -121,7 +121,7 @@
                MOVEMENT => MAPTOS
               EOF
 
-              echo "Migrates Movement to Maptos."
+              echo "Migrates Movement to Movement Aptos."
             '';
           };
         };
