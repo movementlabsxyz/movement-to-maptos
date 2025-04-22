@@ -91,6 +91,8 @@
           docker-build = pkgs.mkShell {
             ROCKSDB = pkgs.rocksdb;
             OPENSSL_DEV = pkgs.openssl.dev;
+
+            hardeningDisable = ["all"];
          
             buildInputs = with pkgs; [
               # rust toolchain
