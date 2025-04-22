@@ -9,6 +9,7 @@ pub struct DbSync {
 	s3_bucket: String,
 	destination_db_path: PathBuf,
 	application_id: application::Id,
+	region: String,
 }
 
 impl DbSync {
@@ -20,22 +21,28 @@ impl DbSync {
 		s3_bucket: String,
 		destination_db_path: PathBuf,
 		application_id: application::Id,
+		region: String,
 	) -> Self {
-		Self { s3_bucket, destination_db_path, application_id }
+		Self { s3_bucket, destination_db_path, application_id, region }
 	}
 
 	/// Creates a new db sync instance with a `.debug/movement-db-<uid>` destination db path
 
-	pub fn debug(s3_bucket: String, application_id: application::Id) -> Self {
+	pub fn debug(s3_bucket: String, application_id: application::Id, region: String) -> Self {
 		Self {
 			s3_bucket,
 			destination_db_path: PathBuf::from(".debug/movement-db-{}"),
 			application_id,
+			region,
 		}
 	}
 	/// Create a new db sync instance for the mainnet
 	pub fn mainnet_debug() -> Self {
-		Self::debug("move-main-rec-l-sb-sync".to_string(), application::Id::suzuka())
+		Self::debug(
+			"move-main-rec-l-sb-sync".to_string(),
+			application::Id::suzuka(),
+			"us-west-1".to_string(),
+		)
 	}
 
 	/// Create a new db sync instance for the mainnet with a temporary destination db path
@@ -47,6 +54,7 @@ impl DbSync {
 				s3_bucket: self.s3_bucket,
 				destination_db_path,
 				application_id: self.application_id,
+				region: self.region,
 			},
 			tempdir,
 		))
@@ -60,7 +68,7 @@ impl DbSync {
 	/// Pull the db from the s3 bucket to the destination db path
 	pub async fn pull(&self) -> Result<(), anyhow::Error> {
 		// set aws region env var to us-east-1
-		std::env::set_var("AWS_REGION", "us-east-1"); // this is to avoid having to mess with the syncador config or being too stringent about aws setup
+		std::env::set_var("AWS_REGION", self.region.clone()); // this is to avoid having to mess with the syncador config or being too stringent about aws setup
 
 		// Create a new s3 pull instance
 		let s3_pull = syncador::backend::s3::shared_bucket::create_pull_with_load_from_env(
