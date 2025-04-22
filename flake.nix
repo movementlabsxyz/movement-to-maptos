@@ -61,8 +61,7 @@
           systemd
           bzip2
           elfutils
-          jemalloc
-          glibc
+          
         ];
 
         testDependencies = with pkgs; [
