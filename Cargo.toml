@@ -101,6 +101,7 @@ aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev =
 aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
 aptos_schemadb = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
 aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
+aptos-db-indexer = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "6da77d982f82d6e41ace3fcd3651e208a9c1e301" }
 # model checking and verification
 
 
