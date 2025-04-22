@@ -100,8 +100,8 @@
             ] ++ sysDependencies ++ buildDependencies ++ testDependencies;
 
             LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib/";
-            CFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
-            CXXFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
+            #CFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
+            #CXXFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
 
             shellHook = ''
               #!/usr/bin/env ${pkgs.bash}
