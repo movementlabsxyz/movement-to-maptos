@@ -100,9 +100,12 @@
             ] ++ sysDependencies ++ buildDependencies ++ testDependencies;
 
             LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib/";
+            CFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
+            CXXFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
 
             shellHook = ''
               #!/usr/bin/env ${pkgs.bash}
+
               # Export linker flags if on Darwin (macOS)
               if [[ "$(${pkgs.stdenv.hostPlatform.system})" =~ "darwin" ]]; then
                 export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
