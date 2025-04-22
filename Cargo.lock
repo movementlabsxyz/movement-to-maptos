@@ -14288,30 +14288,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "mtma-indexer-db-statekeys-enabled-core"
-version = "0.0.1"
-dependencies = [
- "anyhow",
- "aptos-config 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "aptos-db 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "aptos-db-indexer 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "aptos-executor 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "aptos-storage-interface 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "aptos-vm 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=6da77d982f82d6e41ace3fcd3651e208a9c1e301)",
- "chrono",
- "clap 4.5.36",
- "clap-markdown-ext",
- "dotenv",
- "migration-executor-types",
- "orfile",
- "serde",
- "thiserror 1.0.69",
- "tokio",
- "uuid",
- "walkdir",
-]
-
-[[package]]
 name = "mtma-null-core"
 version = "0.0.1"
 dependencies = [
