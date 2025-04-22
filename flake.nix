@@ -92,7 +92,7 @@
             ROCKSDB = pkgs.rocksdb;
             OPENSSL_DEV = pkgs.openssl.dev;
 
-            hardeningDisable = ["all"];
+            hardeningDisable = ["fortify"];
 
             buildInputs = with pkgs; [
               # rust toolchain
@@ -100,8 +100,6 @@
             ] ++ sysDependencies ++ buildDependencies ++ testDependencies;
 
             LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib/";
-            #CFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
-            #CXXFLAGS = "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0";
 
             shellHook = ''
               #!/usr/bin/env ${pkgs.bash}
