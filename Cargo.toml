@@ -18,7 +18,8 @@ members = [
     "checks/e2e/util/*",
     "checks/e2e/citeria/*",
     # util
-    "util/include-dir"
+    "util/include-dir",
+    "util/movement-syncing",
 
 ]
 
@@ -87,10 +88,14 @@ jemallocator = { version = "0.5.0", features = [
 jemalloc-sys = "0.5.4"
 
 either = "1.8.1"
+tempdir = "0.3.7"
 
 # movement
 maptos-opt-executor = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 movement-client = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
+syncador =  { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
+movement-types = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
+maptos-execution-util = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 
 # aptos-core
 aptos-executor = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "2941ee2b5876ab93cfb8010154c9466d7d593ed9" }
@@ -147,6 +152,7 @@ migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
+movement-syncing = { path = "util/movement-syncing" }
 
 [workspace.lints.clippy]
 debug_assert_with_mut_call = "deny"
