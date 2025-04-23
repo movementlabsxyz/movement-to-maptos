@@ -3,6 +3,7 @@ pub use movement_types::application;
 use std::path::PathBuf;
 use syncador::PullOperations;
 use tempdir::TempDir;
+use uuid::Uuid;
 
 #[derive(Debug, Clone)]
 pub struct DbSync {
@@ -29,9 +30,11 @@ impl DbSync {
 	/// Creates a new db sync instance with a `.debug/movement-db-<uid>` destination db path
 
 	pub fn debug(s3_bucket: String, application_id: application::Id, region: String) -> Self {
+		let uid = Uuid::new_v4().to_string();
+
 		Self {
 			s3_bucket,
-			destination_db_path: PathBuf::from(".debug/movement-db-{}"),
+			destination_db_path: PathBuf::from(".debug/movement-db-"),
 			application_id,
 			region,
 		}

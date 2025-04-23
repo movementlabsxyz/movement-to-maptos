@@ -11,6 +11,8 @@ This document contains the help content for the `mtma` command-line program.
 * [`mtma markdown print`↴](#mtma-markdown-print)
 * [`mtma markdown workspace`↴](#mtma-markdown-workspace)
 * [`mtma migrate`↴](#mtma-migrate)
+* [`mtma migrate where`↴](#mtma-migrate-where)
+* [`mtma migrate using`↴](#mtma-migrate-using)
 
 ## `mtma`
 
@@ -90,12 +92,41 @@ Generate the documentation for the workspace
 
 Migrate from Movement to MovementAptos
 
-**Usage:** `mtma migrate --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
+**Usage:** `mtma migrate <COMMAND>`
+
+###### **Subcommands:**
+
+* `where` — Run migrate with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+* `using` — Run migrate with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+
+
+## `mtma migrate where`
+
+Run migrate with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+**Usage:** `mtma migrate where --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
 
 ###### **Options:**
 
 * `--movement-state-db-path <MOVEMENT_STATE_DB_PATH>` — The path to the input Movement state database
 * `--movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>` — The path to the output MovementAptos state database
+
+
+
+## `mtma migrate using`
+
+Run migrate with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+**Usage:** `mtma migrate using [OPTIONS] [EXTRA_ARGS]...`
+
+###### **Arguments:**
+
+* `<EXTRA_ARGS>` — Extra arguments to be passed to the CLI
+
+###### **Options:**
+
+* `--config-path <CONFIG_PATH>`
 
 
 

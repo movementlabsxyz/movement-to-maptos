@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 use clap_markdown_ext::Markdown;
 pub mod migrate;
+// pub mod migrate_checked;
 
 /// The `movement-to-aptos` CLI.
 #[derive(Parser)]
@@ -18,8 +19,9 @@ pub enum MovementToMovementAptosSubcommand {
 	/// Generates markdown for the CLI.
 	#[clap(subcommand)]
 	Markdown(Markdown),
+	#[clap(subcommand)]
 	/// Migrate from Movement to MovementAptos.
-	Migrate(migrate::Migrate),
+	Migrate(migrate::or_file::Migrate),
 }
 
 /// Implement the `From` trait for `MovementToMovementAptos` to convert it into a `MovementToMovementAptosSubcommand`.
