@@ -25,7 +25,7 @@ futures = { workspace = true }
 sysinfo = { workspace = true }
 
 [dev-dependencies]
-tracing-test = { workspace = true}
+tracing-test = { workspace = true }
 tracing = { workspace = true }
 
 [lints]
