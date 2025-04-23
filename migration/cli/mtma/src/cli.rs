@@ -19,9 +19,12 @@ pub enum MovementToMovementAptosSubcommand {
 	/// Generates markdown for the CLI.
 	#[clap(subcommand)]
 	Markdown(Markdown),
-	#[clap(subcommand)]
 	/// Migrate from Movement to MovementAptos.
+	#[clap(subcommand)]
 	Migrate(migrate::or_file::Migrate),
+	/// Migrate from Movement to MovementAptos with checks.
+	#[clap(subcommand)]
+	MigrateChecked(migrate_checked::or_file::MigrateChecked),
 }
 
 /// Implement the `From` trait for `MovementToMovementAptos` to convert it into a `MovementToMovementAptosSubcommand`.
@@ -50,6 +53,9 @@ impl MovementToMovementAptosSubcommand {
 				markdown.execute::<MovementToMovementAptos>().await?;
 			}
 			MovementToMovementAptosSubcommand::Migrate(migrate) => migrate.execute().await?,
+			MovementToMovementAptosSubcommand::MigrateChecked(migrate_checked) => {
+				migrate_checked.execute().await?
+			}
 		}
 		Ok(())
 	}
