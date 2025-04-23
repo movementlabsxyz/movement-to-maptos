@@ -59,7 +59,7 @@
           systemd
           bzip2
           elfutils
-          
+          jemalloc
         ];
 
         testDependencies = with pkgs; [
@@ -88,7 +88,9 @@
           docker-build = pkgs.mkShell {
             ROCKSDB = pkgs.rocksdb;
             OPENSSL_DEV = pkgs.openssl.dev;
-         
+
+            hardeningDisable = ["fortify"];
+
             buildInputs = with pkgs; [
               # rust toolchain
               (toolchain pkgs)
@@ -98,6 +100,7 @@
 
             shellHook = ''
               #!/usr/bin/env ${pkgs.bash}
+
               # Export linker flags if on Darwin (macOS)
               if [[ "${pkgs.stdenv.hostPlatform.system}" =~ "darwin" ]]; then
                 export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion)
