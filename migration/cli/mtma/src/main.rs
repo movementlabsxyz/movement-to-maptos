@@ -6,6 +6,7 @@ static GLOBAL: Jemalloc = Jemalloc;
 use clap::*;
 use dotenv::dotenv;
 use mtma::cli;
+use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
@@ -13,15 +14,11 @@ async fn main() -> Result<(), anyhow::Error> {
 	dotenv().ok();
 
 	// initialize tracing env filter (no logs by default)
-	tracing_subscriber::fmt::init();
-	let env_filter = EnvFilter::builder()
-		.with_default_directive(LevelFilter::OFF.into())
-		.from_env_lossy();
-	tracing::subscriber::set_global_default(
-		tracing_subscriber::fmt::Subscriber::builder()
-			.with_env_filter(env_filter)
-			.finish(),
-	);
+	tracing_subscriber::fmt()
+		.with_env_filter(
+			EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("off")),
+		)
+		.init();
 
 	// Run the CLI.
 	let movement_to_movement_aptos = cli::MovementToMovementAptos::parse();
