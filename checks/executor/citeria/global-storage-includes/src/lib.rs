@@ -45,8 +45,9 @@ impl Criterionish for GlobalStorageIncludes {
 			.iter()
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
+		let mut count = 0;
 		for movement_state_key in movement_global_state_keys {
-			debug!("movement_state_key: {:?}", movement_state_key);
+			debug!("processing movement_state_key {}: {:?}", count, movement_state_key);
 
 			let movement_state_key =
 				movement_state_key.map_err(|e| CriterionError::Internal(e.into()))?;
@@ -75,7 +76,7 @@ impl Criterionish for GlobalStorageIncludes {
 					if movement_value != maptos_state_value {
 						return Err(CriterionError::Unsatisfied(
 							format!(
-								"Movement state value for {:?} is {:?}, while Maptos state value is {:?}",
+								"Movement state value for {:?} is {:?}, while Movement Aptos state value is {:?}",
 								movement_state_key,
 								movement_value,
 								maptos_state_value
@@ -90,6 +91,7 @@ impl Criterionish for GlobalStorageIncludes {
 					));
 				}
 			}
+			count += 1;
 		}
 
 		Ok(())
