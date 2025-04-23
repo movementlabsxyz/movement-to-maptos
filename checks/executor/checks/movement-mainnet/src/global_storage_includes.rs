@@ -21,11 +21,13 @@ pub mod test {
 		// if the available memory is less than 1 TB, just go ahead and pass the test
 		// this is not a machine that would be able to run the test
 		if sys.available_memory() < 1_000_000_000_000 {
+			println!("device has less than 1 TB of available memory");
 			return Ok(());
 		}
 
 		// if the free memory is less than 1 TB, fail indicating not enough space
 		if sys.free_memory() < 1_000_000_000_000 {
+			println!("device has less than 1 TB of free memory");
 			return Err(anyhow::anyhow!("not enough space"));
 		}
 
