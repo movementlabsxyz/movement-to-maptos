@@ -23,8 +23,6 @@ The `movement-to-aptos` CLI
 
 **Usage:** `mtma [COMMAND]`
 
-KEEP THIS UNTIL PRODUCTION-READY : Defined in: migration/cli/mtma/src/cli.rs
-
 ###### **Subcommands:**
 
 * `markdown` — Generates markdown for the CLI

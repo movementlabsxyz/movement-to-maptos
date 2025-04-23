@@ -14,7 +14,6 @@ pub struct MovementToMovementAptos {
 /// The subcommands of the `movement-to-aptos` CLI.
 #[derive(Subcommand)]
 #[clap(rename_all = "kebab-case")]
-#[clap(after_help = concat!("KEEP THIS UNTIL PRODUCTION-READY : Defined in: ", file!()))]
 pub enum MovementToMovementAptosSubcommand {
 	/// Generates markdown for the CLI.
 	#[clap(subcommand)]
