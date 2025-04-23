@@ -34,7 +34,7 @@ impl DbSync {
 
 		Self {
 			s3_bucket,
-			destination_db_path: PathBuf::from(".debug/movement-db-"),
+			destination_db_path: PathBuf::from(format!(".debug/movement-db-{}", uid)),
 			application_id,
 			region,
 		}
