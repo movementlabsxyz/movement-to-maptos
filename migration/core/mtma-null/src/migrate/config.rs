@@ -15,7 +15,11 @@ pub enum MigrateConfigError {
 /// This is the frontend for the core API.
 #[derive(Parser, Debug, Default, Serialize, Deserialize, Clone)]
 #[clap(help_expected = true)]
-pub struct Config {}
+pub struct Config {
+	/// The path to the state to download
+	#[clap(long)]
+	pub path_to_state: Option<String>,
+}
 
 impl Config {
 	/// Builds the [Migrate] struct from the config.

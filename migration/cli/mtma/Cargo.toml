@@ -23,6 +23,7 @@ migration-executor-test-global-storage-injective-criterion = { workspace = true 
 migration-executor-test-global-storage-includes-criterion = { workspace = true }
 migration-executor-test-global-storage-not-empty-criterion = { workspace = true }
 migration-executor-preludes = { workspace = true }
+migration-executor-test-types = { workspace = true }
 movement-syncing = { workspace = true }
 maptos-execution-util = { workspace = true }
 chrono = { workspace = true }

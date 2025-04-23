@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 use clap_markdown_ext::Markdown;
 pub mod migrate;
-// pub mod migrate_checked;
+pub mod migrate_checked;
 
 /// The `movement-to-aptos` CLI.
 #[derive(Parser)]

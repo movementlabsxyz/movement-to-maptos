@@ -39,6 +39,7 @@ impl DbSync {
 			region,
 		}
 	}
+
 	/// Create a new db sync instance for the mainnet
 	pub fn mainnet_debug() -> Self {
 		Self::debug(
