@@ -11,25 +11,30 @@ pub mod test {
 	};
 	use movement_syncing::db::DbSync;
 	use mtma_null_core::config::Config as MtmaNullConfig;
+	use sysinfo::Disks;
 
 	#[tokio::test]
 	#[tracing_test::traced_test]
 	async fn test_global_storage_includess_null() -> Result<(), anyhow::Error> {
-		// use sysinfo to check the available space
-		let sys = sysinfo::System::new_all();
+		let disks = Disks::new_with_refreshed_list();
 
-		// if the available memory is less than 1 TB, just go ahead and pass the test
-		// this is not a machine that would be able to run the test
-		if sys.available_memory() < 1_000_000_000_000 {
-			println!("device has less than 1 TB of available memory");
-			return Ok(());
+		let total_disk_space: u64 = disks.iter().map(|disk| disk.total_space()).sum();
+
+		let total_free_space: u64 = disks.iter().map(|disk| disk.available_space()).sum();
+
+		const REQUIRED_SPACE: u64 = 1_000_000_000_000; // 1 TB
+
+		if total_disk_space < REQUIRED_SPACE {
+			println!("Device has less than 1 TB of *total* disk space — skipping test (not a viable test platform).");
+			return Ok(()); // soft pass
 		}
 
-		// if the free memory is less than 1 TB, fail indicating not enough space
-		if sys.free_memory() < 1_000_000_000_000 {
-			println!("device has less than 1 TB of free memory");
-			return Err(anyhow::anyhow!("not enough space"));
+		if total_free_space < REQUIRED_SPACE {
+			println!("Device has enough total disk space, but less than 1 TB is free.");
+			return Err(anyhow::anyhow!("not enough free disk space"));
 		}
+
+		println!("Sufficient disk space available.");
 
 		// sync the db
 		let db_sync = DbSync::mainnet_debug();
