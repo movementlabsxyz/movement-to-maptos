@@ -28,6 +28,8 @@ impl Criterionish for GlobalStorageIncludes {
 			.latest_ledger_version()
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
+		debug!("movement_ledger_version: {:?}", movement_ledger_version);
+
 		// get the latest state view from the movement executor
 		let movement_state_view = movement_executor
 			.state_view_at_version(Some(movement_ledger_version))

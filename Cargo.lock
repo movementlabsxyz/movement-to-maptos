@@ -12436,6 +12436,7 @@ dependencies = [
  "maptos-opt-executor",
  "serde",
  "thiserror 1.0.69",
+ "tracing",
 ]
 
 [[package]]

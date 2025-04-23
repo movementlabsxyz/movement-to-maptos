@@ -7,6 +7,7 @@ use std::sync::Arc;
 
 pub use maptos_opt_executor;
 pub use maptos_opt_executor::aptos_types::{chain_id::ChainId, state_store::TStateView};
+use tracing::debug;
 /// The Movement executor as would be presented in the criterion.
 pub struct MovementExecutor {
 	/// The opt executor.
@@ -79,8 +80,11 @@ impl GlobalStateKeyIterable {
 			self.db_reader.get_write_set_iterator(self.version, MAX_WRITE_SET_SIZE)?;
 
 		// We want to iterate lazily over the write set iterator because there could be a lot of them.
-		let iter = write_set_iterator.flat_map(|res| match res {
+		let mut count = 0;
+		let iter = write_set_iterator.flat_map(move |res| match res {
 			Ok(write_set) => {
+				debug!("Iterating over write set {}", count);
+				count += 1;
 				// It should be okay to collect because there should not be that many state keys in a write set.
 				let items: Vec<_> = write_set.iter().map(|(key, _)| Ok(key.clone())).collect();
 				Either::Left(items.into_iter())
