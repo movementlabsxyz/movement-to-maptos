@@ -153,7 +153,6 @@ Run migratechecked with all parameters passed explicitly as CLI flags. See Orfil
 
 ###### **Options:**
 
-* `--path-to-state <PATH_TO_STATE>` — The path to the state to download
 * `--state <STATE>` — The state to download
 * `--state-source <STATE_SOURCE>` — The string identifying the download source if necessary
 
