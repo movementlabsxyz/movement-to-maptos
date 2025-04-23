@@ -14309,6 +14309,8 @@ dependencies = [
  "serde",
  "sysinfo 0.34.2",
  "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
 ]
 
 [[package]]
