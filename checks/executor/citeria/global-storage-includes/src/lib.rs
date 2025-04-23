@@ -4,6 +4,7 @@ use migration_executor_test_types::criterion::{
 	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
+use tracing::debug;
 pub struct GlobalStorageIncludes;
 
 impl GlobalStorageIncludes {
@@ -45,6 +46,8 @@ impl Criterionish for GlobalStorageIncludes {
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
 		for movement_state_key in movement_global_state_keys {
+			debug!("movement_state_key: {:?}", movement_state_key);
+
 			let movement_state_key =
 				movement_state_key.map_err(|e| CriterionError::Internal(e.into()))?;
 			let movement_state_key_bytes = movement_state_key.encoded();
