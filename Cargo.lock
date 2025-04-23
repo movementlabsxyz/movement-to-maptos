@@ -12394,6 +12394,7 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "migration-executor-test-types",
+ "tracing",
 ]
 
 [[package]]

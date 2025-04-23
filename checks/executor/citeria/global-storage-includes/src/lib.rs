@@ -88,9 +88,23 @@ impl Criterionish for GlobalStorageIncludes {
 					}
 				}
 				None => {
-					return Err(CriterionError::Internal(
-						"movement state value is unexpectedly None".into(),
-					));
+					debug!("Value from a previous version has been removed at the latest ledger version");
+
+					match maptos_state_view
+						.get_state_value(&movement_aptos_state_key)
+						.map_err(|e| CriterionError::Internal(e.into()))?
+					{
+						Some(_) => {
+							return Err(CriterionError::Unsatisfied(
+								format!(
+									"Movement Aptos is unexpectedly not missing a value for {:?}",
+									movement_state_key
+								)
+								.into(),
+							));
+						}
+						None => {}
+					}
 				}
 			}
 			count += 1;
