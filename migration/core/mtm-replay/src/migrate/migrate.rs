@@ -84,7 +84,7 @@ impl Migrationish for Migrate {
 				.unwrap_or_else(OnChainExecutionConfig::default_if_missing)
 				.block_executor_onchain_config();
 
-			aptos_executor.execute_and_update_state(block, start_version, end_version)?;
+			aptos_executor.execute_and_update_state(block, _, _)?;
 		}
 
 		Ok(MovementAptosExecutor::new(aptos_executor))
