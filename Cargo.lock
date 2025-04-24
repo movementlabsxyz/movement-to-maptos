@@ -14252,21 +14252,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "mtma-executor-util"
-version = "0.0.1"
-dependencies = [
- "anyhow",
- "clap 4.5.36",
- "clap-markdown-ext",
- "dotenv",
- "jemallocator",
- "mtma-core",
- "orfile",
- "serde",
- "tokio",
-]
-
-[[package]]
 name = "mtma-null-core"
 version = "0.0.1"
 dependencies = [
