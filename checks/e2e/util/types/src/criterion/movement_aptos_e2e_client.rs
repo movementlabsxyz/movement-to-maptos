@@ -1,6 +1,6 @@
 use crate::criterion::CriterionError;
 use aptos_rest_client::Client as MovementAptosRestClient;
-use aptos_sdk::types::LocalAccount;
+use aptos_sdk::types::{transaction::EntryFunction, LocalAccount};
 pub use aptos_sdk::*;
 /// The MovementAptos executor as would be presented in the criterion.
 #[derive(Debug)]
@@ -20,10 +20,20 @@ impl MovementAptosE2eClient {
 	}
 
 	/// Simulates a script function.
-	pub fn simulate_script_function(
+	pub fn simulate_script(
 		&self,
 		_signer: &mut LocalAccount,
 		_script_code: &[u8],
+		_arguments: Vec<Vec<u8>>,
+	) -> Result<(), CriterionError> {
+		unimplemented!()
+	}
+
+	/// Simulates an entry function.
+	pub fn simulate_entry_function(
+		&self,
+		_signer: &mut LocalAccount,
+		_entry_function: &EntryFunction,
 		_arguments: Vec<Vec<u8>>,
 	) -> Result<(), CriterionError> {
 		unimplemented!()

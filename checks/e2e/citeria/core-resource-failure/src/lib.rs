@@ -82,7 +82,7 @@ impl Criterionish for CoreResourceScriptForbidden {
 		let mut violations = vec![];
 
 		for bridge_script in bridge_scripts::BRIDGE_SCRIPTS {
-			let move_result = movement_client.simulate_script_function(
+			let move_result = movement_client.simulate_script(
 				self.movement_local_account_mut(),
 				bridge_script.code,
 				vec![],
@@ -91,7 +91,7 @@ impl Criterionish for CoreResourceScriptForbidden {
 				violations.push(format!("movement_client allowed {}", bridge_script.name));
 			}
 
-			let maptos_result = movement_aptos_client.simulate_script_function(
+			let maptos_result = movement_aptos_client.simulate_script(
 				self.aptos_local_account_mut(),
 				bridge_script.code,
 				vec![],

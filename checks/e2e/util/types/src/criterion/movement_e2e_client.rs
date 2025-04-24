@@ -1,6 +1,9 @@
 use crate::criterion::CriterionError;
 pub use movement_client::*;
-use movement_client::{rest_client::Client as MovementRestClient, types::LocalAccount};
+use movement_client::{
+	rest_client::Client as MovementRestClient,
+	types::{transaction::EntryFunction, LocalAccount},
+};
 
 /// The Movement executor as would be presented in the criterion.
 #[derive(Debug)]
@@ -22,10 +25,20 @@ impl MovementE2eClient {
 	}
 
 	/// Simulates a script function.
-	pub fn simulate_script_function(
+	pub fn simulate_script(
 		&self,
 		_signer: &mut LocalAccount,
 		_script_code: &[u8],
+		_arguments: Vec<Vec<u8>>,
+	) -> Result<(), CriterionError> {
+		unimplemented!()
+	}
+
+	/// Simulates an entry function.
+	pub fn simulate_entry_function(
+		&self,
+		_signer: &mut LocalAccount,
+		_entry_function: &EntryFunction,
 		_arguments: Vec<Vec<u8>>,
 	) -> Result<(), CriterionError> {
 		unimplemented!()
