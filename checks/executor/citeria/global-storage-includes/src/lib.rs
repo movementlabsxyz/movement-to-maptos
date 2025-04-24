@@ -5,9 +5,9 @@ use migration_executor_test_types::criterion::{
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
 use tracing::debug;
-pub struct GlobalStorageInjective;
+pub struct GlobalStorageIncludes;
 
-impl GlobalStorageInjective {
+impl GlobalStorageIncludes {
 	pub fn new() -> Self {
 		Self
 	}
@@ -17,7 +17,7 @@ impl GlobalStorageInjective {
 	}
 }
 
-impl Criterionish for GlobalStorageInjective {
+impl Criterionish for GlobalStorageIncludes {
 	fn satisfies(
 		&self,
 		movement_executor: &MovementExecutor,
@@ -27,6 +27,8 @@ impl Criterionish for GlobalStorageInjective {
 		let movement_ledger_version = movement_executor
 			.latest_ledger_version()
 			.map_err(|e| CriterionError::Internal(e.into()))?;
+
+		debug!("movement_ledger_version: {:?}", movement_ledger_version);
 
 		// get the latest state view from the movement executor
 		let movement_state_view = movement_executor
@@ -45,7 +47,10 @@ impl Criterionish for GlobalStorageInjective {
 			.iter()
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
+		let mut count = 0;
 		for movement_state_key in movement_global_state_keys {
+			debug!("processing movement_state_key {}: {:?}", count, movement_state_key);
+
 			let movement_state_key =
 				movement_state_key.map_err(|e| CriterionError::Internal(e.into()))?;
 			let movement_state_key_bytes = movement_state_key.encoded();
@@ -54,13 +59,13 @@ impl Criterionish for GlobalStorageInjective {
 					.map_err(|e| CriterionError::Internal(e.into()))?;
 
 			let movement_value = movement_state_view
-				.get_state_value(&movement_state_key)
+				.get_state_value_bytes(&movement_state_key)
 				.map_err(|e| CriterionError::Internal(e.into()))?;
 
 			match movement_value {
-				Some(_movement_value) => {
-					maptos_state_view
-						.get_state_value(&movement_aptos_state_key)
+				Some(movement_value) => {
+					let maptos_state_value = maptos_state_view
+						.get_state_value_bytes(&movement_aptos_state_key)
 						.map_err(|e| CriterionError::Internal(e.into()))?
 						.ok_or(CriterionError::Unsatisfied(
 							format!(
@@ -69,10 +74,22 @@ impl Criterionish for GlobalStorageInjective {
 							)
 							.into(),
 						))?;
+
+					if movement_value != maptos_state_value {
+						return Err(CriterionError::Unsatisfied(
+							format!(
+								"Movement state value for {:?} is {:?}, while Movement Aptos state value is {:?}",
+								movement_state_key,
+								movement_value,
+								maptos_state_value
+							)
+							.into(),
+						));
+					}
 				}
 				None => {
 					debug!("Value from a previous version has been removed at the latest ledger version");
-					// check that it None for the maptos state view as well
+
 					match maptos_state_view
 						.get_state_value(&movement_aptos_state_key)
 						.map_err(|e| CriterionError::Internal(e.into()))?
@@ -90,6 +107,7 @@ impl Criterionish for GlobalStorageInjective {
 					}
 				}
 			}
+			count += 1;
 		}
 
 		Ok(())

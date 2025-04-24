@@ -1,5 +1,5 @@
 [package]
-name = "migration-executor-test-global-storage-injective-criterion"
+name = "migration-executor-test-global-storage-includes-criterion"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -12,6 +12,7 @@ rust-version = { workspace = true }
 migration-executor-test-types = { workspace = true }
 anyhow = { workspace = true }
 tracing = { workspace = true }
+
 
 [lints]
 workspace = true
