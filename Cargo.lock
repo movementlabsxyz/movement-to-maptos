@@ -12322,6 +12322,7 @@ dependencies = [
 name = "migration-e2e-test-transacting-criterion"
 version = "0.0.1"
 dependencies = [
+ "bcs 0.1.4",
  "migration-e2e-test-types",
 ]
 
