@@ -12288,7 +12288,45 @@ dependencies = [
 ]
 
 [[package]]
+name = "migration-e2e-test-core-resource-failure-criterion"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "aptos-sdk 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "migration-e2e-test-types",
+]
+
+[[package]]
 name = "migration-e2e-test-empty-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-governance-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-matching-feature-flags-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-non-initializable-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-transacting-criterion"
 version = "0.0.1"
 dependencies = [
  "migration-executor-test-types",
@@ -12300,6 +12338,7 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "aptos-rest-client 0.0.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
+ "aptos-sdk 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=4e1871804307948d43002fc81d8ea723caeb5c31)",
  "hex",
  "movement-client",
  "serde",

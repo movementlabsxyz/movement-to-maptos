@@ -94,6 +94,7 @@ aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4
 aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
+aptos-sdk = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "4e1871804307948d43002fc81d8ea723caeb5c31" }
 
 # model checking and verification
 

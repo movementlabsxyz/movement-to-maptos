@@ -1,77 +1,117 @@
-use migration_executor_test_types::criterion::{
-    Criterion, CriterionError, Criterionish, MovementExecutor, MovementAptosExecutor,
+use migration_e2e_test_types::criterion::{
+	movement_aptos_e2e_client::types::LocalAccount as MovementAptosLocalAccount,
+	movement_e2e_client::types::LocalAccount as MovementLocalAccount, Criterion, CriterionError,
+	Criterionish, MovementAptosE2eClient, MovementE2eClient,
 };
-use aptos_types::transaction::ScriptFunction;
-use move_core_types::{language_storage::{ModuleId, TypeTag}, identifier::Identifier};
-use aptos_types::account_address::AccountAddress;
 
-pub struct CoreResourceScriptForbidden;
+pub mod bridge_scripts {
+	// Define a struct to hold script information
+	#[derive(Debug)]
+	pub struct BridgeScript {
+		pub code: &'static [u8],
+		pub name: &'static str,
+	}
 
-impl CoreResourceScriptForbidden {
-    pub fn new() -> Self {
-        Self
-    }
+	macro_rules! bridge_script {
+		($name:literal) => {
+			BridgeScript {
+				code: include_bytes!(concat!("include/bridge-scripts/", $name)),
+				name: $name,
+			}
+		};
+	}
 
-    pub fn criterion() -> Criterion<Self> {
-        Criterion::new(Self)
-    }
+	// Create a const array of script information
+	pub const BRIDGE_SCRIPTS: &[BridgeScript] = &[
+		bridge_script!("enable_bridge_feature.move"),
+		bridge_script!("store_mint_burn_caps.move"),
+		bridge_script!("update_bridge_fee.move"),
+		bridge_script!("update_bridge_relayer.move"),
+	];
 }
 
-// List of scripts from protocol-units/bridge/move-modules/scripts/
-fn bridge_scripts() -> Vec<(ModuleId, Identifier)> {
-    let module_addr = AccountAddress::from_hex_literal("0x1").unwrap(); // or @bridge if used
-    let module = Identifier::new("bridge_script").unwrap(); // You might need to adjust the module name
-    vec![
-        "enable_bridge_feature",
-        "store_mint_burn_caps",
-        "update_bridge_fee",
-        "update_bridge_relayer",
-    ]
-    .into_iter()
-    .map(|fn_name| {
-        (
-            ModuleId::new(module_addr, module.clone()),
-            Identifier::new(fn_name).unwrap(),
-        )
-    })
-    .collect()
+pub struct CoreResourceScriptForbidden {
+	/// The movement local account
+	///
+	/// TODO: we may want to switch this to the secure signing API if the account is sensitive.
+	movement_local_account: MovementLocalAccount,
+	/// The aptos local account
+	///
+	/// TODO: we may want to switch this to the secure signing API if the account is sensitive.
+	aptos_local_account: MovementAptosLocalAccount,
+}
+
+impl CoreResourceScriptForbidden {
+	pub fn new(
+		movement_local_account: MovementLocalAccount,
+		aptos_local_account: MovementAptosLocalAccount,
+	) -> Self {
+		Self { movement_local_account, aptos_local_account }
+	}
+
+	pub fn criterion(
+		movement_local_account: MovementLocalAccount,
+		aptos_local_account: MovementAptosLocalAccount,
+	) -> Criterion<Self> {
+		Criterion::new(Self { movement_local_account, aptos_local_account })
+	}
+
+	pub fn movement_local_account(&self) -> &MovementLocalAccount {
+		&self.movement_local_account
+	}
+
+	pub fn movement_local_account_mut(&mut self) -> &mut MovementLocalAccount {
+		&mut self.movement_local_account
+	}
+
+	pub fn aptos_local_account(&self) -> &MovementAptosLocalAccount {
+		&self.aptos_local_account
+	}
+
+	pub fn aptos_local_account_mut(&mut self) -> &mut MovementAptosLocalAccount {
+		&mut self.aptos_local_account
+	}
 }
 
 impl Criterionish for CoreResourceScriptForbidden {
-    fn satisfies(
-        &self,
-        movement_executor: &MovementExecutor,
-        maptos_executor: &MovementAptosExecutor,
-        _unused: &(),
-    ) -> Result<(), CriterionError> {
-        let mut violations = vec![];
-		let signer = maptos_executor.get_signer();
+	fn satisfies(
+		&mut self,
+		movement_client: &MovementE2eClient,
+		movement_aptos_client: &MovementAptosE2eClient,
+	) -> Result<(), CriterionError> {
+		let mut violations = vec![];
 
+		for bridge_script in bridge_scripts::BRIDGE_SCRIPTS {
+			let move_result = movement_client.simulate_script_function(
+				self.movement_local_account_mut(),
+				bridge_script.code,
+				vec![],
+			);
+			if move_result.is_ok() {
+				violations.push(format!("movement_client allowed {}", bridge_script.name));
+			}
 
-        for (module_id, function_name) in bridge_scripts() {
-            let script_fn = ScriptFunction::new(module_id.clone(), function_name.clone(), vec![], vec![]);
+			let maptos_result = movement_aptos_client.simulate_script_function(
+				self.aptos_local_account_mut(),
+				bridge_script.code,
+				vec![],
+			);
 
-            let move_result = movement_executor.simulate_script_function(&signer, &script_fn, vec![]);
-            if move_result.is_ok() {
-                violations.push(format!("movement_executor allowed {}::{}", module_id, function_name));
-            }
+			if maptos_result.is_ok() {
+				violations.push(format!("movement_aptos_client allowed {}", bridge_script.name));
+			}
+		}
 
-            let maptos_result = maptos_executor.simulate_script_function(&signer, &script_fn, vec![]);
-            if maptos_result.is_ok() {
-                violations.push(format!("maptos_executor allowed {}::{}", module_id, function_name));
-            }
-        }
+		if !violations.is_empty() {
+			return Err(CriterionError::Unsatisfied(
+				format!(
+					"Core resource scripts should not be executable by unauthorized signers:\n{}",
+					violations.join("\n")
+				)
+				.into(),
+			));
+		}
 
-        if !violations.is_empty() {
-            return Err(CriterionError::Unsatisfied(
-                format!(
-                    "Core resource scripts should not be executable by unauthorized signers:\n{}",
-                    violations.join("\n")
-                )
-                .into(),
-            ));
-        }
-
-        Ok(())
-    }
+		Ok(())
+	}
 }
