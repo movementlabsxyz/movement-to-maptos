@@ -72,11 +72,22 @@ impl Migrationish for Migrate {
 		let aptos_executor = MovementAptosBlockExecutor::new(db_rw);
 
 		// re-execute the blocks
-		for block in movement_executor.iter_blocks() {
-			aptos_executor.execute_and_update_state(block).await?;
+		for (start_version, end_version, block) in movement_executor.iter_blocks() {
+			let parent_block_id = aptos_executor.get_parent_block_id(start_version);
+
+			let state_view =
+				self.db.state_view_at_version(Some(ledger_info.version())).map_err(|e| {
+					E::internal_with_code(e, AptosErrorCode::InternalError, ledger_info)
+				})?;
+
+			let block_executor_onchain_config = OnChainExecutionConfig::fetch_config(&state_view)
+				.unwrap_or_else(OnChainExecutionConfig::default_if_missing)
+				.block_executor_onchain_config();
+
+			aptos_executor.execute_and_update_state(block, start_version, end_version)?;
 		}
 
-		Ok(aptos_executor)
+		Ok(MovementAptosExecutor::new(aptos_executor))
 	}
 }
 

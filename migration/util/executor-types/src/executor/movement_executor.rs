@@ -1,7 +1,9 @@
 use either::Either;
+use maptos_opt_executor::aptos_crypto::HashValue;
 use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
 use maptos_opt_executor::aptos_storage_interface::DbReader;
 use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
+use maptos_opt_executor::aptos_types::transaction::Version;
 use maptos_opt_executor::aptos_types::{
 	block_executor::partitioner::{ExecutableBlock, ExecutableTransactions},
 	transaction::signature_verified_transaction::into_signature_verified_block,
@@ -79,7 +81,7 @@ pub struct BlockIterator<'a> {
 }
 
 impl<'a> Iterator for BlockIterator<'a> {
-	type Item = Result<ExecutableBlock, anyhow::Error>;
+	type Item = Result<(Version, Version, ExecutableBlock), anyhow::Error>;
 
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.version > self.latest_version {
@@ -114,10 +116,9 @@ impl<'a> Iterator for BlockIterator<'a> {
 		);
 
 		self.version = end_version + 1;
-		Some(Ok(block))
+		Some(Ok((start_version, end_version, block)))
 	}
 }
-
 /// An iterable of [StateKey]s in the global storage dating back to an original version.
 ///
 /// This helps deal with lifetime issues.
