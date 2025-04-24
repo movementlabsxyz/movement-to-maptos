@@ -32,7 +32,7 @@ impl MovementE2eClient {
 	}
 
 	/// Checks if a feature is enabled.
-	pub fn check_feature_enabled(&self, feature_id: u64) -> Result<bool, CriterionError> {
+	pub fn check_feature_enabled(&self, _feature_id: u64) -> Result<bool, CriterionError> {
 		unimplemented!()
 	}
 }
