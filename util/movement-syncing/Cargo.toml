@@ -1,5 +1,5 @@
 [package]
-name = "migration-executor-test-global-storage-injective-criterion"
+name = "movement-syncing"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -9,9 +9,13 @@ publish = { workspace = true }
 rust-version = { workspace = true }
 
 [dependencies]
-migration-executor-test-types = { workspace = true }
+serde = { workspace = true }
 anyhow = { workspace = true }
-tracing = { workspace = true }
+hex = { workspace = true }
+syncador = { workspace = true }
+movement-types = { workspace = true }
+tempdir = { workspace = true }
+uuid = { workspace = true }
 
 [lints]
 workspace = true

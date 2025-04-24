@@ -1,5 +1,5 @@
 [package]
-name = "migration-executor-types"
+name = "migration-executor-preludes"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -19,7 +19,10 @@ aptos-types = { workspace = true }
 thiserror = { workspace = true }
 aptos-storage-interface = { workspace = true }
 either = { workspace = true }
-tracing = { workspace = true }
+migration-executor-types = { workspace = true }
+chrono = { workspace = true }
+migration-executor-test-types = { workspace = true }
+rand = { workspace = true }
 
 [lints]
 workspace = true

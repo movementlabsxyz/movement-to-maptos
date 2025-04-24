@@ -20,7 +20,7 @@ pub async fn checked_migration(
 	movement_executor: &mut MovementExecutor,
 	prelude: &Prelude,
 	migration: &impl Migrationish,
-	criteria: Vec<Box<dyn Criterionish>>,
+	criteria: Vec<Box<dyn Criterionish + Send + Sync>>,
 ) -> Result<(), CheckError> {
 	// Run the prelude
 	prelude

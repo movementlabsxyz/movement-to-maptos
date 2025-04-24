@@ -6,8 +6,10 @@ use migration_executor_types::executor::{
 };
 use migration_executor_types::migration::{MigrationError, Migrationish};
 
+use anyhow::Context;
 use std::fs;
 use std::path::Path;
+use tracing::info;
 use walkdir::WalkDir;
 
 /// Copies a directory recursively.
@@ -51,7 +53,8 @@ impl Migrationish for Migrate {
 			.chain
 			.maptos_db_path
 			.as_ref()
-			.ok_or(MigrationError::Internal("No db path provided.".into()))?;
+			.context("no db path provided.")
+			.map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// copy all the contents of the db to a timestamp suffixed subdir of .debug
 		let unique_id = uuid::Uuid::new_v4();
@@ -61,11 +64,15 @@ impl Migrationish for Migrate {
 			timestamp,
 			unique_id.to_string().split('-').next().unwrap()
 		));
+
+		info!("Copying db to {}", db_dir.display());
 		let src = Path::new(old_db_dir);
-		let dst = db_dir.join("db");
-		copy_dir_recursive(src, &dst).map_err(|e| MigrationError::Internal(e.into()))?;
+		copy_dir_recursive(src, &db_dir)
+			.context("failed to copy db")
+			.map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// Open the aptos db.
+		info!("Opening aptos db");
 		let aptos_db = AptosDB::open(
 			StorageDirPaths::from_path(db_dir.clone()),
 			false,
@@ -80,6 +87,7 @@ impl Migrationish for Migrate {
 				.max_num_nodes_per_lru_cache_shard,
 			None,
 		)
+		.context("failed to open aptos db")
 		.map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// form the db reader writer
