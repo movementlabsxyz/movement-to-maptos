@@ -4,6 +4,7 @@ use migration_executor_test_types::criterion::{
 	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
+use tracing::debug;
 pub struct GlobalStorageInjective;
 
 impl GlobalStorageInjective {
@@ -70,13 +71,23 @@ impl Criterionish for GlobalStorageInjective {
 						))?;
 				}
 				None => {
-					return Err(CriterionError::Internal(
-						format!(
-							"Movement state value for {:?} is unexpectedly None",
-							movement_state_key
-						)
-						.into(),
-					));
+					debug!("Value from a previous version has been removed at the latest ledger version");
+					// check that it None for the maptos state view as well
+					match maptos_state_view
+						.get_state_value(&movement_aptos_state_key)
+						.map_err(|e| CriterionError::Internal(e.into()))?
+					{
+						Some(_) => {
+							return Err(CriterionError::Unsatisfied(
+								format!(
+									"Movement Aptos is unexpectedly not missing a value for {:?}",
+									movement_state_key
+								)
+								.into(),
+							));
+						}
+						None => {}
+					}
 				}
 			}
 		}

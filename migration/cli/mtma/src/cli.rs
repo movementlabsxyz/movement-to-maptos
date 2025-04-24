@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 use clap_markdown_ext::Markdown;
 pub mod migrate;
+pub mod migrate_checked;
 
 /// The `movement-to-aptos` CLI.
 #[derive(Parser)]
@@ -13,13 +14,16 @@ pub struct MovementToMovementAptos {
 /// The subcommands of the `movement-to-aptos` CLI.
 #[derive(Subcommand)]
 #[clap(rename_all = "kebab-case")]
-#[clap(after_help = concat!("KEEP THIS UNTIL PRODUCTION-READY : Defined in: ", file!()))]
 pub enum MovementToMovementAptosSubcommand {
 	/// Generates markdown for the CLI.
 	#[clap(subcommand)]
 	Markdown(Markdown),
 	/// Migrate from Movement to MovementAptos.
-	Migrate(migrate::Migrate),
+	#[clap(subcommand)]
+	Migrate(migrate::or_file::Migrate),
+	/// Migrate from Movement to MovementAptos with checks.
+	#[clap(subcommand)]
+	MigrateChecked(migrate_checked::or_file::MigrateChecked),
 }
 
 /// Implement the `From` trait for `MovementToMovementAptos` to convert it into a `MovementToMovementAptosSubcommand`.
@@ -48,6 +52,9 @@ impl MovementToMovementAptosSubcommand {
 				markdown.execute::<MovementToMovementAptos>().await?;
 			}
 			MovementToMovementAptosSubcommand::Migrate(migrate) => migrate.execute().await?,
+			MovementToMovementAptosSubcommand::MigrateChecked(migrate_checked) => {
+				migrate_checked.execute().await?
+			}
 		}
 		Ok(())
 	}

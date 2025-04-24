@@ -1,5 +1,5 @@
 [package]
-name = "mtma"
+name = "migration-executor-checks-mainnet"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
@@ -9,29 +9,24 @@ publish = { workspace = true }
 rust-version = { workspace = true }
 
 [dependencies]
-tokio = { workspace = true }
-serde = { workspace = true, features = ["derive"] }
-clap = { workspace = true, features = ["derive"] }
-dotenv = { workspace = true }
+migration-executor-test-types = { workspace = true }
 anyhow = { workspace = true }
-clap-markdown-ext = { workspace = true }
-orfile = { workspace = true }
-mtma-core = { workspace = true }
-jemallocator = { workspace = true }
 mtma-null-core = { workspace = true }
 migration-executor-test-global-storage-injective-criterion = { workspace = true }
 migration-executor-test-global-storage-includes-criterion = { workspace = true }
 migration-executor-test-global-storage-not-empty-criterion = { workspace = true }
 migration-executor-preludes = { workspace = true }
-migration-executor-test-types = { workspace = true }
 movement-syncing = { workspace = true }
 maptos-execution-util = { workspace = true }
+tokio = { workspace = true }
 chrono = { workspace = true }
 rand = { workspace = true }
 futures = { workspace = true }
 sysinfo = { workspace = true }
+
+[dev-dependencies]
+tracing-test = { workspace = true }
 tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
 
 [lints]
 workspace = true

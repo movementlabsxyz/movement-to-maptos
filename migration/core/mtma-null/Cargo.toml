@@ -26,5 +26,6 @@ aptos-vm = { workspace = true }
 chrono = { workspace = true }
 walkdir = { workspace = true }
 uuid = { workspace = true }
+tracing = { workspace = true }
 [lints]
 workspace = true
