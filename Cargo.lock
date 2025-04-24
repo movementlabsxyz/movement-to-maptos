@@ -12308,7 +12308,7 @@ dependencies = [
 name = "migration-e2e-test-matching-feature-flags-criterion"
 version = "0.0.1"
 dependencies = [
- "migration-executor-test-types",
+ "migration-e2e-test-types",
 ]
 
 [[package]]

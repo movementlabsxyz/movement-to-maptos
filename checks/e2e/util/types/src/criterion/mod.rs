@@ -8,6 +8,8 @@ pub use movement_e2e_client::MovementE2eClient;
 pub enum CriterionError {
 	#[error("failed to build from config: {0}")]
 	Unsatisfied(#[source] Box<dyn std::error::Error + Send + Sync>),
+	#[error("encountered an error while checking the criterion: {0}")]
+	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
 pub trait Criterionish {
