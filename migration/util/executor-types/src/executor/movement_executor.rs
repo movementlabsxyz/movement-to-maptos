@@ -1,5 +1,4 @@
 use either::Either;
-use maptos_opt_executor::aptos_crypto::HashValue;
 use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
 use maptos_opt_executor::aptos_storage_interface::DbReader;
 use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
@@ -7,10 +6,12 @@ use maptos_opt_executor::aptos_types::transaction::Version;
 use maptos_opt_executor::aptos_types::{
 	block_executor::partitioner::{ExecutableBlock, ExecutableTransactions},
 	transaction::signature_verified_transaction::into_signature_verified_block,
+	transaction::Transaction,
 };
 pub use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
+use anyhow::Context;
 pub use maptos_opt_executor;
 pub use maptos_opt_executor::aptos_types::{chain_id::ChainId, state_store::TStateView};
 use tracing::debug;
@@ -46,7 +47,8 @@ impl MovementExecutor {
 	pub fn latest_ledger_version(&self) -> Result<u64, anyhow::Error> {
 		let db_reader = self.opt_executor().db_reader();
 
-		let latest_ledger_info = db_reader.get_latest_ledger_info()?;
+		let latest_ledger_info =
+			db_reader.get_latest_ledger_info().context("failed to get latest ledger info")?;
 
 		Ok(latest_ledger_info.ledger_info().version())
 	}
@@ -71,6 +73,15 @@ impl MovementExecutor {
 	pub fn iter_blocks(&self) -> Result<BlockIterator<'_>, anyhow::Error> {
 		let latest_version = self.latest_ledger_version()?;
 		Ok(BlockIterator { executor: self, version: 0, latest_version })
+	}
+
+	/// Gets the genesis transaction.
+	pub fn genesis_transaction(&self) -> Result<Transaction, anyhow::Error> {
+		// get genesis transaction from db
+		let db_reader = self.opt_executor().db_reader();
+		let genesis_transaction =
+			db_reader.get_transaction_by_version(0, self.latest_ledger_version()?, false)?;
+		Ok(genesis_transaction.transaction)
 	}
 }
 

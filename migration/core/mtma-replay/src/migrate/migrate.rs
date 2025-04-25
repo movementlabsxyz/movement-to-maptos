@@ -1,11 +1,16 @@
 use aptos_config::config::StorageDirPaths;
 use aptos_crypto::HashValue;
 use aptos_db::AptosDB;
+use aptos_executor::db_bootstrapper::generate_waypoint;
+use aptos_executor::db_bootstrapper::maybe_bootstrap;
 use aptos_executor_types::BlockExecutorTrait;
 use aptos_storage_interface::DbReaderWriter;
 use aptos_types::on_chain_config::{OnChainConfig, OnChainExecutionConfig};
+use aptos_types::transaction::Transaction;
+use aptos_vm::AptosVM;
 use migration_executor_types::executor::{
-	movement_aptos_executor::MovementAptosBlockExecutor, MovementAptosExecutor, MovementExecutor,
+	movement_aptos_executor::{AptosVMBlockExecutor, MovementAptosBlockExecutor},
+	MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_types::{
 	executor::{
@@ -93,18 +98,42 @@ impl Migrationish for Migrate {
 		let db_rw = DbReaderWriter::new(aptos_db);
 
 		// form the executor
-		let aptos_executor = MovementAptosBlockExecutor::new(db_rw);
+		let aptos_executor = MovementAptosBlockExecutor::new(db_rw.clone());
+
+		// add the genesis transaction from the movement db to the aptos db
+		let movement_genesis_txn = movement_executor.genesis_transaction().map_err(|e| {
+			MigrationError::Internal(format!("failed to get genesis transaction: {}", e).into())
+		})?;
+		let aptos_genesis_transaction: Transaction =
+			bcs::from_bytes(&bcs::to_bytes(&movement_genesis_txn).map_err(|e| {
+				MigrationError::Internal(
+					format!("failed to serialize genesis transaction: {}", e).into(),
+				)
+			})?)
+			.map_err(|e| {
+				MigrationError::Internal(
+					format!("failed to deserialize genesis transaction: {}", e).into(),
+				)
+			})?;
+
+		let waypoint =
+			generate_waypoint::<AptosVMBlockExecutor>(&db_rw, &aptos_genesis_transaction)
+				.map_err(|e| MigrationError::Internal(e.into()))?;
+		maybe_bootstrap::<AptosVMBlockExecutor>(&db_rw, &aptos_genesis_transaction, waypoint)
+			.map_err(|e| MigrationError::Internal(e.into()))?;
 
 		// re-execute the blocks
-		for res in movement_executor
-			.iter_blocks()
-			.map_err(|e| MigrationError::Internal(e.into()))?
-		{
-			let (start_version, _end_version, block) =
-				res.map_err(|e| MigrationError::Internal(e.into()))?;
+		for res in movement_executor.iter_blocks().map_err(|e| {
+			MigrationError::Internal(format!("failed to iterate over blocks: {}", e).into())
+		})? {
+			let (start_version, _end_version, block) = res
+				.context("failed to get block while iterating over blocks")
+				.map_err(|e| MigrationError::Internal(e.into()))?;
 
 			let db_reader = aptos_executor.db.clone().reader;
 
+			// todo: this should fail a little bit differently; really we only want to use the genesis version and parent block on the first go round.
+			// We'll add a flag variable to support this shortly.
 			let latest_version = db_reader
 				.get_latest_ledger_info_version()
 				.map_err(|e| MigrationError::Internal(e.into()))?;
@@ -132,6 +161,7 @@ impl Migrationish for Migrate {
 					parent_block_id,
 					block_executor_onchain_config,
 				)
+				.context("failed to execute and update state")
 				.map_err(|e| MigrationError::Internal(e.into()))?;
 		}
 

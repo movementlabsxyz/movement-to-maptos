@@ -135,6 +135,7 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 ### core
 mtma-core = { path = "migration/core/mtma" }
 mtma-null-core = { path = "migration/core/mtma-null" }
+mtma-replay-core = { path = "migration/core/mtma-replay" }
 
 ### preludes
 migration-executor-preludes = { path = "checks/executor/preludes" }
