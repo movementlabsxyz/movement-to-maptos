@@ -28,5 +28,9 @@ walkdir = { workspace = true }
 uuid = { workspace = true }
 tracing = { workspace = true }
 aptos-executor-types = { workspace = true }
+aptos-types = { workspace = true }
+aptos-crypto = { workspace = true }
+bcs = { workspace = true }
+
 [lints]
 workspace = true
