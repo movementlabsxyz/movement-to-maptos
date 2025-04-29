@@ -2,6 +2,7 @@ pub mod movement_aptos_e2e_client;
 pub mod movement_e2e_client;
 pub use movement_aptos_e2e_client::MovementAptosE2eClient;
 pub use movement_e2e_client::MovementE2eClient;
+use std::future::Future;
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
@@ -18,7 +19,7 @@ pub trait Criterionish {
 		&mut self,
 		movement_e2e_client: &MovementE2eClient,
 		movement_aptos_e2e_client: &MovementAptosE2eClient,
-	) -> Result<(), CriterionError>;
+	) -> impl Future<Output = Result<(), CriterionError>>;
 }
 
 /// The criterion type simply
@@ -35,11 +36,11 @@ where
 	}
 
 	/// Whether the criterion is satisfied by the given movement and movement_aptos executors.
-	pub fn satisfies(
+	pub async fn satisfies(
 		&mut self,
 		movement_e2e_client: &MovementE2eClient,
 		movement_aptos_e2e_client: &MovementAptosE2eClient,
 	) -> Result<(), CriterionError> {
-		self.0.satisfies(movement_e2e_client, movement_aptos_e2e_client)
+		self.0.satisfies(movement_e2e_client, movement_aptos_e2e_client).await
 	}
 }
