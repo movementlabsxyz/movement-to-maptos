@@ -1,5 +1,5 @@
 [package]
-name = "migration-e2e-test-account-equals-criterion"
+name = "migration-e2e-test-accounts-equal-criterion"
 version = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }

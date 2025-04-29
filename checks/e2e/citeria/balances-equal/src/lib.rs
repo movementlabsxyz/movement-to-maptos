@@ -1,6 +1,5 @@
 use bcs_ext::{comparison::BcsEq, conversion::BcsInto};
 use migration_e2e_test_types::criterion::{
-	movement_aptos_e2e_client::move_types::account_address::AccountAddress,
 	movement_aptos_e2e_client::types::LocalAccount as MovementAptosLocalAccount,
 	movement_e2e_client::types::LocalAccount as MovementLocalAccount, Criterion, CriterionError,
 	Criterionish, MovementAptosE2eClient, MovementE2eClient,
@@ -58,7 +57,7 @@ impl Criterionish for MaptosTransferLifecycle {
 		for account_address in movement_e2e_client.iter_accounts()? {
 			let movement_resource = movement_e2e_client
 				.rest_client()
-				.get_account_bcs(account_address)
+				.get_account_balance(account_address)
 				.await
 				.map_err(|e| {
 					CriterionError::Internal(format!("failed to get account: {:?}", e).into())
@@ -70,7 +69,7 @@ impl Criterionish for MaptosTransferLifecycle {
 
 			let aptos_resource = movement_aptos_e2e_client
 				.rest_client()
-				.get_account_bcs(movement_aptos_account_address)
+				.get_account_balance(movement_aptos_account_address, &"0x1::aptos_coin::AptosCoin")
 				.await
 				.map_err(|e| {
 					CriterionError::Internal(format!("Failed to get account: {:?}", e).into())

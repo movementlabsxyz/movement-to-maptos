@@ -12303,7 +12303,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-e2e-test-account-equals-criterion"
+name = "migration-e2e-test-accounts-equal-criterion"
+version = "0.0.1"
+dependencies = [
+ "bcs 0.1.4",
+ "bcs-ext",
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-balances-equal-criterion"
 version = "0.0.1"
 dependencies = [
  "bcs 0.1.4",
