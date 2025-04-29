@@ -12294,6 +12294,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "migration-e2e-test-accounts-equal-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-executor-test-types",
+]
+
+[[package]]
 name = "migration-e2e-test-empty-criterion"
 version = "0.0.1"
 dependencies = [
