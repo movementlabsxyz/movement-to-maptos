@@ -1,11 +1,9 @@
-use migration_e2e_test_types::{
-	bcs_eq, bcs_into,
-	criterion::{
-		movement_aptos_e2e_client::move_types::account_address::AccountAddress,
-		movement_aptos_e2e_client::types::LocalAccount as MovementAptosLocalAccount,
-		movement_e2e_client::types::LocalAccount as MovementLocalAccount, Criterion,
-		CriterionError, Criterionish, MovementAptosE2eClient, MovementE2eClient,
-	},
+use bcs_ext::{comparison::BcsEq, conversion::BcsInto};
+use migration_e2e_test_types::criterion::{
+	movement_aptos_e2e_client::move_types::account_address::AccountAddress,
+	movement_aptos_e2e_client::types::LocalAccount as MovementAptosLocalAccount,
+	movement_e2e_client::types::LocalAccount as MovementLocalAccount, Criterion, CriterionError,
+	Criterionish, MovementAptosE2eClient, MovementE2eClient,
 };
 
 pub struct MaptosTransferLifecycle {
@@ -67,8 +65,8 @@ impl Criterionish for MaptosTransferLifecycle {
 				})?
 				.into_inner();
 
-			let movement_aptos_account_address = bcs_into!(&account_address, AccountAddress)
-				.map_err(|e| CriterionError::Internal(e.into()))?;
+			let movement_aptos_account_address =
+				account_address.bcs_into().map_err(|e| CriterionError::Internal(e.into()))?;
 
 			let aptos_resource = movement_aptos_e2e_client
 				.rest_client()
@@ -79,7 +77,8 @@ impl Criterionish for MaptosTransferLifecycle {
 				})?
 				.into_inner();
 
-			bcs_eq!(&movement_resource, &aptos_resource)
+			movement_resource
+				.bcs_eq(&aptos_resource)
 				.map_err(|e| CriterionError::Unsatisfied(e.into()))?;
 		}
 

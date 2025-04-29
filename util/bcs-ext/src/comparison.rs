@@ -1,3 +1,6 @@
+use bcs;
+use serde::Serialize;
+
 /// Errors thrown when trying to compare BCS types.
 #[derive(Debug, thiserror::Error)]
 pub enum BcsSerializationComparisonError {
@@ -7,15 +10,21 @@ pub enum BcsSerializationComparisonError {
 	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
-/// A macro that compares BCS types by serializing them and comparing the bytes.
-#[macro_export]
-macro_rules! bcs_eq {
-	($a:expr, $b:expr) => {{
-		use bcs;
-		let a_bytes = bcs::to_bytes($a)
+/// A trait for comparing types using BCS serialization.
+pub trait BcsEq<Rhs = Self> {
+	fn bcs_eq(&self, other: &Rhs) -> Result<bool, BcsSerializationComparisonError>;
+}
+
+impl<T, U> BcsEq<U> for T
+where
+	T: Serialize,
+	U: Serialize,
+{
+	fn bcs_eq(&self, other: &U) -> Result<bool, BcsSerializationComparisonError> {
+		let self_bytes = bcs::to_bytes(self)
 			.map_err(|e| BcsSerializationComparisonError::Comparison(e.into()))?;
-		let b_bytes = bcs::to_bytes($b)
+		let other_bytes = bcs::to_bytes(other)
 			.map_err(|e| BcsSerializationComparisonError::Comparison(e.into()))?;
-		Ok(a_bytes == b_bytes)
-	}};
+		Ok(self_bytes == other_bytes)
+	}
 }
