@@ -7,7 +7,6 @@ use aptos_executor_types::BlockExecutorTrait;
 use aptos_storage_interface::DbReaderWriter;
 use aptos_types::on_chain_config::{OnChainConfig, OnChainExecutionConfig};
 use aptos_types::transaction::Transaction;
-use aptos_vm::AptosVM;
 use migration_executor_types::executor::{
 	movement_aptos_executor::{AptosVMBlockExecutor, MovementAptosBlockExecutor},
 	MovementAptosExecutor, MovementExecutor,
