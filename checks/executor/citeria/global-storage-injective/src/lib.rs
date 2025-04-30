@@ -4,6 +4,7 @@ use migration_executor_test_types::criterion::{
 	Criterion, CriterionError, Criterionish, MovementAptosExecutor, MovementExecutor,
 };
 use migration_executor_test_types::criterion::movement_aptos_executor::aptos_types::state_store::state_key::StateKey as MovementAptosStateKey;
+use tracing::debug;
 pub struct GlobalStorageInjective;
 
 impl GlobalStorageInjective {
@@ -22,19 +23,24 @@ impl Criterionish for GlobalStorageInjective {
 		movement_executor: &MovementExecutor,
 		maptos_executor: &MovementAptosExecutor,
 	) -> Result<(), CriterionError> {
+		// get the latest ledger version from the movement executor
+		let movement_ledger_version = movement_executor
+			.latest_ledger_version()
+			.map_err(|e| CriterionError::Internal(e.into()))?;
+
 		// get the latest state view from the movement executor
 		let movement_state_view = movement_executor
-			.state_view_at_version(None)
+			.state_view_at_version(Some(movement_ledger_version))
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
 		// get the latest state view from the maptos executor
 		let maptos_state_view = maptos_executor
-			.state_view_at_version(None)
+			.state_view_at_version(Some(movement_ledger_version))
 			.map_err(|e| CriterionError::Internal(e.into()))?;
 
 		// the movement state view is the domain, so the maptos state view is the codomain
 		let movement_global_state_keys_iterator =
-			movement_executor.global_state_keys_at_version(None);
+			movement_executor.global_state_keys_from_version(None);
 		let movement_global_state_keys = movement_global_state_keys_iterator
 			.iter()
 			.map_err(|e| CriterionError::Internal(e.into()))?;
@@ -65,9 +71,23 @@ impl Criterionish for GlobalStorageInjective {
 						))?;
 				}
 				None => {
-					return Err(CriterionError::Internal(
-						"movement state value is unexpectedly None".into(),
-					));
+					debug!("Value from a previous version has been removed at the latest ledger version");
+					// check that it None for the maptos state view as well
+					match maptos_state_view
+						.get_state_value(&movement_aptos_state_key)
+						.map_err(|e| CriterionError::Internal(e.into()))?
+					{
+						Some(_) => {
+							return Err(CriterionError::Unsatisfied(
+								format!(
+									"Movement Aptos is unexpectedly not missing a value for {:?}",
+									movement_state_key
+								)
+								.into(),
+							));
+						}
+						None => {}
+					}
 				}
 			}
 		}

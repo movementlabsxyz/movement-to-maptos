@@ -2,7 +2,7 @@ use crate::criterion::CriterionError;
 pub use movement_client::*;
 use movement_client::{
 	rest_client::Client as MovementRestClient,
-	types::{transaction::EntryFunction, LocalAccount},
+	types::{account_address::AccountAddress, transaction::EntryFunction, LocalAccount},
 };
 
 /// The Movement executor as would be presented in the criterion.
@@ -47,5 +47,12 @@ impl MovementE2eClient {
 	/// Checks if a feature is enabled.
 	pub fn check_feature_enabled(&self, _feature_id: u64) -> Result<bool, CriterionError> {
 		unimplemented!()
+	}
+
+	/// Iterates over all accounts in the chain.
+	pub fn iter_accounts(&self) -> Result<impl Iterator<Item = AccountAddress>, CriterionError> {
+		// There isn't a good way to get all accounts by querying the REST client since FA.
+		// So, instead we will just delegate this to some to be implemented solution.
+		Ok(vec![].into_iter())
 	}
 }

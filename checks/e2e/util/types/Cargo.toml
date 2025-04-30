@@ -16,6 +16,7 @@ movement-client = { workspace = true }
 aptos-rest-client = { workspace = true }
 aptos-sdk = { workspace = true }
 thiserror = { workspace = true }
+bcs = { workspace = true }
 
 [lints]
 workspace = true

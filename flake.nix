@@ -5,8 +5,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     foundry.url = "github:shazow/foundry.nix/72db7ea069f055d5c7856aca091179a070201931"; 
     crane.url = "github:ipetkov/crane";
-    crane.inputs.nixpkgs.follows = "nixpkgs";
-    
   };
 
   outputs = { nixpkgs, rust-overlay, flake-utils, foundry, crane, ... }:
@@ -104,7 +102,8 @@
               #!/usr/bin/env ${pkgs.bash}
 
               # Export linker flags if on Darwin (macOS)
-              if [[ "$(${pkgs.stdenv.hostPlatform.system})" =~ "darwin" ]]; then
+              if [[ "${pkgs.stdenv.hostPlatform.system}" =~ "darwin" ]]; then
+                export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion)
                 export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
                 export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
               fi
