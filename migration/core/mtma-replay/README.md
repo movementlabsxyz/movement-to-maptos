@@ -1,2 +1,2 @@
-# `mtma-null`
-A "null" migration that does nothing but for the Movement Aptos Executor Struct from the Movement Struct. 
+# `mtma-replay`
+A migration that occurs by replaying all blocks on `MovementExecutor` on the `MovementAptosExecutor`. 
