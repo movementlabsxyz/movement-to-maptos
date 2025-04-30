@@ -5,6 +5,7 @@ use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
 pub use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
+use anyhow::Context;
 pub use maptos_opt_executor;
 pub use maptos_opt_executor::aptos_types::{chain_id::ChainId, state_store::TStateView};
 use tracing::debug;
@@ -40,7 +41,8 @@ impl MovementExecutor {
 	pub fn latest_ledger_version(&self) -> Result<u64, anyhow::Error> {
 		let db_reader = self.opt_executor().db_reader();
 
-		let latest_ledger_info = db_reader.get_latest_ledger_info()?;
+		let latest_ledger_info =
+			db_reader.get_latest_ledger_info().context("failed to get latest ledger info")?;
 
 		Ok(latest_ledger_info.ledger_info().version())
 	}

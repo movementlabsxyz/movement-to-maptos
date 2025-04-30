@@ -4,7 +4,7 @@ use aptos_storage_interface::{
 	DbReader,
 };
 use aptos_types::state_store::state_key::StateKey;
-use aptos_vm::aptos_vm::AptosVMBlockExecutor;
+pub use aptos_vm::aptos_vm::AptosVMBlockExecutor;
 use either::Either;
 use std::sync::Arc;
 
