@@ -15246,7 +15246,7 @@ dependencies = [
 [[package]]
 name = "orfile"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "anyhow",
  "orfile-macro",
@@ -15257,7 +15257,7 @@ dependencies = [
 [[package]]
 name = "orfile-macro"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "proc-macro-error",
  "proc-macro2",
@@ -15268,7 +15268,7 @@ dependencies = [
 [[package]]
 name = "orfile-util"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "serde",
  "serde_json",

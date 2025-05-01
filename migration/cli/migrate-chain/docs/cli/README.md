@@ -124,7 +124,7 @@ Run migrate with parameters from environment variables, config files, and CLI fl
 
 ###### **Options:**
 
-* `--config-path <CONFIG_PATH>`
+* `--config-path <CONFIG_PATH>` — Path to the config file for migrate
 
 
 

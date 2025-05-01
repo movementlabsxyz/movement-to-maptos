@@ -20,11 +20,11 @@ pub enum MtmaDevSubcommand {
 	#[clap(subcommand)]
 	Markdown(Markdown),
 	/// Check the state for given migration criteria.
-	// #[clap(subcommand)]
-	// Check(check::Check),
+	#[clap(subcommand)]
+	Check(check::Check),
 	/// Migrate from Movement to MovementAptos.
-	// #[clap(subcommand)]
-	// Migrate(migrate::Migrate),
+	#[clap(subcommand)]
+	Migrate(migrate::Migrate),
 	/// Track the state of the node for real-time comparison.
 	#[clap(subcommand)]
 	Track(track::Track),
@@ -53,8 +53,8 @@ impl MtmaDevSubcommand {
 			MtmaDevSubcommand::Markdown(markdown) => {
 				markdown.execute::<MtmaDev>().await?;
 			}
-			// MtmaDevSubcommand::Check(check) => check.execute().await?,
-			// MtmaDevSubcommand::Migrate(migrate) => migrate.execute().await?,
+			MtmaDevSubcommand::Check(check) => check.execute().await?,
+			MtmaDevSubcommand::Migrate(migrate) => migrate.execute().await?,
 			MtmaDevSubcommand::Track(track) => track.execute().await?,
 		}
 		Ok(())

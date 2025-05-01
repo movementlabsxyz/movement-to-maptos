@@ -211,7 +211,7 @@ Run migratechecked with parameters from environment variables, config files, and
 
 ###### **Options:**
 
-* `--config-path <CONFIG_PATH>`
+* `--config-path <CONFIG_PATH>` — Path to the config file for migratechecked
 * `--state <STATE>` — The state to download
 * `--state-source <STATE_SOURCE>` — The string identifying the download source if necessary
 
