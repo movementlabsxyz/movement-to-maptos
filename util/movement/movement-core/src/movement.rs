@@ -17,7 +17,7 @@ pub enum Overlay {
 	Eth(Eth),
 	/// The test migration overlay is used to run and check the migration to the L1 pre-merge chain.
 	/// TODO: in this repo, we may want to remove this from the runner and place it actual embeeded code under the -core lib for https://github.com/movementlabsxyz/movement-migration/issues/61
-	TestMigrateBiarritzRc1ToL1PreMerge,
+	TestMigrateBiarritzRc1ToPreL1Merge,
 }
 
 impl Overlay {
