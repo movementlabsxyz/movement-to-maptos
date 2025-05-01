@@ -26,7 +26,7 @@ pub struct Config {
 	/// Which ethereum network to use.
 	#[clap(long)]
 	pub eth: Eth,
-	/// Whether to use the BiarritizRc1ToL1PreMerge overlay.
+	/// Whether to use the BiarritizRc1ToPreL1Merge overlay.
 	#[clap(long)]
 	pub biarritz_rc1_to_pre_l1_merge: bool,
 }
