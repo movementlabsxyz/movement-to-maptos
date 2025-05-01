@@ -1,14 +1,17 @@
 use clap::Parser;
+use mtma_check::cli::MtmaCheckSubcommand;
+use mtma_check_dev::cli::MtmaCheckDevSubcommand;
 
-#[derive(Parser, Debug, Clone)]
+/// Checks the node and the chain.
+#[derive(Parser)]
 #[clap(help_expected = true)]
 pub enum Check {
 	/// Runs the null migration.
 	#[clap(subcommand)]
-	Dev(dev::or_file::Dev),
+	Dev(MtmaCheckDevSubcommand),
 	/// Runs the replay migration.
 	#[clap(subcommand)]
-	Prod(prod::or_file::Prod),
+	Prod(MtmaCheckSubcommand),
 }
 
 impl Check {

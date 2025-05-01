@@ -1,14 +1,17 @@
 use clap::Parser;
+use mtma_migrate::cli::MtmaMigrateSubcommand;
+use mtma_migrate_dev::cli::MtmaMigrateDevSubcommand;
 
-#[derive(Parser, Debug, Clone)]
+/// Migrates the node and the chain.
+#[derive(Parser)]
 #[clap(help_expected = true)]
 pub enum Migrate {
 	/// Runs the null migration.
 	#[clap(subcommand)]
-	Dev(dev::or_file::Dev),
+	Dev(MtmaMigrateDevSubcommand),
 	/// Runs the replay migration.
 	#[clap(subcommand)]
-	Prod(prod::or_file::Prod),
+	Prod(MtmaMigrateSubcommand),
 }
 
 impl Migrate {

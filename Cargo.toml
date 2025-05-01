@@ -128,6 +128,19 @@ clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ex
 
 # internal
 ## migration
+### cli
+mtma = { path = "migration/cli/mtma" }
+mtma-dev = { path = "migration/cli/mtma-dev" }
+mtma-check = { path = "migration/cli/check" }
+mtma-check-dev = { path = "migration/cli/check-dev" }
+mtma-migrate = { path = "migration/cli/migrate" }
+mtma-migrate-dev = { path = "migration/cli/migrate-dev" }
+mtma-migrate-chain = { path = "migration/cli/migrate-chain" }
+mtma-migrate-chain-dev = { path = "migration/cli/migrate-chain-dev" }
+mtma-migrate-node = { path = "migration/cli/migrate-node" }
+mtma-migrate-node-dev = { path = "migration/cli/migrate-node-dev" }
+mtma-track = { path = "migration/cli/track" }
+mtma-track-dev = { path = "migration/cli/track-dev" }
 
 ### core
 mtma-core = { path = "migration/core/mtma" }

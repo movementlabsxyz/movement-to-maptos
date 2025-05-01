@@ -2,6 +2,7 @@ use clap::Parser;
 pub mod null;
 pub mod replay;
 
+/// Migrates the node.
 #[derive(Parser, Debug, Clone)]
 #[clap(help_expected = true)]
 pub enum Migrate {

@@ -28,13 +28,13 @@ pub enum MtmaCheckSubcommand {
 	/// Check all of the specified criteria.
 	#[clap(subcommand)]
 	AllOf(all_of::or_file::AllOfCheck),
-	/// Check if global storage includes specified keys.
+	/// Check the Global Storage Includes criterion.
 	#[clap(subcommand)]
 	GlobalStorageIncludes(global_storage_includes::or_file::GlobalStorageIncludesCheck),
-	/// Check if global storage is injective.
+	/// Check the Global Storage Injective criterion.
 	#[clap(subcommand)]
 	GlobalStorageInjective(global_storage_injective::or_file::GlobalStorageInjectiveCheck),
-	/// Check if global storage is not empty.
+	/// Check the Global Storage Not Empty criterion.
 	#[clap(subcommand)]
 	GlobalStorageNotEmpty(global_storage_not_empty::or_file::GlobalStorageNotEmptyCheck),
 }

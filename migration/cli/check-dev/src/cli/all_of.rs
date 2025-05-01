@@ -2,6 +2,7 @@ use clap::Parser;
 use orfile::Orfile;
 use serde::{Deserialize, Serialize};
 
+/// Checks all of the criteria provided.
 #[derive(Parser, Serialize, Deserialize, Debug, Clone, Orfile)]
 #[clap(help_expected = true)]
 pub struct AllOfCheck {}

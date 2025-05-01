@@ -2,6 +2,7 @@ use clap::Parser;
 use orfile::Orfile;
 use serde::{Deserialize, Serialize};
 
+/// Checks Global Storage Includes criterion
 #[derive(Parser, Serialize, Deserialize, Debug, Clone, Orfile)]
 #[clap(help_expected = true)]
 pub struct GlobalStorageIncludesCheck {}

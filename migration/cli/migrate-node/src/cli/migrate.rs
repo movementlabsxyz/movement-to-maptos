@@ -3,6 +3,7 @@ use mtma_core::Config;
 use orfile::Orfile;
 use serde::{Deserialize, Serialize};
 
+/// Migrates the node.
 #[derive(Parser, Serialize, Deserialize, Debug, Clone, Orfile)]
 #[clap(help_expected = true)]
 pub struct Migrate {

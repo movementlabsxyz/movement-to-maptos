@@ -1,14 +1,17 @@
 use clap::Parser;
+use mtma_track::cli::MtmaTrackSubcommand;
+use mtma_track_dev::cli::MtmaTrackDevSubcommand;
 
-#[derive(Parser, Debug, Clone)]
+/// Tracks the node and the chain.
+#[derive(Parser)]
 #[clap(help_expected = true)]
 pub enum Track {
 	/// Runs the null migration.
 	#[clap(subcommand)]
-	Dev(dev::or_file::Dev),
+	Dev(MtmaTrackDevSubcommand),
 	/// Runs the replay migration.
 	#[clap(subcommand)]
-	Prod(prod::or_file::Prod),
+	Prod(MtmaTrackSubcommand),
 }
 
 impl Track {

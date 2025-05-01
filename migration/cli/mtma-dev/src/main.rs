@@ -5,7 +5,7 @@ static GLOBAL: Jemalloc = Jemalloc;
 
 use clap::*;
 use dotenv::dotenv;
-use mtma::cli;
+use mtma_dev::cli;
 use tracing_subscriber::EnvFilter;
 
 #[tokio::main]

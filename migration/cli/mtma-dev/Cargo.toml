@@ -33,5 +33,13 @@ sysinfo = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 
+mtma-check = { workspace = true }
+mtma-migrate = { workspace = true }
+mtma-track = { workspace = true }
+
+mtma-check-dev = { workspace = true }
+mtma-migrate-dev = { workspace = true }
+mtma-track-dev = { workspace = true }
+
 [lints]
 workspace = true
