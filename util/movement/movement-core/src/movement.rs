@@ -28,7 +28,7 @@ impl Overlay {
 			Self::Setup => "setup",
 			Self::Celestia(celestia) => celestia.overlay_arg(),
 			Self::Eth(eth) => eth.overlay_arg(),
-			Self::TestMigrateBiarritzRc1ToL1PreMerge => {
+			Self::TestMigrateBiarritzRc1ToPreL1Merge => {
 				"test-migrate-biarritz-rc1-to-pre-l1-merge"
 			}
 		}
