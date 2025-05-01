@@ -26,7 +26,7 @@
         # a function to handle the movement repository
         # NOTE: this is not a derivation.
         # We do not use derivations because we need to perform mutable operations on the directory; that's the simples path to embedding movement. 
-        movement = ''
+        handleMovement = ''
           # Create .vendors directory if it doesn't exist
           mkdir -p .vendors
 
@@ -144,7 +144,7 @@
               # Add ./target/release/* to PATH
               export PATH="$PATH:$(pwd)/target/release"
 
-              ${movement}
+              ${handleMovement}
 
                # Copy over ./githooks/pre-commit to .git/hooks/pre-commit
               cp $(pwd)/.githooks/pre-commit $(pwd)/.git/hooks/pre-commit

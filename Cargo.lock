@@ -11130,6 +11130,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "include-vendor"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "include-dir",
+ "tempfile",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "include_dir"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
