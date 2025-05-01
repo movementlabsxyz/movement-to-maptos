@@ -1,10 +1,11 @@
 use include_vendor::vendor_workspace;
 use std::collections::BTreeSet;
-
+use std::str::FromStr;
 vendor_workspace!(MovementWorkspace, "movement");
+use serde::{Deserialize, Serialize};
 
 /// The different overlays that can be applied to the movement runner. s
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Overlay {
 	/// The build overlay is used to build the movement runner.
 	Build,
@@ -33,12 +34,32 @@ impl Overlay {
 		}
 	}
 }
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+
+/// Errors thrown when parsing an [Eth] network.
+#[derive(Debug, thiserror::Error)]
+pub enum EthError {
+	#[error("invalid ethereum network: {0}")]
+	InvalidNetwork(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Eth {
 	/// The local network.
 	Local,
 	/// The holesky network.
 	Holesky,
+}
+
+impl FromStr for Eth {
+	type Err = EthError;
+
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Ok(match s {
+			"local" => Self::Local,
+			"holesky" => Self::Holesky,
+			network => return Err(EthError::InvalidNetwork(network.into())),
+		})
+	}
 }
 
 impl Eth {
@@ -51,7 +72,7 @@ impl Eth {
 	}
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Celestia {
 	/// The local network.
 	Local,
@@ -59,6 +80,26 @@ pub enum Celestia {
 	Mocha,
 	/// The arabica network.
 	Arabica,
+}
+
+/// Errors thrown when parsing a [Celestia] network.
+#[derive(Debug, thiserror::Error)]
+pub enum CelestiaError {
+	#[error("invalid celestia network: {0}")]
+	InvalidNetwork(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
+
+impl FromStr for Celestia {
+	type Err = CelestiaError;
+
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		Ok(match s {
+			"local" => Self::Local,
+			"mocha" => Self::Mocha,
+			"arabica" => Self::Arabica,
+			network => return Err(CelestiaError::InvalidNetwork(network.into())),
+		})
+	}
 }
 
 impl Celestia {
@@ -76,6 +117,10 @@ impl Celestia {
 pub struct Overlays(BTreeSet<Overlay>);
 
 impl Overlays {
+	pub fn empty() -> Self {
+		Self(BTreeSet::new())
+	}
+
 	pub fn new(overlays: BTreeSet<Overlay>) -> Self {
 		Self(overlays)
 	}
@@ -128,15 +173,15 @@ pub enum MovementError {
 
 impl Movement {
 	/// Creates a new [Movement] with the given workspace and overlays.
-	pub fn new(workspace: MovementWorkspace, overlays: BTreeSet<Overlay>) -> Self {
-		Self { workspace, overlays: overlays.into() }
+	pub fn new(workspace: MovementWorkspace, overlays: Overlays) -> Self {
+		Self { workspace, overlays }
 	}
 
 	/// Creates a new [Movement] with a temporary workspace.
 	pub fn try_temp() -> Result<Self, MovementError> {
 		let workspace =
 			MovementWorkspace::try_temp().map_err(|e| MovementError::Internal(e.into()))?;
-		Ok(Self::new(workspace, BTreeSet::new()))
+		Ok(Self::new(workspace, BTreeSet::new().into()))
 	}
 
 	/// Adds an overlay to [Movement].

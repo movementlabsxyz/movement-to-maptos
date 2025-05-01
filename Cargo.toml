@@ -155,6 +155,7 @@ migration-e2e-test-types = { path = "checks/e2e/util/types" }
 include-dir = { path = "util/include-dir" }
 include-vendor = { path = "util/include-vendor" }
 movement-syncing = { path = "util/movement/movement-syncing" }
+movement-core = { path = "util/movement/movement-core" }
 
 [workspace.lints.clippy]
 debug_assert_with_mut_call = "deny"

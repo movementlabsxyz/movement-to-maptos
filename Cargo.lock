@@ -13988,12 +13988,17 @@ name = "movement"
 version = "0.0.1"
 dependencies = [
  "anyhow",
- "hex",
- "movement-types",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "jemallocator",
+ "movement-core",
+ "mtma-core",
+ "orfile",
  "serde",
- "syncador",
- "tempdir",
- "uuid",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
 ]
 
 [[package]]
@@ -14172,10 +14177,13 @@ name = "movement-core"
 version = "0.0.1"
 dependencies = [
  "anyhow",
+ "clap 4.5.36",
  "hex",
  "include-vendor",
+ "jsonlvar",
  "kestrel",
  "movement-types",
+ "orfile",
  "serde",
  "syncador",
  "tempdir",
