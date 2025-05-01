@@ -19,7 +19,7 @@ members = [
     # util
     "util/include-dir",
     "util/include-vendor",
-    "util/movement-syncing",
+    "util/movement/*",
 
 ]
 
@@ -153,7 +153,7 @@ migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
-movement-syncing = { path = "util/movement-syncing" }
+movement-syncing = { path = "util/movement/movement-syncing" }
 
 [workspace.lints.clippy]
 debug_assert_with_mut_call = "deny"

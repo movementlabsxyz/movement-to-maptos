@@ -2652,7 +2652,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -2678,7 +2678,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -2704,7 +2704,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -4446,7 +4446,7 @@ dependencies = [
  "hex",
  "move-core-types 0.0.4 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
  "move-model 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "once_cell",
  "reqwest 0.11.27",
  "serde",
@@ -12085,7 +12085,7 @@ dependencies = [
  "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
  "bcs 0.1.6 (git+https://github.com/movementlabsxyz/bcs.git?rev=bc16d2d39cabafaabd76173dd1b04b2aa170cf0c)",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "tempfile",
  "thiserror 1.0.69",
  "toml 0.8.20",
@@ -13887,6 +13887,19 @@ dependencies = [
 
 [[package]]
 name = "movement"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "hex",
+ "movement-types",
+ "serde",
+ "syncador",
+ "tempdir",
+ "uuid",
+]
+
+[[package]]
+name = "movement"
 version = "3.5.0"
 source = "git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67#1d1cdbbd7fabb80dcb95ba5e23213faa072fab67"
 dependencies = [
@@ -14054,6 +14067,19 @@ dependencies = [
  "toml 0.8.20",
  "tracing",
  "tracing-test",
+]
+
+[[package]]
+name = "movement-core"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "hex",
+ "movement-types",
+ "serde",
+ "syncador",
+ "tempdir",
+ "uuid",
 ]
 
 [[package]]
@@ -14236,7 +14262,7 @@ dependencies = [
  "bcs 0.1.6 (git+https://github.com/movementlabsxyz/bcs.git?rev=bc16d2d39cabafaabd76173dd1b04b2aa170cf0c)",
  "ed25519-dalek 2.1.1",
  "maptos-framework-release-util",
- "movement",
+ "movement 3.5.0",
  "movement-signer",
  "serde",
  "thiserror 1.0.69",
