@@ -28,7 +28,7 @@ pub struct Config {
 	pub eth: Eth,
 	/// Whether to use the BiarritizRc1ToL1PreMerge overlay.
 	#[clap(long)]
-	pub biarritz_rc1_to_l1_pre_merge: bool,
+	pub biarritz_rc1_to_pre_l1_merge: bool,
 }
 
 impl Config {
