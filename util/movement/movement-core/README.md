@@ -1,2 +1,2 @@
-# `movement-syncing`
-Utilities for syncing state from the Movement Mainnet. 
+# `movement-core`
+The core lib for running an embedded Movement Full Node. 
