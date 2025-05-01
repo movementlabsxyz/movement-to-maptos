@@ -53,24 +53,29 @@ macro_rules! vendor_workspace {
 		}
 
 		impl $struct_name {
+			/// Creates a new workspace with the given workspace path.
 			pub fn new(workspace_path: include_vendor::WorkspacePath) -> Self {
 				Self { workspace: include_vendor::Workspace::new(ZIP, workspace_path) }
 			}
 
+			/// Creates a new workspace with a temporary directory.
 			pub fn try_temp() -> Result<Self, std::io::Error> {
 				let temp_dir = include_vendor::TempDir::new()?;
 				let workspace_path = include_vendor::WorkspacePath::TempDir(temp_dir);
 				Ok(Self::new(workspace_path))
 			}
 
+			/// Gets the workspace path.
 			pub fn get_workspace_path(&self) -> &std::path::Path {
 				self.workspace.get_workspace_path()
 			}
 
+			/// Prepares the workspace.
 			pub fn prepare_directory(&self) -> Result<(), std::io::Error> {
 				self.workspace.prepare_directory()
 			}
 
+			/// Runs the given command.
 			pub async fn run_command<C, I, S>(
 				&self,
 				command: C,
@@ -84,6 +89,7 @@ macro_rules! vendor_workspace {
 				self.workspace.run_command(command, args).await
 			}
 
+			/// Prepares the workspace and runs the given command.
 			pub async fn run<C, I, S>(&self, command: C, args: I) -> Result<String, anyhow::Error>
 			where
 				C: AsRef<std::ffi::OsStr>,

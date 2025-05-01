@@ -1,3 +1,8 @@
+use include_vendor::vendor_workspace;
+use std::collections::BTreeSet;
+
+vendor_workspace!(MovementWorkspace, "movement");
+
 /// The different overlays that can be applied to the movement runner. s
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Overlay {
@@ -14,18 +19,182 @@ pub enum Overlay {
 	TestMigrateBiarritzRc1ToL1PreMerge,
 }
 
+impl Overlay {
+	/// Returns the overlay as a string as would be used in a nix command.
+	pub fn overlay_arg(&self) -> &str {
+		match self {
+			Self::Build => "build",
+			Self::Setup => "setup",
+			Self::Celestia(celestia) => celestia.overlay_arg(),
+			Self::Eth(eth) => eth.overlay_arg(),
+			Self::TestMigrateBiarritzRc1ToL1PreMerge => {
+				"test-migrate-biarrittz-rc1-to-l1-pre-merge"
+			}
+		}
+	}
+}
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Eth {
+	/// The local network.
 	Local,
-	Sepolia,
+	/// The holesky network.
 	Holesky,
-	Mainnet,
+}
+
+impl Eth {
+	/// Returns the overlay as a string as would be used in a nix command.
+	pub fn overlay_arg(&self) -> &str {
+		match self {
+			Self::Local => "eth-local",
+			Self::Holesky => "eth-holesky",
+		}
+	}
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Celestia {
+	/// The local network.
 	Local,
+	/// The mocha network.
 	Mocha,
+	/// The arabica network.
 	Arabica,
-	Mainnet,
+}
+
+impl Celestia {
+	/// Returns the overlay as a string as would be used in a nix command.
+	pub fn overlay_arg(&self) -> &str {
+		match self {
+			Self::Local => "celestia-local",
+			Self::Mocha => "celestia-mocha",
+			Self::Arabica => "celestia-arabica",
+		}
+	}
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Overlays(BTreeSet<Overlay>);
+
+impl Overlays {
+	pub fn new(overlays: BTreeSet<Overlay>) -> Self {
+		Self(overlays)
+	}
+
+	pub fn with(mut self, overlay: Overlay) -> Self {
+		self.add(overlay);
+		self
+	}
+
+	pub fn add(&mut self, overlay: Overlay) {
+		self.0.insert(overlay);
+	}
+
+	pub fn add_all(&mut self, overlays: BTreeSet<Overlay>) {
+		self.0.extend(overlays);
+	}
+
+	pub fn to_overlay_args(&self) -> String {
+		self.0.iter().map(|o| o.overlay_arg()).collect::<Vec<_>>().join(".")
+	}
+}
+
+impl From<BTreeSet<Overlay>> for Overlays {
+	fn from(overlays: BTreeSet<Overlay>) -> Self {
+		Self(overlays)
+	}
+}
+
+impl Default for Overlays {
+	fn default() -> Self {
+		Self::new(BTreeSet::new())
+			.with(Overlay::Build)
+			.with(Overlay::Setup)
+			.with(Overlay::Eth(Eth::Local))
+			.with(Overlay::Celestia(Celestia::Local))
+	}
+}
+
+pub struct Movement {
+	workspace: MovementWorkspace,
+	overlays: Overlays,
+}
+
+/// Errors thrown when running [Movement].
+#[derive(Debug, thiserror::Error)]
+pub enum MovementError {
+	#[error("movement failed to run with error: {0}")]
+	Internal(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
+
+impl Movement {
+	/// Creates a new [Movement] with the given workspace and overlays.
+	pub fn new(workspace: MovementWorkspace, overlays: BTreeSet<Overlay>) -> Self {
+		Self { workspace, overlays: overlays.into() }
+	}
+
+	/// Creates a new [Movement] with a temporary workspace.
+	pub fn try_temp() -> Result<Self, MovementError> {
+		let workspace =
+			MovementWorkspace::try_temp().map_err(|e| MovementError::Internal(e.into()))?;
+		Ok(Self::new(workspace, BTreeSet::new()))
+	}
+
+	/// Adds an overlay to [Movement].
+	pub fn add_overlay(&mut self, overlay: Overlay) {
+		self.overlays.add(overlay);
+	}
+
+	/// Adds an overlay to [Movement]. (shorthand builder API method for `[Movement::add_overlay]`)
+	pub fn with(mut self, overlay: Overlay) -> Self {
+		self.add_overlay(overlay);
+		self
+	}
+
+	/// Sets the overlays for [Movement].
+	pub fn set_overlays(&mut self, overlays: Overlays) {
+		self.overlays = overlays;
+	}
+
+	/// Runs the movement with the given overlays.
+	pub async fn run(&self) -> Result<(), MovementError> {
+		let overlays = self.overlays.to_overlay_args();
+
+		self.workspace
+			.run(
+				"nix",
+				[
+					"develop",
+					"--command",
+					"bash",
+					"-c",
+					&format!("just movement-full-node native {overlays} -t=false"),
+				],
+			)
+			.await
+			.map_err(|e| MovementError::Internal(e.into()))?;
+		Ok(())
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use tokio::time::Duration;
+
+	#[tokio::test]
+	async fn test_movement_starts() -> Result<(), anyhow::Error> {
+		let mut movement = Movement::try_temp()?;
+		movement.set_overlays(Overlays::default());
+
+		// start movement
+		let movement_task = kestrel::task(async move { movement.run().await });
+
+		// let it run for 10 seconds
+		tokio::time::sleep(Duration::from_secs(10)).await;
+
+		// stop movement
+		kestrel::end!(movement_task)?;
+
+		Ok(())
+	}
 }

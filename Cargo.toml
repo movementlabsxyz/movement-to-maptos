@@ -153,6 +153,7 @@ migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
+include-vendor = { path = "util/include-vendor" }
 movement-syncing = { path = "util/movement/movement-syncing" }
 
 [workspace.lints.clippy]
