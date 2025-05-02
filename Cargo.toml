@@ -97,17 +97,17 @@ movement-types = { git = "https://github.com/movementlabsxyz/movement.git", rev 
 maptos-execution-util = { git = "https://github.com/movementlabsxyz/movement.git", rev = "aa1ffed1a113441a65662792d15682ad52406108" }
 
 # aptos-core
-aptos-executor = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-executor-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos_schemadb = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-db-indexer = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
-aptos-crypto = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "02a60b837a265fbcb6ae7e0c4845c87db6926228", default-features = false }
+aptos-executor = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-executor-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-vm = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-rest-client = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-storage-interface = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-types = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-db = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos_schemadb = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-config = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-db-indexer = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
+aptos-crypto = { git = "https://github.com/movementlabsxyz/aptos-core.git", rev = "dd5d4116bc96e5f300158dc1907a2e21ef23aa55", default-features = false }
 bcs = { git = "https://github.com/aptos-labs/bcs.git", rev = "d31fab9d81748e2594be5cd5cdf845786a30562d" }
 # model checking and verification
 
