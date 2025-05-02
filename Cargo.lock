@@ -8047,7 +8047,7 @@ dependencies = [
 [[package]]
 name = "commander"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "anyhow",
  "futures",
@@ -8767,7 +8767,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d162beedaa69905488a8da94f5ac3edb4dd4788b732fadb7bd120b2625c1976"
 dependencies = [
  "data-encoding",
- "syn 1.0.109",
+ "syn 2.0.100",
 ]
 
 [[package]]
@@ -11119,7 +11119,7 @@ dependencies = [
 [[package]]
 name = "include-dir"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "anyhow",
  "commander 0.1.0",
@@ -11133,7 +11133,7 @@ dependencies = [
 [[package]]
 name = "include-vendor"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "anyhow",
  "cargo_metadata 0.19.2",
@@ -11428,7 +11428,7 @@ dependencies = [
 [[package]]
 name = "jsonlvar"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "jsonlvar-core",
  "jsonlvar-macro",
@@ -11439,7 +11439,7 @@ dependencies = [
 [[package]]
 name = "jsonlvar-core"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "regex",
  "serde",
@@ -11450,7 +11450,7 @@ dependencies = [
 [[package]]
 name = "jsonlvar-macro"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -11462,7 +11462,7 @@ dependencies = [
 [[package]]
 name = "jsonlvar-tokio"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "anyhow",
  "jsonlvar",
@@ -11671,7 +11671,7 @@ dependencies = [
 [[package]]
 name = "kestrel"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "futures",
  "kestrel-macro",
@@ -11684,7 +11684,7 @@ dependencies = [
 [[package]]
 name = "kestrel-macro"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "convert_case 0.8.0",
  "proc-macro2",
@@ -11697,7 +11697,7 @@ dependencies = [
 [[package]]
 name = "kestrel-process"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "commander 0.1.0",
  "jsonlvar",
@@ -11711,7 +11711,7 @@ dependencies = [
 [[package]]
 name = "kestrel-state"
 version = "0.1.0"
-source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5#e0130c77bf9cd25e9f4af2dea96f8d899ab9e4a5"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=97fd87b635d2d0f132850b977a148c32e83022b0#97fd87b635d2d0f132850b977a148c32e83022b0"
 dependencies = [
  "thiserror 1.0.69",
  "tokio",
@@ -11830,7 +11830,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
 dependencies = [
  "cfg-if",
- "windows-targets 0.48.5",
+ "windows-targets 0.52.6",
 ]
 
 [[package]]
@@ -14187,7 +14187,9 @@ dependencies = [
  "kestrel",
  "movement-types",
  "orfile",
+ "regex",
  "serde",
+ "strip-ansi-escapes",
  "syncador",
  "tempdir",
  "thiserror 1.0.69",
@@ -16651,7 +16653,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be769465445e8c1474e9c5dac2018218498557af32d9ed057325ec9a41ae81bf"
 dependencies = [
  "heck 0.5.0",
- "itertools 0.10.5",
+ "itertools 0.14.0",
  "log",
  "multimap",
  "once_cell",
@@ -16697,7 +16699,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.10.5",
+ "itertools 0.14.0",
  "proc-macro2",
  "quote",
  "syn 2.0.100",
@@ -18876,6 +18878,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "strip-ansi-escapes"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2a8f8038e7e7969abb3f1b7c2a811225e9296da208539e0f79c5251d6cac0025"
+dependencies = [
+ "vte",
+]
+
+[[package]]
 name = "strsim"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -20676,6 +20687,15 @@ name = "vsimd"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c3082ca00d5a5ef149bb8b555a72ae84c9c59f7250f013ac822ac2e49b19c64"
+
+[[package]]
+name = "vte"
+version = "0.14.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "231fdcd7ef3037e8330d8e17e61011a2c244126acc0a982f4040ac3f9f0bc077"
+dependencies = [
+ "memchr",
+]
 
 [[package]]
 name = "wait-timeout"

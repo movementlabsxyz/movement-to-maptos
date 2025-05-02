@@ -23,6 +23,8 @@ jsonlvar = { workspace = true }
 orfile = { workspace = true }
 clap = { workspace = true }
 kestrel = { workspace = true }
+strip-ansi-escapes = { workspace = true }
+regex = { workspace = true }
 
 [build-dependencies]
 include-vendor = { workspace = true }

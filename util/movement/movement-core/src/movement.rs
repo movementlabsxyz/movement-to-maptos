@@ -7,6 +7,11 @@ use kestrel::{
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use std::str::FromStr;
+pub mod faucet;
+pub mod rest_api;
+
+use faucet::{Faucet, ParseFaucet};
+use rest_api::{ParseRestApi, RestApi};
 
 vendor_workspace!(MovementWorkspace, "movement");
 
@@ -163,17 +168,11 @@ impl Default for Overlays {
 	}
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct MovementRestApi {}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct MovementFaucet {}
-
 pub struct Movement {
 	workspace: MovementWorkspace,
 	overlays: Overlays,
-	movement_rest_api: State<MovementRestApi>,
-	movement_faucet: State<MovementFaucet>,
+	rest_api: State<RestApi>,
+	faucet: State<Faucet>,
 }
 
 /// Errors thrown when running [Movement].
@@ -186,7 +185,7 @@ pub enum MovementError {
 impl Movement {
 	/// Creates a new [Movement] with the given workspace and overlays.
 	pub fn new(workspace: MovementWorkspace, overlays: Overlays) -> Self {
-		Self { workspace, overlays, movement_rest_api: State::new(), movement_faucet: State::new() }
+		Self { workspace, overlays, rest_api: State::new(), faucet: State::new() }
 	}
 
 	/// Creates a new [Movement] with a temporary workspace.
@@ -216,30 +215,80 @@ impl Movement {
 	pub async fn run(&self) -> Result<(), MovementError> {
 		let overlays = self.overlays.to_overlay_args();
 
-		self.workspace
-			.run(
-				"nix",
-				[
-					"develop",
-					"--command",
-					"bash",
-					"-c",
-					&format!("just movement-full-node native {overlays} -t=false"),
-				],
+		// construct the Rest API fulfiller
+		let rest_api_fulfiller = Custom::new(self.rest_api().write(), ParseRestApi);
+
+		// construct the Faucet fulfiller
+		let faucet_fulfiller = Custom::new(self.faucet().write(), ParseFaucet);
+
+		// get the prepared command for the movement task
+		let mut command = Command::new(
+			self.workspace
+				.prepared_command(
+					"nix",
+					[
+						"develop",
+						"--command",
+						"bash",
+						"-c",
+						&format!("just movement-full-node native {overlays} -t=false"),
+					],
+				)
+				.map_err(|e| MovementError::Internal(e.into()))?,
+		);
+
+		// pipe command output to the rest api fulfiller
+		command
+			.pipe(
+				Pipe::STDOUT,
+				rest_api_fulfiller.sender().map_err(|e| MovementError::Internal(e.into()))?,
 			)
-			.await
 			.map_err(|e| MovementError::Internal(e.into()))?;
+
+		// pipe command output to the faucet fulfiller
+		command
+			.pipe(
+				Pipe::STDOUT,
+				faucet_fulfiller.sender().map_err(|e| MovementError::Internal(e.into()))?,
+			)
+			.map_err(|e| MovementError::Internal(e.into()))?;
+
+		// start the rest_api_fulfiller
+		let rest_api_task =
+			rest_api_fulfiller.spawn().map_err(|e| MovementError::Internal(e.into()))?;
+
+		// start the faucet fulfiller
+		let faucet_task =
+			faucet_fulfiller.spawn().map_err(|e| MovementError::Internal(e.into()))?;
+
+		// start the command
+		let command_task = command.spawn().map_err(|e| MovementError::Internal(e.into()))?;
+
+		// wait for the tasks to finish
+		rest_api_task
+			.await
+			.map_err(|e| MovementError::Internal(e.into()))?
+			.map_err(|e| MovementError::Internal(e.into()))?;
+		faucet_task
+			.await
+			.map_err(|e| MovementError::Internal(e.into()))?
+			.map_err(|e| MovementError::Internal(e.into()))?;
+		command_task
+			.await
+			.map_err(|e| MovementError::Internal(e.into()))?
+			.map_err(|e| MovementError::Internal(e.into()))?;
+
 		Ok(())
 	}
 
 	/// Borrows the movement rest api state.
-	pub fn movement_rest_api(&self) -> &State<MovementRestApi> {
-		&self.movement_rest_api
+	pub fn rest_api(&self) -> &State<RestApi> {
+		&self.rest_api
 	}
 
 	/// Borrows the movement faucet state.
-	pub fn movement_faucet(&self) -> &State<MovementFaucet> {
-		&self.movement_faucet
+	pub fn faucet(&self) -> &State<Faucet> {
+		&self.faucet
 	}
 }
 
