@@ -26,9 +26,9 @@ pub struct Config {
 	/// Which ethereum network to use.
 	#[clap(long)]
 	pub eth: Eth,
-	/// Whether to use the BiarritizRc1ToL1PreMerge overlay.
+	/// Whether to use the BiarritizRc1ToPreL1Merge overlay.
 	#[clap(long)]
-	pub biarritz_rc1_to_l1_pre_merge: bool,
+	pub biarritz_rc1_to_pre_l1_merge: bool,
 }
 
 impl Config {
@@ -47,7 +47,7 @@ impl Config {
 		overlays.add(Overlay::Eth(self.eth));
 
 		if self.biarritz_rc1_to_l1_pre_merge {
-			overlays.add(Overlay::TestMigrateBiarritzRc1ToL1PreMerge);
+			overlays.add(Overlay::TestMigrateBiarritzRc1ToPreL1Merge);
 		}
 
 		overlays

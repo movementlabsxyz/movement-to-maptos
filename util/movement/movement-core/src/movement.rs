@@ -17,7 +17,7 @@ pub enum Overlay {
 	Eth(Eth),
 	/// The test migration overlay is used to run and check the migration to the L1 pre-merge chain.
 	/// TODO: in this repo, we may want to remove this from the runner and place it actual embeeded code under the -core lib for https://github.com/movementlabsxyz/movement-migration/issues/61
-	TestMigrateBiarritzRc1ToL1PreMerge,
+	TestMigrateBiarritzRc1ToPreL1Merge,
 }
 
 impl Overlay {
@@ -28,8 +28,8 @@ impl Overlay {
 			Self::Setup => "setup",
 			Self::Celestia(celestia) => celestia.overlay_arg(),
 			Self::Eth(eth) => eth.overlay_arg(),
-			Self::TestMigrateBiarritzRc1ToL1PreMerge => {
-				"test-migrate-biarrittz-rc1-to-l1-pre-merge"
+			Self::TestMigrateBiarritzRc1ToPreL1Merge => {
+				"test-migrate-biarritz-rc1-to-pre-l1-merge"
 			}
 		}
 	}
