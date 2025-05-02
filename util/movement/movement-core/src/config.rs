@@ -46,7 +46,7 @@ impl Config {
 		overlays.add(Overlay::Celestia(self.celestia));
 		overlays.add(Overlay::Eth(self.eth));
 
-		if self.biarritz_rc1_to_l1_pre_merge {
+		if self.biarritz_rc1_to_pre_l1_merge {
 			overlays.add(Overlay::TestMigrateBiarritzRc1ToPreL1Merge);
 		}
 
