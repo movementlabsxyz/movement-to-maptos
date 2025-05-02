@@ -1,0 +1,35 @@
+use crate::framework::FrameworkConfig;
+
+/// Errors thrown during the framework upgrade.
+#[derive(Debug, thiserror::Error)]
+pub enum FrameworkError {
+	#[error("failed to upgrade: {0}")]
+	Upgrade(#[source] Box<dyn std::error::Error + Send + Sync>),
+}
+
+/// The framework struct will be use to run a framework upgrade.
+#[derive(Debug, Clone)]
+pub struct Framework {
+	pub config: FrameworkConfig,
+}
+
+impl Framework {
+	/// Run the framework upgrade.
+	///
+	/// Note: we will use `run` or a domain-specific term for the core structs in our system,
+	/// and `execute` for the CLI structs in our system.
+	pub async fn run(&self) -> Result<(), anyhow::Error> {
+		// Handle the migration directly based on from/to values
+		match (self.config.from.as_str(), self.config.to.as_str()) {
+			("biarritz-rc1", "pre-l1-merge") | ("pre-l1-merge", "biarritz-rc1") => {
+				// Todo: migration logic
+				Ok(())
+			}
+			_ => Err(anyhow::anyhow!(
+				"Unsupported migration path: {} -> {}",
+				self.config.from,
+				self.config.to
+			)),
+		}
+	}
+}
