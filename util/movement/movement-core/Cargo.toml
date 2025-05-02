@@ -22,8 +22,6 @@ tokio = { workspace = true }
 jsonlvar = { workspace = true }
 orfile = { workspace = true }
 clap = { workspace = true }
-
-[dev-dependencies]
 kestrel = { workspace = true }
 
 [build-dependencies]

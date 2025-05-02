@@ -1,8 +1,14 @@
 use include_vendor::vendor_workspace;
+use kestrel::{
+	fulfill::{custom::Custom, Fulfill},
+	process::{command::Command, Pipe, ProcessOperations},
+	State,
+};
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use std::str::FromStr;
+
 vendor_workspace!(MovementWorkspace, "movement");
-use serde::{Deserialize, Serialize};
 
 /// The different overlays that can be applied to the movement runner. s
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -28,9 +34,7 @@ impl Overlay {
 			Self::Setup => "setup",
 			Self::Celestia(celestia) => celestia.overlay_arg(),
 			Self::Eth(eth) => eth.overlay_arg(),
-			Self::TestMigrateBiarritzRc1ToPreL1Merge => {
-				"test-migrate-biarritz-rc1-to-pre-l1-merge"
-			}
+			Self::TestMigrateBiarritzRc1ToPreL1Merge => "test-migrate-biarritz-rc1-to-pre-l1-merge",
 		}
 	}
 }
@@ -159,9 +163,17 @@ impl Default for Overlays {
 	}
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct MovementRestApi {}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct MovementFaucet {}
+
 pub struct Movement {
 	workspace: MovementWorkspace,
 	overlays: Overlays,
+	movement_rest_api: State<MovementRestApi>,
+	movement_faucet: State<MovementFaucet>,
 }
 
 /// Errors thrown when running [Movement].
@@ -174,7 +186,7 @@ pub enum MovementError {
 impl Movement {
 	/// Creates a new [Movement] with the given workspace and overlays.
 	pub fn new(workspace: MovementWorkspace, overlays: Overlays) -> Self {
-		Self { workspace, overlays }
+		Self { workspace, overlays, movement_rest_api: State::new(), movement_faucet: State::new() }
 	}
 
 	/// Creates a new [Movement] with a temporary workspace.
@@ -218,6 +230,16 @@ impl Movement {
 			.await
 			.map_err(|e| MovementError::Internal(e.into()))?;
 		Ok(())
+	}
+
+	/// Borrows the movement rest api state.
+	pub fn movement_rest_api(&self) -> &State<MovementRestApi> {
+		&self.movement_rest_api
+	}
+
+	/// Borrows the movement faucet state.
+	pub fn movement_faucet(&self) -> &State<MovementFaucet> {
+		&self.movement_faucet
 	}
 }
 
