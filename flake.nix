@@ -40,8 +40,8 @@
             rm -rf .vendors/movement
           fi
 
-          # Clone fresh copy
-          git clone https://github.com/movementlabsxyz/movement.git .vendors/movement
+          # Clone fresh copy with submodules
+          git clone --recursive https://github.com/movementlabsxyz/movement.git .vendors/movement
           cd .vendors/movement
           git checkout ${movement.rev}
 
