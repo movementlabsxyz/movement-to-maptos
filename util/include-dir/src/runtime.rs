@@ -1,6 +1,7 @@
 use std::ffi::OsStr;
 use std::fs::File;
 use std::io::Cursor;
+use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use tempfile::TempDir;
 use zip::read::ZipArchive;
@@ -69,6 +70,11 @@ impl Workspace {
 				}
 				let mut outfile = File::create(&outpath)?;
 				std::io::copy(&mut file, &mut outfile)?;
+
+				// Set Unix permissions from the zip file
+				if let Some(mode) = file.unix_mode() {
+					outfile.set_permissions(std::fs::Permissions::from_mode(mode))?;
+				}
 			}
 		}
 

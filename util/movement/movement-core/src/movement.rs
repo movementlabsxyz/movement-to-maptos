@@ -234,8 +234,8 @@ mod tests {
 		// start movement
 		let movement_task = kestrel::task(async move { movement.run().await });
 
-		// let it run for 10 seconds
-		tokio::time::sleep(Duration::from_secs(10)).await;
+		// let it run for 30 seconds
+		tokio::time::sleep(Duration::from_secs(30)).await;
 
 		// stop movement
 		kestrel::end!(movement_task)?;
