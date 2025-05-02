@@ -13,6 +13,9 @@ This document contains the help content for the `mtma-migrate-chain-dev` command
 * [`mtma-migrate-chain-dev migrate`↴](#mtma-migrate-chain-dev-migrate)
 * [`mtma-migrate-chain-dev migrate where`↴](#mtma-migrate-chain-dev-migrate-where)
 * [`mtma-migrate-chain-dev migrate using`↴](#mtma-migrate-chain-dev-migrate-using)
+* [`mtma-migrate-chain-dev framework`↴](#mtma-migrate-chain-dev-framework)
+* [`mtma-migrate-chain-dev framework where`↴](#mtma-migrate-chain-dev-framework-where)
+* [`mtma-migrate-chain-dev framework using`↴](#mtma-migrate-chain-dev-framework-using)
 
 ## `mtma-migrate-chain-dev`
 
@@ -24,6 +27,7 @@ The `mtma-migrate-chain-dev` CLI
 
 * `markdown` — Generates markdown for the CLI
 * `migrate` — Migrate from Movement to MovementAptos
+* `framework` — Upgrade the framework
 
 
 
@@ -125,6 +129,52 @@ Run migrate with parameters from environment variables, config files, and CLI fl
 ###### **Options:**
 
 * `--config-path <CONFIG_PATH>` — Path to the config file for migrate
+
+
+
+## `mtma-migrate-chain-dev framework`
+
+Upgrade the framework
+
+**Usage:** `mtma-migrate-chain-dev framework <COMMAND>`
+
+###### **Subcommands:**
+
+* `where` — Run framework with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+* `using` — Run framework with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+
+
+## `mtma-migrate-chain-dev framework where`
+
+Run framework with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+**Usage:** `mtma-migrate-chain-dev framework where --from <FROM> --to <TO> --maptos-signer <MAPTOS_SIGNER> --da-signer <DA_SIGNER> --mcr-signer <MCR_SIGNER> --movement-args <MOVEMENT_ARGS>`
+
+###### **Options:**
+
+* `--from <FROM>` — The known release you are migrating from, eg elsa or biarritz-rc1
+* `--to <TO>` — The known release you are migrating to, eg biarritz-rc1 or pre-l1-merge
+* `--maptos-signer <MAPTOS_SIGNER>` — The canonical string for the Maptos signer used in the migration
+* `--da-signer <DA_SIGNER>` — The canonical string for the DA signer used in the migration
+* `--mcr-signer <MCR_SIGNER>` — The canonical string for the MCR signer used in the migration
+* `--movement-args <MOVEMENT_ARGS>` — Movement configuration arguments
+
+
+
+## `mtma-migrate-chain-dev framework using`
+
+Run framework with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
+
+**Usage:** `mtma-migrate-chain-dev framework using [OPTIONS] [EXTRA_ARGS]...`
+
+###### **Arguments:**
+
+* `<EXTRA_ARGS>` — Extra arguments to be passed to the CLI
+
+###### **Options:**
+
+* `--config-path <CONFIG_PATH>` — Path to the config file for framework
 
 
 

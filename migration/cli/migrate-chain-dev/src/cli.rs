@@ -21,6 +21,9 @@ pub enum MtmaMigrateChainDevSubcommand {
 	/// Migrate from Movement to MovementAptos.
 	#[clap(subcommand)]
 	Migrate(migrate::or_file::Migrate),
+	/// Upgrade the framework.
+	#[clap(subcommand)]
+	Framework(framework::or_file::Framework),
 }
 
 /// Implement the `From` trait for `MtmaMigrateChainDev` to convert it into a `MtmaMigrateChainDevSubcommand`.
@@ -49,6 +52,7 @@ impl MtmaMigrateChainDevSubcommand {
 				markdown.execute::<MtmaMigrateChainDev>().await?;
 			}
 			MtmaMigrateChainDevSubcommand::Migrate(migrate) => migrate.execute().await?,
+			MtmaMigrateChainDevSubcommand::Framework(framework) => framework.execute().await?,
 		}
 		Ok(())
 	}
