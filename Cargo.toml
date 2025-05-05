@@ -121,13 +121,26 @@ jsonlvar = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e2
 commander = { git = "https://github.com/movementlabsxyz/kestrel.git", rev = "85e2f681ae3e54b29bb18d4ed7ca750116173321" }
 
 # orfile
-orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "d02299214e5aa202130cd1eb9593ce8064d1ec69" }
+orfile = { git = "https://github.com/movementlabsxyz/orfile.git", rev = "b49cb42495816fa00a1107be5bbf41aff3a8255d" }
 
 # docs
 clap-markdown-ext = { git = "https://github.com/movementlabsxyz/clap-markdown-ext.git", rev = "8f54fe424504bf37fb01dc69aaed8166e429fe6a" }
 
 # internal
 ## migration
+### cli
+mtma = { path = "migration/cli/mtma" }
+mtma-dev = { path = "migration/cli/mtma-dev" }
+mtma-check = { path = "migration/cli/check" }
+mtma-check-dev = { path = "migration/cli/check-dev" }
+mtma-migrate = { path = "migration/cli/migrate" }
+mtma-migrate-dev = { path = "migration/cli/migrate-dev" }
+mtma-migrate-chain = { path = "migration/cli/migrate-chain" }
+mtma-migrate-chain-dev = { path = "migration/cli/migrate-chain-dev" }
+mtma-migrate-node = { path = "migration/cli/migrate-node" }
+mtma-migrate-node-dev = { path = "migration/cli/migrate-node-dev" }
+mtma-track = { path = "migration/cli/track" }
+mtma-track-dev = { path = "migration/cli/track-dev" }
 
 ### core
 mtma-core = { path = "migration/core/mtma" }

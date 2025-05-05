@@ -1,24 +1,24 @@
-# Command-Line Help for `mtma`
+# Command-Line Help for `mtma-migrate-chain`
 
-This document contains the help content for the `mtma` command-line program.
+This document contains the help content for the `mtma-migrate-chain` command-line program.
 
 **Command Overview:**
 
-* [`mtma`↴](#mtma)
-* [`mtma markdown`↴](#mtma-markdown)
-* [`mtma markdown generate`↴](#mtma-markdown-generate)
-* [`mtma markdown file`↴](#mtma-markdown-file)
-* [`mtma markdown print`↴](#mtma-markdown-print)
-* [`mtma markdown workspace`↴](#mtma-markdown-workspace)
-* [`mtma migrate`↴](#mtma-migrate)
-* [`mtma migrate where`↴](#mtma-migrate-where)
-* [`mtma migrate using`↴](#mtma-migrate-using)
+* [`mtma-migrate-chain`↴](#mtma-migrate-chain)
+* [`mtma-migrate-chain markdown`↴](#mtma-migrate-chain-markdown)
+* [`mtma-migrate-chain markdown generate`↴](#mtma-migrate-chain-markdown-generate)
+* [`mtma-migrate-chain markdown file`↴](#mtma-migrate-chain-markdown-file)
+* [`mtma-migrate-chain markdown print`↴](#mtma-migrate-chain-markdown-print)
+* [`mtma-migrate-chain markdown workspace`↴](#mtma-migrate-chain-markdown-workspace)
+* [`mtma-migrate-chain migrate`↴](#mtma-migrate-chain-migrate)
+* [`mtma-migrate-chain migrate where`↴](#mtma-migrate-chain-migrate-where)
+* [`mtma-migrate-chain migrate using`↴](#mtma-migrate-chain-migrate-using)
 
-## `mtma`
+## `mtma-migrate-chain`
 
-The `movement-to-aptos` CLI
+The `mtma-migrate-chain` CLI
 
-**Usage:** `mtma [COMMAND]`
+**Usage:** `mtma-migrate-chain [COMMAND]`
 
 ###### **Subcommands:**
 
@@ -27,11 +27,11 @@ The `movement-to-aptos` CLI
 
 
 
-## `mtma markdown`
+## `mtma-migrate-chain markdown`
 
 Generates markdown for the CLI
 
-**Usage:** `mtma markdown <COMMAND>`
+**Usage:** `mtma-migrate-chain markdown <COMMAND>`
 
 ###### **Subcommands:**
 
@@ -42,11 +42,11 @@ Generates markdown for the CLI
 
 
 
-## `mtma markdown generate`
+## `mtma-migrate-chain markdown generate`
 
 Generate and update the documentation
 
-**Usage:** `mtma markdown generate [OPTIONS]`
+**Usage:** `mtma-migrate-chain markdown generate [OPTIONS]`
 
 ###### **Options:**
 
@@ -54,11 +54,11 @@ Generate and update the documentation
 
 
 
-## `mtma markdown file`
+## `mtma-migrate-chain markdown file`
 
 Print the documentation to a file (providing the file path)
 
-**Usage:** `mtma markdown file --file <FILE>`
+**Usage:** `mtma-migrate-chain markdown file --file <FILE>`
 
 ###### **Options:**
 
@@ -66,19 +66,19 @@ Print the documentation to a file (providing the file path)
 
 
 
-## `mtma markdown print`
+## `mtma-migrate-chain markdown print`
 
 Print the documentation in the shell
 
-**Usage:** `mtma markdown print`
+**Usage:** `mtma-migrate-chain markdown print`
 
 
 
-## `mtma markdown workspace`
+## `mtma-migrate-chain markdown workspace`
 
 Generate the documentation for the workspace
 
-**Usage:** `mtma markdown workspace --relative-path <RELATIVE_PATH>`
+**Usage:** `mtma-migrate-chain markdown workspace --relative-path <RELATIVE_PATH>`
 
 ###### **Options:**
 
@@ -86,11 +86,11 @@ Generate the documentation for the workspace
 
 
 
-## `mtma migrate`
+## `mtma-migrate-chain migrate`
 
 Migrate from Movement to MovementAptos
 
-**Usage:** `mtma migrate <COMMAND>`
+**Usage:** `mtma-migrate-chain migrate <COMMAND>`
 
 ###### **Subcommands:**
 
@@ -99,11 +99,11 @@ Migrate from Movement to MovementAptos
 
 
 
-## `mtma migrate where`
+## `mtma-migrate-chain migrate where`
 
 Run migrate with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
 
-**Usage:** `mtma migrate where --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
+**Usage:** `mtma-migrate-chain migrate where --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
 
 ###### **Options:**
 
@@ -112,11 +112,11 @@ Run migrate with all parameters passed explicitly as CLI flags. See Orfile docum
 
 
 
-## `mtma migrate using`
+## `mtma-migrate-chain migrate using`
 
 Run migrate with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
 
-**Usage:** `mtma migrate using [OPTIONS] [EXTRA_ARGS]...`
+**Usage:** `mtma-migrate-chain migrate using [OPTIONS] [EXTRA_ARGS]...`
 
 ###### **Arguments:**
 

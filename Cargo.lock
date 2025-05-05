@@ -14316,6 +14316,64 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtma-check"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-check-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
 name = "mtma-core"
 version = "0.0.1"
 dependencies = [
@@ -14327,6 +14385,215 @@ dependencies = [
  "serde",
  "thiserror 1.0.69",
  "tokio",
+]
+
+[[package]]
+name = "mtma-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-check",
+ "mtma-check-dev",
+ "mtma-core",
+ "mtma-migrate",
+ "mtma-migrate-dev",
+ "mtma-null-core",
+ "mtma-track",
+ "mtma-track-dev",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate-chain"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate-chain-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate-node"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-migrate-node-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
 ]
 
 [[package]]
@@ -14351,6 +14618,64 @@ dependencies = [
  "tracing",
  "uuid",
  "walkdir",
+]
+
+[[package]]
+name = "mtma-track"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "mtma-track-dev"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "futures",
+ "jemallocator",
+ "maptos-execution-util",
+ "migration-executor-preludes",
+ "migration-executor-test-global-storage-includes-criterion",
+ "migration-executor-test-global-storage-injective-criterion",
+ "migration-executor-test-global-storage-not-empty-criterion",
+ "migration-executor-test-types",
+ "movement-syncing",
+ "mtma-core",
+ "mtma-null-core",
+ "orfile",
+ "rand 0.7.3",
+ "serde",
+ "sysinfo 0.34.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
 ]
 
 [[package]]
@@ -14921,7 +15246,7 @@ dependencies = [
 [[package]]
 name = "orfile"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "anyhow",
  "orfile-macro",
@@ -14932,7 +15257,7 @@ dependencies = [
 [[package]]
 name = "orfile-macro"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "proc-macro-error",
  "proc-macro2",
@@ -14943,7 +15268,7 @@ dependencies = [
 [[package]]
 name = "orfile-util"
 version = "0.0.1"
-source = "git+https://github.com/movementlabsxyz/orfile.git?rev=d02299214e5aa202130cd1eb9593ce8064d1ec69#d02299214e5aa202130cd1eb9593ce8064d1ec69"
+source = "git+https://github.com/movementlabsxyz/orfile.git?rev=b49cb42495816fa00a1107be5bbf41aff3a8255d#b49cb42495816fa00a1107be5bbf41aff3a8255d"
 dependencies = [
  "serde",
  "serde_json",

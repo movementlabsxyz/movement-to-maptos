@@ -1,24 +1,24 @@
-# Command-Line Help for `mtma`
+# Command-Line Help for `mtma-migrate`
 
-This document contains the help content for the `mtma` command-line program.
+This document contains the help content for the `mtma-migrate` command-line program.
 
 **Command Overview:**
 
-* [`mtma`↴](#mtma)
-* [`mtma markdown`↴](#mtma-markdown)
-* [`mtma markdown generate`↴](#mtma-markdown-generate)
-* [`mtma markdown file`↴](#mtma-markdown-file)
-* [`mtma markdown print`↴](#mtma-markdown-print)
-* [`mtma markdown workspace`↴](#mtma-markdown-workspace)
-* [`mtma migrate`↴](#mtma-migrate)
-* [`mtma migrate where`↴](#mtma-migrate-where)
-* [`mtma migrate using`↴](#mtma-migrate-using)
+* [`mtma-migrate`↴](#mtma-migrate)
+* [`mtma-migrate markdown`↴](#mtma-migrate-markdown)
+* [`mtma-migrate markdown generate`↴](#mtma-migrate-markdown-generate)
+* [`mtma-migrate markdown file`↴](#mtma-migrate-markdown-file)
+* [`mtma-migrate markdown print`↴](#mtma-migrate-markdown-print)
+* [`mtma-migrate markdown workspace`↴](#mtma-migrate-markdown-workspace)
+* [`mtma-migrate migrate`↴](#mtma-migrate-migrate)
+* [`mtma-migrate migrate where`↴](#mtma-migrate-migrate-where)
+* [`mtma-migrate migrate using`↴](#mtma-migrate-migrate-using)
 
-## `mtma`
+## `mtma-migrate`
 
-The `movement-to-aptos` CLI
+The `mtma-migrate` CLI
 
-**Usage:** `mtma [COMMAND]`
+**Usage:** `mtma-migrate [COMMAND]`
 
 ###### **Subcommands:**
 
@@ -27,11 +27,11 @@ The `movement-to-aptos` CLI
 
 
 
-## `mtma markdown`
+## `mtma-migrate markdown`
 
 Generates markdown for the CLI
 
-**Usage:** `mtma markdown <COMMAND>`
+**Usage:** `mtma-migrate markdown <COMMAND>`
 
 ###### **Subcommands:**
 
@@ -42,11 +42,11 @@ Generates markdown for the CLI
 
 
 
-## `mtma markdown generate`
+## `mtma-migrate markdown generate`
 
 Generate and update the documentation
 
-**Usage:** `mtma markdown generate [OPTIONS]`
+**Usage:** `mtma-migrate markdown generate [OPTIONS]`
 
 ###### **Options:**
 
@@ -54,11 +54,11 @@ Generate and update the documentation
 
 
 
-## `mtma markdown file`
+## `mtma-migrate markdown file`
 
 Print the documentation to a file (providing the file path)
 
-**Usage:** `mtma markdown file --file <FILE>`
+**Usage:** `mtma-migrate markdown file --file <FILE>`
 
 ###### **Options:**
 
@@ -66,19 +66,19 @@ Print the documentation to a file (providing the file path)
 
 
 
-## `mtma markdown print`
+## `mtma-migrate markdown print`
 
 Print the documentation in the shell
 
-**Usage:** `mtma markdown print`
+**Usage:** `mtma-migrate markdown print`
 
 
 
-## `mtma markdown workspace`
+## `mtma-migrate markdown workspace`
 
 Generate the documentation for the workspace
 
-**Usage:** `mtma markdown workspace --relative-path <RELATIVE_PATH>`
+**Usage:** `mtma-migrate markdown workspace --relative-path <RELATIVE_PATH>`
 
 ###### **Options:**
 
@@ -86,11 +86,11 @@ Generate the documentation for the workspace
 
 
 
-## `mtma migrate`
+## `mtma-migrate migrate`
 
 Migrate from Movement to MovementAptos
 
-**Usage:** `mtma migrate <COMMAND>`
+**Usage:** `mtma-migrate migrate <COMMAND>`
 
 ###### **Subcommands:**
 
@@ -99,11 +99,11 @@ Migrate from Movement to MovementAptos
 
 
 
-## `mtma migrate where`
+## `mtma-migrate migrate where`
 
 Run migrate with all parameters passed explicitly as CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
 
-**Usage:** `mtma migrate where --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
+**Usage:** `mtma-migrate migrate where --movement-state-db-path <MOVEMENT_STATE_DB_PATH> --movement-aptos-state-db-path <MOVEMENT_APTOS_STATE_DB_PATH>`
 
 ###### **Options:**
 
@@ -112,11 +112,11 @@ Run migrate with all parameters passed explicitly as CLI flags. See Orfile docum
 
 
 
-## `mtma migrate using`
+## `mtma-migrate migrate using`
 
 Run migrate with parameters from environment variables, config files, and CLI flags. See Orfile documentation for more details: <https://github.com/movementlabsxyz/orfile>
 
-**Usage:** `mtma migrate using [OPTIONS] [EXTRA_ARGS]...`
+**Usage:** `mtma-migrate migrate using [OPTIONS] [EXTRA_ARGS]...`
 
 ###### **Arguments:**
 

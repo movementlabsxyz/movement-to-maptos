@@ -38,6 +38,7 @@ impl FromStr for State {
 	}
 }
 
+/// Migrates the node with checks on migration correctness.
 #[derive(Parser, Serialize, Deserialize, Debug, Clone, Orfile)]
 #[clap(help_expected = true)]
 pub struct MigrateChecked {
