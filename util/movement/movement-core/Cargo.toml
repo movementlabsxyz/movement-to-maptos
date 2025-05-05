@@ -28,6 +28,7 @@ regex = { workspace = true }
 
 [build-dependencies]
 include-vendor = { workspace = true }
+cargo_metadata = { workspace = true }
 
 [lints]
 workspace = true
