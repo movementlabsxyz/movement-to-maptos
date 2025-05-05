@@ -1,20 +1,20 @@
-use crate::framework::FrameworkConfig;
+use crate::migrate::Config;
 
 /// Errors thrown during the framework upgrade.
 #[derive(Debug, thiserror::Error)]
-pub enum FrameworkError {
+pub enum MigrateError {
 	#[error("failed to upgrade: {0}")]
 	Upgrade(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
-/// The framework struct will be use to run a framework upgrade.
+/// The Migrate struct will be use to run a framework migration.
 #[derive(Debug, Clone)]
-pub struct Framework {
-	pub config: FrameworkConfig,
+pub struct Migrate {
+	pub config: Config,
 }
 
-impl Framework {
-	/// Run the framework upgrade.
+impl Migrate {
+	/// Run the framework migration.
 	///
 	/// Note: we will use `run` or a domain-specific term for the core structs in our system,
 	/// and `execute` for the CLI structs in our system.

@@ -1,21 +1,21 @@
-use crate::Framework;
+use crate::Migrate;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
 /// Errors thrown when working with the [Config].
 #[derive(Debug, thiserror::Error)]
-pub enum FrameworkConfigError {
+pub enum MigrateConfigError {
 	#[error("failed to build from config: {0}")]
 	Build(#[source] Box<dyn std::error::Error + Send + Sync>),
 }
 
-/// The config for the framework upgrade.
+/// The config for the framework migration.
 ///
 /// All fields should be easily statically encodable to a CLI argument.
 /// This is the frontend for the core API.
 #[derive(Parser, Debug, Serialize, Deserialize, Clone)]
 #[clap(help_expected = true)]
-pub struct FrameworkConfig {
+pub struct Config {
 	/// The known release you are migrating from, eg elsa or biarritz-rc1.
 	#[clap(long)]
 	pub from: String,
@@ -36,9 +36,9 @@ pub struct FrameworkConfig {
 	pub movement_args: String,
 }
 
-impl FrameworkConfig {
+impl Config {
 	/// Builds the [Framework] struct from the config.
-	pub fn build(&self) -> Result<Framework, FrameworkConfigError> {
-		Ok(Framework { config: self.clone() })
+	pub fn build(&self) -> Result<Migrate, MigrateConfigError> {
+		Ok(Migrate { config: self.clone() })
 	}
 }
