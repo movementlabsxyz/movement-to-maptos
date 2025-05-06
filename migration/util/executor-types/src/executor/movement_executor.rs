@@ -2,6 +2,12 @@ use either::Either;
 use maptos_opt_executor::aptos_storage_interface::state_view::DbStateView;
 use maptos_opt_executor::aptos_storage_interface::DbReader;
 use maptos_opt_executor::aptos_types::state_store::state_key::StateKey;
+use maptos_opt_executor::aptos_types::transaction::Version;
+use maptos_opt_executor::aptos_types::{
+	block_executor::partitioner::{ExecutableBlock, ExecutableTransactions},
+	transaction::signature_verified_transaction::into_signature_verified_block,
+	transaction::Transaction,
+};
 pub use maptos_opt_executor::Executor as MovementOptExecutor;
 use std::sync::Arc;
 
@@ -62,8 +68,68 @@ impl MovementExecutor {
 			version: version.unwrap_or(0),
 		}
 	}
+
+	/// Iterates over all blocks in the db.
+	pub fn iter_blocks(&self) -> Result<BlockIterator<'_>, anyhow::Error> {
+		let latest_version = self.latest_ledger_version()?;
+		Ok(BlockIterator { executor: self, version: 0, latest_version })
+	}
+
+	/// Gets the genesis transaction.
+	pub fn genesis_transaction(&self) -> Result<Transaction, anyhow::Error> {
+		// get genesis transaction from db
+		let db_reader = self.opt_executor().db_reader();
+		let genesis_transaction =
+			db_reader.get_transaction_by_version(0, self.latest_ledger_version()?, false)?;
+		Ok(genesis_transaction.transaction)
+	}
 }
 
+pub struct BlockIterator<'a> {
+	executor: &'a MovementExecutor,
+	version: u64,
+	latest_version: u64,
+}
+
+impl<'a> Iterator for BlockIterator<'a> {
+	type Item = Result<(Version, Version, ExecutableBlock), anyhow::Error>;
+
+	fn next(&mut self) -> Option<Self::Item> {
+		if self.version > self.latest_version {
+			return None;
+		}
+
+		let db_reader = self.executor.opt_executor().db_reader();
+		let (start_version, end_version, new_block_event) =
+			match db_reader.get_block_info_by_version(self.version) {
+				Ok(info) => info,
+				Err(e) => return Some(Err(e.into())),
+			};
+
+		let mut transactions = Vec::new();
+		for version in start_version..=end_version {
+			let transaction =
+				match db_reader.get_transaction_by_version(version, self.latest_version, false) {
+					Ok(t) => t,
+					Err(e) => return Some(Err(e.into())),
+				};
+			transactions.push(transaction.transaction);
+		}
+
+		let executable_transactions =
+			ExecutableTransactions::Unsharded(into_signature_verified_block(transactions));
+		let block = ExecutableBlock::new(
+			match new_block_event.hash() {
+				Ok(hash) => hash,
+				Err(e) => return Some(Err(e.into())),
+			},
+			executable_transactions,
+		);
+
+		self.version = end_version + 1;
+		Some(Ok((start_version, end_version, block)))
+	}
+}
 /// An iterable of [StateKey]s in the global storage dating back to an original version.
 ///
 /// This helps deal with lifetime issues.
