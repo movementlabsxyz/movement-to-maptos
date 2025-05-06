@@ -6912,6 +6912,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "bcs-ext"
+version = "0.0.1"
+dependencies = [
+ "bcs 0.1.4",
+ "serde",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "bech32"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12294,10 +12303,61 @@ dependencies = [
 ]
 
 [[package]]
-name = "migration-e2e-test-empty-criterion"
+name = "migration-e2e-test-accounts-equal-criterion"
+version = "0.0.1"
+dependencies = [
+ "bcs 0.1.4",
+ "bcs-ext",
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-balances-equal-criterion"
+version = "0.0.1"
+dependencies = [
+ "bcs 0.1.4",
+ "bcs-ext",
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-core-resource-failure-criterion"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "aptos-sdk 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=2941ee2b5876ab93cfb8010154c9466d7d593ed9)",
+ "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=2941ee2b5876ab93cfb8010154c9466d7d593ed9)",
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-governance-criterion"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "migration-executor-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-matching-feature-flags-criterion"
+version = "0.0.1"
+dependencies = [
+ "migration-e2e-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-non-initializable-criterion"
 version = "0.0.1"
 dependencies = [
  "migration-executor-test-types",
+]
+
+[[package]]
+name = "migration-e2e-test-transacting-criterion"
+version = "0.0.1"
+dependencies = [
+ "bcs 0.1.4",
+ "migration-e2e-test-types",
 ]
 
 [[package]]
@@ -12306,6 +12366,8 @@ version = "0.0.1"
 dependencies = [
  "anyhow",
  "aptos-rest-client 0.0.0 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=2941ee2b5876ab93cfb8010154c9466d7d593ed9)",
+ "aptos-sdk 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core.git?rev=2941ee2b5876ab93cfb8010154c9466d7d593ed9)",
+ "bcs 0.1.4",
  "hex",
  "movement-client",
  "serde",
