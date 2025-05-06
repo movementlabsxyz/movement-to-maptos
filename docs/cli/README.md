@@ -1,4 +1,5 @@
 # CLIs
+- [movement](../../util/movement/movement/docs/cli/README.md)
 - [mtma-check](../../migration/cli/check/docs/cli/README.md)
 - [mtma-check-dev](../../migration/cli/check-dev/docs/cli/README.md)
 - [mtma-migrate](../../migration/cli/migrate/docs/cli/README.md)

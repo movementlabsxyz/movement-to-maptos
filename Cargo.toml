@@ -18,7 +18,8 @@ members = [
     "checks/e2e/citeria/*",
     # util
     "util/include-dir",
-    "util/movement-syncing",
+    "util/include-vendor",
+    "util/movement/*",
 
 ]
 
@@ -165,7 +166,9 @@ migration-e2e-test-types = { path = "checks/e2e/util/types" }
 
 ## util
 include-dir = { path = "util/include-dir" }
-movement-syncing = { path = "util/movement-syncing" }
+include-vendor = { path = "util/include-vendor" }
+movement-syncing = { path = "util/movement/movement-syncing" }
+movement-core = { path = "util/movement/movement-core" }
 
 [workspace.lints.clippy]
 debug_assert_with_mut_call = "deny"

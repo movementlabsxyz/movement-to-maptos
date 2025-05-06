@@ -2652,7 +2652,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -2678,7 +2678,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -2704,7 +2704,7 @@ dependencies = [
  "dot-movement",
  "maptos-framework-release-util",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "movement-client",
  "movement-config",
  "once_cell",
@@ -4446,7 +4446,7 @@ dependencies = [
  "hex",
  "move-core-types 0.0.4 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
  "move-model 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "once_cell",
  "reqwest 0.11.27",
  "serde",
@@ -8767,7 +8767,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d162beedaa69905488a8da94f5ac3edb4dd4788b732fadb7bd120b2625c1976"
 dependencies = [
  "data-encoding",
- "syn 2.0.100",
+ "syn 1.0.109",
 ]
 
 [[package]]
@@ -11130,6 +11130,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "include-vendor"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "cargo_metadata 0.19.2",
+ "include-dir",
+ "tempfile",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "include_dir"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11412,6 +11423,54 @@ dependencies = [
 ]
 
 [[package]]
+name = "jsonlvar"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "jsonlvar-core",
+ "jsonlvar-macro",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "jsonlvar-core"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "regex",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "jsonlvar-macro"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "serde",
+ "syn 2.0.100",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "jsonlvar-tokio"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "anyhow",
+ "jsonlvar",
+ "regex",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
+ "tokio",
+]
+
+[[package]]
 name = "jsonrpsee"
 version = "0.24.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11607,6 +11666,55 @@ dependencies = [
 ]
 
 [[package]]
+name = "kestrel"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "futures",
+ "kestrel-macro",
+ "kestrel-process",
+ "kestrel-state",
+ "thiserror 1.0.69",
+ "tokio",
+]
+
+[[package]]
+name = "kestrel-macro"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "convert_case 0.8.0",
+ "proc-macro2",
+ "quote",
+ "serde",
+ "syn 2.0.100",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "kestrel-process"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "commander 0.1.0",
+ "jsonlvar",
+ "jsonlvar-tokio",
+ "kestrel-state",
+ "paste",
+ "thiserror 1.0.69",
+ "tokio",
+]
+
+[[package]]
+name = "kestrel-state"
+version = "0.1.0"
+source = "git+https://github.com/movementlabsxyz/kestrel.git?rev=85e2f681ae3e54b29bb18d4ed7ca750116173321#85e2f681ae3e54b29bb18d4ed7ca750116173321"
+dependencies = [
+ "thiserror 1.0.69",
+ "tokio",
+]
+
+[[package]]
 name = "lazy_static"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11719,7 +11827,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
 dependencies = [
  "cfg-if",
- "windows-targets 0.52.6",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -12075,7 +12183,7 @@ dependencies = [
  "aptos-types 0.0.3 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
  "bcs 0.1.6 (git+https://github.com/movementlabsxyz/bcs.git?rev=bc16d2d39cabafaabd76173dd1b04b2aa170cf0c)",
  "move-package 0.1.0 (git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67)",
- "movement",
+ "movement 3.5.0",
  "tempfile",
  "thiserror 1.0.69",
  "toml 0.8.20",
@@ -13877,6 +13985,24 @@ dependencies = [
 
 [[package]]
 name = "movement"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "clap 4.5.36",
+ "clap-markdown-ext",
+ "dotenv",
+ "jemallocator",
+ "movement-core",
+ "mtma-core",
+ "orfile",
+ "serde",
+ "tokio",
+ "tracing",
+ "tracing-subscriber 0.3.19",
+]
+
+[[package]]
+name = "movement"
 version = "3.5.0"
 source = "git+https://github.com/movementlabsxyz/aptos-core?rev=1d1cdbbd7fabb80dcb95ba5e23213faa072fab67#1d1cdbbd7fabb80dcb95ba5e23213faa072fab67"
 dependencies = [
@@ -14044,6 +14170,26 @@ dependencies = [
  "toml 0.8.20",
  "tracing",
  "tracing-test",
+]
+
+[[package]]
+name = "movement-core"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "clap 4.5.36",
+ "hex",
+ "include-vendor",
+ "jsonlvar",
+ "kestrel",
+ "movement-types",
+ "orfile",
+ "serde",
+ "syncador",
+ "tempdir",
+ "thiserror 1.0.69",
+ "tokio",
+ "uuid",
 ]
 
 [[package]]
@@ -14226,7 +14372,7 @@ dependencies = [
  "bcs 0.1.6 (git+https://github.com/movementlabsxyz/bcs.git?rev=bc16d2d39cabafaabd76173dd1b04b2aa170cf0c)",
  "ed25519-dalek 2.1.1",
  "maptos-framework-release-util",
- "movement",
+ "movement 3.5.0",
  "movement-signer",
  "serde",
  "thiserror 1.0.69",
@@ -16502,7 +16648,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be769465445e8c1474e9c5dac2018218498557af32d9ed057325ec9a41ae81bf"
 dependencies = [
  "heck 0.5.0",
- "itertools 0.14.0",
+ "itertools 0.10.5",
  "log",
  "multimap",
  "once_cell",
@@ -16548,7 +16694,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.10.5",
  "proc-macro2",
  "quote",
  "syn 2.0.100",
