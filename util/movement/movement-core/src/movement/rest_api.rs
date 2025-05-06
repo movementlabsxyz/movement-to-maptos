@@ -105,7 +105,7 @@ mod tests {
 		sender.send(String::from("movement-full-node               | 2025-05-06T08:49:06.205999Z  INFO poem::server: listening addr=socket://0.0.0.0:30731")).await?;
 
 		let result = processor.process_receiver(&mut receiver).await?;
-		assert_eq!(result, Some(RestApi { listen_url: "0.0.0.0:30731".to_string() }));
+		assert_eq!(result, Some(RestApi { listen_url: "http://0.0.0.0:30731".to_string() }));
 
 		Ok(())
 	}

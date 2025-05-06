@@ -79,7 +79,7 @@ mod tests {
 		sender.send(String::from("[movement-faucet] 2025-05-02T07:06:52.984440Z [main] INFO /Users/l-monninger/.cargo/registry/src/index.crates.io-1949cf8c6b557f/poem-1.3.59/src/server.rs {\"addr\":\"socket://0.0.0.0:30732\",\"message\":\"listening\"}")).await?;
 
 		let result = processor.process_receiver(&mut receiver).await?;
-		assert_eq!(result, Some(Faucet { listen_url: "0.0.0.0:30732".to_string() }));
+		assert_eq!(result, Some(Faucet { listen_url: "http://0.0.0.0:30732".to_string() }));
 
 		Ok(())
 	}

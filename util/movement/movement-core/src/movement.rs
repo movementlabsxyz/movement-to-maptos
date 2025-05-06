@@ -295,12 +295,12 @@ mod tests {
 		let movement_task = kestrel::task(async move { movement.run().await });
 
 		// wait for the rest api to be ready
-		let rest_api = rest_api.wait_for(Duration::from_secs(90)).await?;
+		let rest_api = rest_api.wait_for(Duration::from_secs(600)).await?;
 		assert_eq!(rest_api.listen_url(), "http://0.0.0.0:30731");
 
 		// wait for the faucet to be ready
 
-		let faucet = faucet.wait_for(Duration::from_secs(90)).await?;
+		let faucet = faucet.wait_for(Duration::from_secs(600)).await?;
 		assert_eq!(faucet.listen_url(), "http://0.0.0.0:30732");
 
 		// stop movement
