@@ -15,13 +15,11 @@ use rest_api::{ParseRestApi, RestApi};
 
 vendor_workspace!(MovementWorkspace, "movement");
 
+pub const CONTAINER_REV: &str = "c2372ff";
+
 /// The different overlays that can be applied to the movement runner. s
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Overlay {
-	/// The build overlay is used to build the movement runner.
-	Build,
-	/// The setup overlay is used to setup the movement runner.
-	Setup,
 	/// The celestia overlay is used to run the movement runner on a select Celestia network.
 	Celestia(Celestia),
 	/// The eth overlay is used to run the movement runner on a select Ethereum network.
@@ -35,8 +33,6 @@ impl Overlay {
 	/// Returns the overlay as a string as would be used in a nix command.
 	pub fn overlay_arg(&self) -> &str {
 		match self {
-			Self::Build => "build",
-			Self::Setup => "setup",
 			Self::Celestia(celestia) => celestia.overlay_arg(),
 			Self::Eth(eth) => eth.overlay_arg(),
 			Self::TestMigrateBiarritzRc1ToPreL1Merge => "test-migrate-biarritz-rc1-to-pre-l1-merge",
@@ -55,8 +51,6 @@ pub enum EthError {
 pub enum Eth {
 	/// The local network.
 	Local,
-	/// The holesky network.
-	Holesky,
 }
 
 impl FromStr for Eth {
@@ -65,7 +59,6 @@ impl FromStr for Eth {
 	fn from_str(s: &str) -> Result<Self, Self::Err> {
 		Ok(match s {
 			"local" => Self::Local,
-			"holesky" => Self::Holesky,
 			network => return Err(EthError::InvalidNetwork(network.into())),
 		})
 	}
@@ -75,8 +68,7 @@ impl Eth {
 	/// Returns the overlay as a string as would be used in a nix command.
 	pub fn overlay_arg(&self) -> &str {
 		match self {
-			Self::Local => "eth-local",
-			Self::Holesky => "eth-holesky",
+			Self::Local => "local",
 		}
 	}
 }
@@ -85,10 +77,6 @@ impl Eth {
 pub enum Celestia {
 	/// The local network.
 	Local,
-	/// The mocha network.
-	Mocha,
-	/// The arabica network.
-	Arabica,
 }
 
 /// Errors thrown when parsing a [Celestia] network.
@@ -104,8 +92,6 @@ impl FromStr for Celestia {
 	fn from_str(s: &str) -> Result<Self, Self::Err> {
 		Ok(match s {
 			"local" => Self::Local,
-			"mocha" => Self::Mocha,
-			"arabica" => Self::Arabica,
 			network => return Err(CelestiaError::InvalidNetwork(network.into())),
 		})
 	}
@@ -115,9 +101,7 @@ impl Celestia {
 	/// Returns the overlay as a string as would be used in a nix command.
 	pub fn overlay_arg(&self) -> &str {
 		match self {
-			Self::Local => "celestia-local",
-			Self::Mocha => "celestia-mocha",
-			Self::Arabica => "celestia-arabica",
+			Self::Local => "local",
 		}
 	}
 }
@@ -161,8 +145,6 @@ impl From<BTreeSet<Overlay>> for Overlays {
 impl Default for Overlays {
 	fn default() -> Self {
 		Self::new(BTreeSet::new())
-			.with(Overlay::Build)
-			.with(Overlay::Setup)
 			.with(Overlay::Eth(Eth::Local))
 			.with(Overlay::Celestia(Celestia::Local))
 	}
@@ -211,15 +193,28 @@ impl Movement {
 		self.overlays = overlays;
 	}
 
+	/// Borrows the [RestApi] state.
+	pub fn rest_api(&self) -> &State<RestApi> {
+		&self.rest_api
+	}
+
+	/// Borrows the [Faucet] state.
+	pub fn faucet(&self) -> &State<Faucet> {
+		&self.faucet
+	}
+
 	/// Runs the movement with the given overlays.
 	pub async fn run(&self) -> Result<(), MovementError> {
+		// set the CONTAINER_REV environment variable
+		std::env::set_var("CONTAINER_REV", CONTAINER_REV);
+
 		let overlays = self.overlays.to_overlay_args();
 
 		// construct the Rest API fulfiller
-		let rest_api_fulfiller = Custom::new(self.rest_api().write(), ParseRestApi);
+		let rest_api_fulfiller = Custom::new(self.rest_api().write(), ParseRestApi::new());
 
 		// construct the Faucet fulfiller
-		let faucet_fulfiller = Custom::new(self.faucet().write(), ParseFaucet);
+		let faucet_fulfiller = Custom::new(self.faucet().write(), ParseFaucet::new());
 
 		// get the prepared command for the movement task
 		let mut command = Command::new(
@@ -231,7 +226,9 @@ impl Movement {
 						"--command",
 						"bash",
 						"-c",
-						&format!("just movement-full-node native {overlays} -t=false"),
+						&format!(
+							"echo '' > .env && just movement-full-node docker-compose {overlays}"
+						),
 					],
 				)
 				.map_err(|e| MovementError::Internal(e.into()))?,
@@ -280,16 +277,6 @@ impl Movement {
 
 		Ok(())
 	}
-
-	/// Borrows the movement rest api state.
-	pub fn rest_api(&self) -> &State<RestApi> {
-		&self.rest_api
-	}
-
-	/// Borrows the movement faucet state.
-	pub fn faucet(&self) -> &State<Faucet> {
-		&self.faucet
-	}
 }
 
 #[cfg(test)]
@@ -300,13 +287,21 @@ mod tests {
 	#[tokio::test]
 	async fn test_movement_starts() -> Result<(), anyhow::Error> {
 		let mut movement = Movement::try_temp()?;
+		let rest_api = movement.rest_api().read();
+		let faucet = movement.faucet().read();
 		movement.set_overlays(Overlays::default());
 
 		// start movement
 		let movement_task = kestrel::task(async move { movement.run().await });
 
-		// let it run for 30 seconds
-		tokio::time::sleep(Duration::from_secs(30)).await;
+		// wait for the rest api to be ready
+		let rest_api = rest_api.wait_for(Duration::from_secs(90)).await?;
+		assert_eq!(rest_api.listen_url(), "http://0.0.0.0:30731");
+
+		// wait for the faucet to be ready
+
+		let faucet = faucet.wait_for(Duration::from_secs(90)).await?;
+		assert_eq!(faucet.listen_url(), "http://0.0.0.0:30732");
 
 		// stop movement
 		kestrel::end!(movement_task)?;

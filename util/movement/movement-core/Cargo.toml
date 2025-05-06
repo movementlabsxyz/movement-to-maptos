@@ -25,6 +25,7 @@ clap = { workspace = true }
 kestrel = { workspace = true }
 strip-ansi-escapes = { workspace = true }
 regex = { workspace = true }
+reqwest = { workspace = true }
 
 [build-dependencies]
 include-vendor = { workspace = true }

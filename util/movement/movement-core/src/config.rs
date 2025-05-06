@@ -14,9 +14,6 @@ pub enum ConfigError {
 #[derive(Parser, Debug, Serialize, Deserialize, Clone, Jsonl, Orfile)]
 #[clap(help_expected = true)]
 pub struct Config {
-	/// Whether to use the build overlay.
-	#[clap(long)]
-	pub build: bool,
 	/// Whether to use the setup overlay.
 	#[clap(long)]
 	pub setup: bool,
@@ -35,13 +32,6 @@ impl Config {
 	/// Computes the overlays for the movement runner.
 	pub fn overlays(&self) -> Overlays {
 		let mut overlays = Overlays::empty();
-
-		if self.build {
-			overlays.add(Overlay::Build);
-		}
-		if self.setup {
-			overlays.add(Overlay::Setup);
-		}
 
 		overlays.add(Overlay::Celestia(self.celestia));
 		overlays.add(Overlay::Eth(self.eth));
