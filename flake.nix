@@ -53,7 +53,7 @@
               "movement-faucet-service"
               "movement-celestia-bridge"
               "movement-celestia-appd"
-              "celestia-light-node-synced"
+              "wait-for-celestia-light-node"
             )
 
             # Function to construct full image name
