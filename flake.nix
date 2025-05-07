@@ -34,74 +34,6 @@
           '';
         };
 
-        CONTAINER_REV = "c2372ff";
-
-        # Helper function to pull Docker images with better error reporting
-        pullDockerImages = ''
-          # Exit on any error
-          set -e
-
-          # Main function that contains all the logic
-          pull_docker_images() {
-            echo "Pulling required Docker images..."
-            
-            # List of image names (without registry and tag)
-            local image_names=(
-              "movement-full-node"
-              "movement-celestia-da-light-node"
-              "movement-full-node-setup"
-              "movement-faucet-service"
-              "movement-celestia-bridge"
-              "movement-celestia-appd"
-              "wait-for-celestia-light-node"
-            )
-
-            # Function to construct full image name
-            get_full_image_name() {
-              local name=$1
-              echo "ghcr.io/movementlabsxyz/$name:${CONTAINER_REV}"
-            }
-            
-            # Function to pull a single image and track its status
-            pull_image() {
-              local image=$1
-              echo -n "Pulling $image... "
-              if docker pull "$image" > /dev/null 2>&1; then
-                echo "✅"
-                return 0
-              else
-                echo "❌"
-                echo "  Error: Failed to pull $image"
-                return 1
-              fi
-            }
-
-            local failed=0
-            local failed_images=()
-
-            # Pull each image and track failures
-            for name in "''${image_names[@]}"; do
-              local full_image=$(get_full_image_name "$name")
-              pull_image "$full_image" || { failed=1; failed_images+=("$name"); }
-            done
-
-            # Report summary
-            if [ $failed -eq 1 ]; then
-              echo -e "\nFailed to pull the following images:"
-              for img in "''${failed_images[@]}"; do
-                echo "  - $img"
-              done
-              echo -e "\nPlease check your Docker configuration and network connection."
-              return 1
-            else
-              echo -e "\n✅ All images pulled successfully!"
-            fi
-          }
-
-          # Execute the main function and exit if it fails
-          pull_docker_images || exit 1
-        '';
-
         # An LLVM build environment
         buildDependencies = with pkgs; [
           perl
@@ -199,9 +131,6 @@
               # Create symbolic link to movement repository
               mkdir -p .vendors
               ln -sfn ${movementRepo} .vendors/movement
-
-              # Pull Docker images with better error reporting
-              ${pullDockerImages}
 
               # Copy over ./githooks/pre-commit to .git/hooks/pre-commit
               cp $(pwd)/.githooks/pre-commit $(pwd)/.git/hooks/pre-commit
