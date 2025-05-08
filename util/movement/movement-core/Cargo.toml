@@ -22,12 +22,18 @@ tokio = { workspace = true }
 jsonlvar = { workspace = true }
 orfile = { workspace = true }
 clap = { workspace = true }
-
-[dev-dependencies]
 kestrel = { workspace = true }
+strip-ansi-escapes = { workspace = true }
+regex = { workspace = true }
+reqwest = { workspace = true }
+movement-util = { workspace = true }
 
 [build-dependencies]
 include-vendor = { workspace = true }
+cargo_metadata = { workspace = true }
+ready-docker = { workspace = true }
+movement-util = { workspace = true }
+tokio = { workspace = true }
 
 [lints]
 workspace = true

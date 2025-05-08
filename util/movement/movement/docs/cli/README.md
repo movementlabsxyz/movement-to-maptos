@@ -107,7 +107,6 @@ Run run with all parameters passed explicitly as CLI flags. See Orfile documenta
 
 ###### **Options:**
 
-* `--build` — Whether to use the build overlay
 * `--setup` — Whether to use the setup overlay
 * `--celestia <CELESTIA>` — Which celestia network to use
 * `--eth <ETH>` — Which ethereum network to use

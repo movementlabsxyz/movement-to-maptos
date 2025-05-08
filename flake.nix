@@ -23,34 +23,16 @@
 
         frameworks = pkgs.darwin.apple_sdk.frameworks;
 
-        # a function to handle the movement repository
-        # NOTE: this is not a derivation.
-        # We do not use derivations because we need to perform mutable operations on the directory; that's the simples path to embedding movement. 
-        handleMovement = ''
-          # Create .vendors directory if it doesn't exist
-          mkdir -p .vendors
-
-          # Handle Movement repository
-          if [ -d ".vendors/movement" ]; then
-            # Save target directory if it exists
-            if [ -d ".vendors/movement/target" ]; then
-              mv .vendors/movement/target /tmp/movement-target
-            fi
-            # Remove existing directory
-            rm -rf .vendors/movement
-          fi
-
-          # Clone fresh copy with submodules
-          git clone --recursive https://github.com/movementlabsxyz/movement.git .vendors/movement
-          cd .vendors/movement
-          git checkout ${movement.rev}
-
-          # Restore target directory if it existed
-          if [ -d "/tmp/movement-target" ]; then
-            mv /tmp/movement-target target
-          fi
-          cd ../..
-        '';
+        # Create a proper Nix derivation for the movement repository
+        movementRepo = pkgs.stdenv.mkDerivation {
+          name = "movement-repo";
+          src = movement;
+          dontBuild = true;
+          installPhase = ''
+            mkdir -p $out
+            cp -r . $out/
+          '';
+        };
 
         # An LLVM build environment
         buildDependencies = with pkgs; [
@@ -131,6 +113,8 @@
             shellHook = ''
               #!/usr/bin/env ${pkgs.bash}
 
+              set -e
+
               # Export linker flags if on Darwin (macOS)
               if [[ "${pkgs.stdenv.hostPlatform.system}" =~ "darwin" ]]; then
                 export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion)
@@ -144,9 +128,11 @@
               # Add ./target/release/* to PATH
               export PATH="$PATH:$(pwd)/target/release"
 
-              ${handleMovement}
+              # Create symbolic link to movement repository
+              mkdir -p .vendors
+              ln -sfn ${movementRepo} .vendors/movement
 
-               # Copy over ./githooks/pre-commit to .git/hooks/pre-commit
+              # Copy over ./githooks/pre-commit to .git/hooks/pre-commit
               cp $(pwd)/.githooks/pre-commit $(pwd)/.git/hooks/pre-commit
               chmod +x $(pwd)/.git/hooks/pre-commit
 
