@@ -48,7 +48,6 @@
           pkg-config
           protobuf
           rustPlatform.bindgenHook
-          lld
           coreutils
           gcc
           rust
@@ -57,6 +56,8 @@
           postgresql
         ] ++ lib.optionals stdenv.isDarwin [
           fixDarwinDylibNames
+        ] ++ lib.optionals stdenv.isLinux [
+          lld
         ];
         
         sysDependencies = with pkgs; [] 
@@ -66,6 +67,7 @@
           frameworks.SystemConfiguration
           frameworks.AppKit
           libelf
+          bzip2 
         ] ++ lib.optionals stdenv.isLinux [
           udev
           systemd
@@ -120,6 +122,11 @@
                 export MACOSX_DEPLOYMENT_TARGET=$(sw_vers -productVersion)
                 export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
                 export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
+              fi
+
+              # Use lld only on Linux to avoid macOS linker error
+              if [[ "$(uname)" == "Linux" ]]; then
+                export RUSTFLAGS="-C link-arg=-fuse-ld=lld"
               fi
 
               # Add ./target/debug/* to PATH
