@@ -15,8 +15,6 @@ use rest_api::{ParseRestApi, RestApi};
 
 vendor_workspace!(MovementWorkspace, "movement");
 
-pub const CONTAINER_REV: &str = "c2372ff";
-
 /// The different overlays that can be applied to the movement runner. s
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Overlay {
@@ -25,6 +23,7 @@ pub enum Overlay {
 	/// The eth overlay is used to run the movement runner on a select Ethereum network.
 	Eth(Eth),
 	/// The test migration overlay is used to run and check the migration to the L1 pre-merge chain.
+	///
 	/// TODO: in this repo, we may want to remove this from the runner and place it actual embeeded code under the -core lib for https://github.com/movementlabsxyz/movement-migration/issues/61
 	TestMigrateBiarritzRc1ToPreL1Merge,
 }
@@ -206,7 +205,7 @@ impl Movement {
 	/// Runs the movement with the given overlays.
 	pub async fn run(&self) -> Result<(), MovementError> {
 		// set the CONTAINER_REV environment variable
-		std::env::set_var("CONTAINER_REV", CONTAINER_REV);
+		std::env::set_var("CONTAINER_REV", movement_util::CONTAINER_REV);
 
 		let overlays = self.overlays.to_overlay_args();
 
@@ -276,6 +275,19 @@ impl Movement {
 			.map_err(|e| MovementError::Internal(e.into()))?;
 
 		Ok(())
+	}
+}
+
+impl Drop for Movement {
+	fn drop(&mut self) {
+		// Get the real path of the workspace, following symlinks
+		if let Ok(real_path) = std::fs::canonicalize(self.workspace.get_workspace_path()) {
+			std::process::Command::new("docker-compose")
+				.arg("down")
+				.current_dir(real_path)
+				.output()
+				.unwrap();
+		}
 	}
 }
 
